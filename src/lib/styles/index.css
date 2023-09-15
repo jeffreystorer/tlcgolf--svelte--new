@@ -1,0 +1,806 @@
+body {
+--background-black: #5a5a5a;
+--background-blue: #00365f;
+--background-button: #cccccc;
+--background-button-primary: #0d63fd;
+--background-button-secondary: #6c757d;
+--background-secondary: #f9f9fb;
+--background-white: #ffffff;
+--border-hairline: 0.0625em solid #0004;
+--borderRadius-outer: 0.5em;
+--color-black: #212529;
+--color-border-primary: #cdcdcd;
+--color-link-active: #3378ac;
+--color-link-hover: #c00;
+--color-modal-fader: #b3b3b3cc;
+--color-white: #ffffff;
+--color-table-stripe: rgb(222, 226, 230);
+--font-serif: 'Times New Roman', Times, serif;
+/* --font-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+sans-serif; */
+--font-sans-serif: sans-serif;
+--pad: clamp(0.5em, min(2vw, 4vh), 4em);
+--shadow-chrome: 0 0.25em 1em 0.25em #0003;
+--page-width: 95%;
+
+/* @link https://utopia.fyi/type/calculator?c=375,16,1.414,1920,24,1.414,5,5,900-1200-1800-600&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+--step--5: clamp(0.18rem, calc(0.16rem + 0.09vw), 0.27rem);
+--step--4: clamp(0.25rem, calc(0.22rem + 0.13vw), 0.38rem);
+--step--3: clamp(0.35rem, calc(0.31rem + 0.18vw), 0.53rem);
+--step--2: clamp(0.5rem, calc(0.44rem + 0.26vw), 0.75rem);
+--step--1: clamp(0.71rem, calc(0.62rem + 0.37vw), 1.06rem);
+--step-0: clamp(1rem, calc(0.88rem + 0.52vw), 1.5rem);
+--step-1: clamp(1.41rem, calc(1.24rem + 0.73vw), 2.12rem);
+--step-2: clamp(2rem, calc(1.76rem + 1.04vw), 3rem);
+--step-3: clamp(2.83rem, calc(2.48rem + 1.46vw), 4.24rem);
+--step-4: clamp(4rem, calc(3.51rem + 2.07vw), 6rem);
+--step-5: clamp(5.65rem, calc(4.97rem + 2.93vw), 8.48rem);
+}
+
+/*---------------------
+RESETS
+---------------------*/
+
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+
+* {
+margin: 0;
+padding: 0;
+}
+
+img,
+fieldset,
+object {
+border: none;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+display: block;
+max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+font: inherit;
+}
+
+ul {
+list-style-type: none;
+}
+
+button,
+label {
+cursor: pointer;
+}
+html,
+body {
+font-family: sans-serif;
+min-height: 100%;
+}
+
+body {
+-moz-osx-font-smoothing: grayscale;
+-webkit-font-smoothing: antialiased;
+isolation: isolate;
+line-height: 1.5;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+overflow-wrap: break-word;
+}
+/*--------------------------------------
+SELECTORS
+---------------------------------------*/
+
+a p {
+text-align: center;
+}
+
+a,
+li,
+p,
+td {
+font-family: var(--font-sans-serif);
+font-size: var(--step-0);
+margin-top: 0;
+}
+
+body {
+background-color: var(--background-white);
+display: block;
+font-family: var(--font-sans-serif);
+margin: auto;
+overflow: none;
+text-align: center;
+}			
+
+header {
+align-items: center;
+background-color: var(--background-white);
+display: flex;
+flex-direction: row;
+gap: 0.25em;
+height: fit-content;
+margin: 0 auto 1em auto;
+width: fit-content;
+
+& > h1 {
+background-color: var(--background-blue);
+box-shadow: 0 0.875em 1.75em rgba(0, 0, 0, 0.25),
+0 0.625em 0.625em rgba(0, 0, 0, 0.28);
+color: var(--color-white);
+font-size: var(--step-1);
+font-weight: normal;
+height: 1.5em;
+padding: 0 0.25em;
+width: fit-content;
+}
+}
+
+h2 {
+font-size: var(--step-1);
+margin: auto;
+height: fit-content;
+width: fit-content;
+}
+
+/*used by SavedLineups*/
+.active_li,
+.li {
+background-color: var(--background-white);
+color: var(--color-black);
+}
+
+.active_li {
+font-weight: 700;
+}
+
+/******************************/
+
+.divider {
+border-top: 0.0625em solid var(--color-link-active);
+color: var(--background-black);
+display: block;
+height: 0;
+margin: 0 auto;
+opacity: 1;
+overflow-x: hidden;
+text-align: center;
+width: 100%;
+}
+
+#save-lineup {
+margin-top: 0em;
+}
+
+#save-lineup {
+font-size: var(--step-0);
+}
+
+#save-lineup fieldset,
+#active-lineup_footer {
+align-items: center;
+display: flex;
+flex-direction: column;
+width: 100%;
+}
+
+#active-lineup fieldset {
+gap: 0.5em;
+margin-bottom: 0.5em;
+}
+#active-lineup_footer {
+gap: 0em;
+}
+
+#save-lineup label {
+justify-content: right;
+margin: 0 auto;
+width: fit-content;
+}
+
+#save-lineup input {
+text-align: center;
+}
+
+button,
+a[type='button'] {
+appearance: none;
+background-color: var(--background-button);
+border: 0.05em solid var(--background-button);
+border-radius: 0.5em;
+color: var(--color-black);
+cursor: pointer;
+display: inline-block;
+font-family: var(--font-sans-serif);
+font-size: var(--step-0);
+font-weight: 600;
+height: fit-content;
+padding: 0 0.5em;
+text-align: center;
+text-decoration: none;
+-webkit-appearance: none;
+}
+
+button {
+width: fit-content;
+}
+button:hover,
+a[type='button']:hover,
+.modal > section > footer > button:last-child:hover {
+appearance: none;
+background-color: var(--background-white);
+border-radius: 0.5em;
+color: var(--color-link-hover);
+-webkit-appearance: none;
+}
+
+.buttons > button {
+margin: 0 0.5 0 0.5em;
+}
+.buttons > button:first-of-type {
+margin: 0 0.5em 0 0;
+}
+.buttons > button:last-of-type {
+margin: 0 0 0 0.5em;
+}
+
+.buttons_stacked {
+display: flex;
+flex-direction: column;
+}
+
+.not-stacked {
+margin: 0.25em auto;
+}
+
+.stacked {
+margin: 0.25em auto 0.5em auto;
+}
+
+#lineup {
+align-items: stretch;
+display: flex;
+flex-wrap: wrap;
+gap: 0.5em;
+justify-content: center;
+max-width: 96em;
+padding: 0 0.5em;
+margin: 0 auto;
+}
+
+#lineup > div:first-of-type {
+display: flex;
+flex-direction: column;
+flex: 1 0 22em;
+height: fit-content;
+gap: 2em;
+justify-content: center;
+margin-bottom: 2em;
+max-width: 48em;
+}
+
+#lineup > div:last-of-type {
+display: flex;
+flex-direction: column;
+flex: 1 0 20em;
+height: fit-content;
+justify-content: center;
+max-width: 48em;
+}
+
+/* START MODALS  */
+/* This is the modal overlay. */
+.modal {
+align-items: center;
+background: var(--color-modal-fader);
+bottom: 0;
+display: flex;
+height: 100%;
+justify-content: center;
+left: -100%;
+opacity: 0;
+overflow: auto;
+padding: 0;
+position: fixed;
+transition: left 0s 0.5s, opacity 0.5s;
+width: 100%;
+z-index: 1;
+}
+.modal > a {
+height: 100%;
+left: 0;
+top: 0;
+width: 100%;
+}
+.modal a.modalClose {
+display: block;
+position: absolute;
+text-decoration: none;
+}
+
+.modal > section {
+background: var(--background-white);
+border: var(--border-hairline);
+border-radius: var(--borderRadius-outer);
+box-shadow: var(--shadow-chrome);
+display: flex;
+flex-direction: column;
+flex: 1 0 24em;
+left: 0%;
+height: fit-content;
+opacity: 1;
+outline: 0;
+overflow: auto;
+padding: 0.5em 1em;
+position: relative;
+transition: left 0.5s;
+width: fit-content;
+
+/*One big thing to pay attention to is the  on the inner DIV. If you omit auto margin on the VERTICAL (a direction that normally ignores margin!) flex will chop off the top of your content and you won’t be able to scroll up to it. Grid often drops the ball on this worse which is why I favor flex here. If you’re going to use a container to center its children, I really suggest using flex with margin on an inner container. Failing to do so can really screw you over.*/
+}
+
+#confirmdeletemodal > section,
+#missingplayermodal > section {
+max-width: fit-content;
+}
+
+#gameoptionsmodal > section {
+height: fit-content;
+max-width: 100%;
+}
+
+.modal > section > header {
+border-bottom: 0.0625em solid rgb(222, 226, 230);
+display: flex;
+flex-direction: row;
+flex-shrink: 0;
+align-items: center;
+justify-content: space-between;
+padding: 1em 0;
+}
+.modal > section > header > h2 {
+font-size: var(--step-0);
+font-weight: 500;
+margin-left: 0.5em;
+}
+
+.modal > section > form {
+display: flex;
+max-width: 100%;
+}
+.modal > section > form > fieldset {
+display: flex;
+flex-direction: column;
+gap: 1em;
+text-align: left;
+max-width: 100%;
+}
+
+.modal > section > form > fieldset label {
+font-size: var(--step-0);
+}
+
+.modal > section > form > fieldset > select {
+font-size: var(--step-0);
+margin: 0 auto;
+width: 100%;
+}
+
+label > input[type='checkbox'] {
+margin-right: 0.5em;
+}
+
+label > input[type='text'] {
+margin-left: 0.5em;
+}
+.modal > section > form > fieldset > label > input[type='number'] {
+margin-top: 0.5em;
+}
+
+.modal > section > form > fieldset > article {
+display: flex;
+flex-direction: row;
+gap: 0.5em;
+}
+
+.modal > section > form > fieldset > footer,
+.modal > section > footer {
+display: flex;
+flex-wrap: wrap;
+flex-shrink: 0;
+align-items: center;
+justify-content: flex-end;
+padding: 0.75em;
+border-top: 0.0625em solid rgb(222, 226, 230);
+}
+.modal > section > form > fieldset > footer a.modalClose,
+.modal > section > form > fieldset > footer button,
+.modal > section > footer a.modalClose,
+.modal > section > footer button {
+align-items: flex-start;
+display: inline-block;
+margin: 0.25em;
+position: relative;
+}
+
+.modal > section > footer a,
+.modal > section > footer > button:first-child {
+color: var(--color-white);
+background-color: #6c757d;
+border-color: #6c757d;
+}
+
+.modal > section > footer > button:last-child {
+color: var(--color-white);
+background-color: #0d6efd;
+border-color: #0d63fd;
+}
+
+/* This link is the X to close the modal.*/
+.modal section > header > h2 + a.modalClose {
+box-sizing: content-box;
+width: 1em;
+height: 1em;
+padding: 0.25em 1em;
+color: var(--color-black);
+background: transparent
+url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e")
+center/1em auto no-repeat;
+border: 0;
+border-radius: 0.25rem;
+opacity: 0.5;
+position: relative;
+}
+.modal:target > section {
+left: 0;
+}
+.modal:target {
+left: 0;
+opacity: 1;
+transition: left 0s, opacity 0.5s;
+}
+
+/* END CONFIRMDLETEMODAL */
+
+.iframe {
+margin: 0 auto;
+width: 95%;
+}
+.iframe > iframe {
+width: 100%;
+height: 100%;
+aspect-ratio: 16 / 9;
+}
+
+
+select {
+color: var(--color-black);
+font-size: var(--step-0);
+font-weight: normal;
+margin: 0;
+}
+.select-dropdown-container {
+display: flex;
+flex-direction: row;
+gap: 0.25em;
+color: var(--color-black);
+height: fit-content;
+padding: 0.125em;
+margin: 0 auto 0.5em auto;
+width: fit-content;
+}
+#sort-order {
+flex-direction: column;
+gap: 0.5em;
+margin: 0 auto 0.5em auto;
+}
+
+.select-dropdown-container > label,
+#sort-order > label {
+font-size: var(--step-0);
+}
+.select-dropdown-container label > select {
+margin-left: 0.5em;
+}
+
+.titled_outer,
+.titled_inner {
+border: 0.1em solid var(--color-link-active);
+border-radius: 1em;
+height: fit-content;
+margin: 0 auto;
+padding: 0;
+text-align: center;
+width: 100%;
+}
+
+.titled_inner {
+margin: 1.5em auto;
+}
+
+.titled_outer > h2,
+.titled_inner > h3 {
+background-color: var(--color-white);
+border-radius: 0.5em;
+font-size: var(--step-0);
+font-weight: 700;
+height: fit-content;
+position: relative;
+top: -0.8em;
+margin: 0 auto;
+text-align: center;
+width: fit-content;
+}
+
+#saved-lineups p {
+font-size: var(--step-0);
+font-style: italic;
+}
+
+#saved-lineups ul {
+font-size: var(--step-0);
+margin: 0 auto;
+text-align: left;
+width: fit-content;
+}
+
+#change-tees form {
+margin: 0 auto;
+padding: 0 0.5em 0.5em 0.5em;
+text-align: center;
+width: fit-content;
+}
+
+#change-tees select {
+margin: 0.5em auto;
+padding: 0.5em;
+overflow-y: hidden;
+}
+
+.players {
+padding: 0 0.25em;
+width: 50%;
+}
+
+.players > h4 {
+font-size: var(--step-0);
+text-decoration: underline;
+}
+.players > ul {
+list-style: none;
+}
+
+.players > ul > li {
+font-size: var(--step-0);
+text-align: center;
+}
+
+#add-players > div {
+display: flex;
+flex-direction: row;
+margin: 0 auto;
+}
+
+#active-lineup {
+display: flex;
+flex-direction: column;
+margin-bottom: 2em;
+}
+
+svg {
+min-width: 24px;
+}
+
+.team-table {
+display: block;
+}
+
+.team-table > thead th {
+font-size: var(--step-0);
+width: fit-content;
+}
+
+.team-table > thead th:nth-of-type(1),
+.team-table > thead th:nth-of-type(2) {
+text-align: left;
+}
+
+.team-table > thead > tr > th:nth-of-type(2) {
+display: inline-flex;
+float: left;
+}
+
+.team-table > tbody > tr > td {
+height: fit-content;
+}
+
+.team-table > tbody > tr > td:last-of-type > select {
+appearance: none;
+border: none;
+font-weight: 700;
+margin-left: 0.25em;
+width: 2em;
+}
+
+.team-table > tbody > tr > th {
+font-size: var(--step-0);
+font-weight: normal;
+padding: 0 0.125em;
+text-align: left;
+width: 15em;
+}
+.ch-chosen {
+text-decoration: underline;
+}
+
+.team-table > tfoot th {
+font-size: var(--step-0);
+font-style: italic;
+font-weight: normal;
+text-align: center;
+}
+#active-lineup > table > tbody > tr > td:last-of-type > select {
+text-align: center;
+width: 1em;
+}
+
+#players-not-in-tee-time > li {
+font-size: var(--step-0);
+font-weight: normal;
+}
+
+#lineup-text-area {
+border-width: 0.125em;
+outline: none;
+display: block;
+font-size: var(--step-0);
+font-style: normal;
+margin: 0 auto 0.25em auto;
+padding: 0.5em;
+resize: none;
+}
+
+#active-lineup p {
+font-style: italic;
+}
+
+/*******************Export************/
+#export-table {
+display: flex;
+flex-direction: column;
+overflow-y: auto;
+}
+
+#showcheckboxes-container,
+#copy-and-download-buttons-container {
+display: flex;
+flex-direction: column;
+}
+
+#showcheckboxes-container {
+font-size: var(--step-0);
+}
+
+#lineup-images {
+top: 0;
+left: -1000%;
+position: fixed;
+}
+
+#download-pdf {
+margin: 1em auto;
+padding: 0 0.5em;
+width: fit-content;
+}
+
+#export {
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+max-width: 96em;
+padding: 0 0.5em;
+margin: 0 auto;
+}
+
+#export > div:first-of-type {
+display: flex;
+flex-direction: column;
+flex: 1 0 20em;
+height: fit-content;
+justify-content: center;
+max-width: 48em;
+padding: 1em;
+}
+
+#export > div:last-of-type {
+display: flex;
+flex-direction: column;
+flex: 1 0 20em;
+height: fit-content;
+justify-content: center;
+max-width: 48em;
+}
+
+#lineup-table-export {
+margin: 0 auto 1em auto;
+width: fit-content;
+}
+#lineup-image {
+background-color: var(--background-white);
+padding: 1em;
+}
+
+#lineup-image > h2,
+#lineup-image table > thead > tr > th {
+font-size: var(--step-0);
+font-weight: 700;
+}
+
+#lineup-image table > thead > tr > th[scope='col']:first-of-type {
+text-align: left;
+}
+
+#lineup-image table > tbody > tr > th[scope='row'] {
+font-size: var(--step-0);
+font-weight: normal;
+padding: 0 0.125em;
+text-align: left;
+width: 15em;
+}
+
+#lineup-image table > tbody > tr > td {
+font-size: var(--step-0);
+text-align: center;
+}
+
+#lineup-image table > tfoot {
+font-size: var(--step-0);
+font-style: italic;
+text-align: center;
+width: 100%;
+}
+
+#lineup-image > div {
+margin: 0 auto;
+width: fit-content;
+}
+#textarea-export {
+border-width: 0.05em;
+font-size: var(--step-0);
+margin: 0 auto;
+padding: 0 0.5em;
+resize: none;
+}
+
+#lineup-image > div {
+background-color: var(--background-white);
+}
+
+#pdfbuttons {
+display: flex;
+flex-direction: row;
+gap: 0.5em;
+justify-content: space-around;
+margin: 0 auto 0.5em auto;
+width: fit-content;
+}
