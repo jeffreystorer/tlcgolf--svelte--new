@@ -111,7 +111,8 @@ export const jpgImage = writable(null);
 
 export const dimensionIndex = writable(0);
 
-export const captainGHINNumber = readable(get('ghinNumber'));
+export const captainGHINNumber = writable(get('ghinNumber'));
+export const realGHINNumber = readable(get('ghinNumber'));
 
 export const deleteAll = writable(true);
 
@@ -157,11 +158,7 @@ export const okAddPlayers = derived(
 	[playingDate, teeTimeCount, linkTime, playersInLineup, teamTables],
 	($items) => {
 		let ok = false;
-		if (
-			$items[0] !== 'Date' &&
-			$items[1] > 0 &&
-			$items[2] !== 'Link Time'
-		) {
+		if ($items[0] !== 'Date' && $items[1] > 0 && $items[2] !== 'Link Time') {
 			ok = true;
 		}
 		return ok;
