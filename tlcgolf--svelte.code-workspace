@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../Desktop"
+		},
+		{
+			"path": "../Dropbox/VS Code Projects/tlcgolf--svelte"
 		}
 	]
 }

@@ -1,1 +1,103 @@
-<h2>Lineup</h2>
+<script>
+  import { onMount} from 'svelte';
+  import  getSnapshots from './getSnapshots';
+  let snapshots = getSnapshots();
+  console.log("😊😊 snapshots", snapshots)
+  </script>
+  <h1>Lineup</h1>
+
+
+<!-- <script>
+  export let data
+  let snapshots = data.snapshots;
+  import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
+  import {
+    sget,
+    returnDisplayNumber,
+    returnHasMultipleGroups,
+  } from '$lib/components/common/utils';
+  const isLoggedIn = sget('isLoggedIn');
+  onMount(() => {
+    if (!isLoggedIn) {
+      goto.push('/');
+    }
+  });
+  import {
+    ActiveLineupBox,
+    LineupBeingEditedBox,
+    SavedLineupsBox,
+  } from '$lib/components/lineup';
+  import { CaptainsDropdown } from '$lib/components/lineup/dropdowns';
+import { GroupAndCourseDropdowns } from '$lib/components/common';
+import { groups, course, group, linkTime, realGHINNumber, playersInLineup } from '$lib/store';
+const hasMultipleGroups = returnHasMultipleGroups($groups);
+let displayNumber = returnDisplayNumber($course, $group, $groups);
+</script>        
+
+{#if $displayNumber === 2}
+<div id='lineup'>
+  <div>
+    {#if realGHINNumber === '585871'}
+    <CaptainsDropdown snapshots={snapshots} />
+    {/if} 
+    {#if snapshots.length > 0} 
+    <SavedLineupsBox snapshots={snapshots} />
+    {/if}
+    <LineupBeingEditedBox snapshots={snapshots} />
+  </div>
+  {#if playersInLineup.length > 0 && linkTime !== 'Set Link Time Above'}
+    <div>
+      <ActiveLineupBox snapshots={snapshots} />
+    </div>
+  {/if}
+</div>
+{:else}
+  {#if hasMultipleGroups}
+  <p>
+    Click on the dropdown boxes below
+    <br />
+    to select a group and a course.
+  </p>
+  {:else}
+  <p>
+    Click on the dropdown box below
+    <br />
+    to select a course.
+  </p>
+  {/if}
+  <GroupAndCourseDropdowns />
+{/if}
+
+<style>
+  #lineup {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  justify-content: center;
+  max-width: 96em;
+  padding: 0 0.5em;
+  margin: 0 auto;
+  }
+
+  #lineup > div:first-of-type {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 22em;
+  height: fit-content;
+  gap: 2em;
+  justify-content: center;
+  margin-bottom: 2em;
+  max-width: 48em;
+  }
+
+  #lineup > div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 20em;
+  height: fit-content;
+  justify-content: center;
+  max-width: 48em;
+  }
+</style> -->
