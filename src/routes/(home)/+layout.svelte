@@ -1,8 +1,9 @@
 <script>
-    import NavBar from '$lib/components/common/navbar.svelte'
+    import NavBar from '$lib/components/common/navbar.svelte'	
+
 </script>
 
-<header>
+<header id='top'>
     <NavBar />
 </header>
 <main>

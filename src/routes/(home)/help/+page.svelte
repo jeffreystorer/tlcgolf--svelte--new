@@ -1,12 +1,13 @@
 <script>
   import { goto } from '$app/navigation';
+  import BackToTop from '$lib/components/common/BackToTop.svelte';
   import { sget } from '$lib/components/common/utils';
   import { onMount } from 'svelte';
   const isLoggedIn = sget('isLoggedIn');
   onMount(() => {
     if (!isLoggedIn) {
       goto('/');
-    }});
+    } });
   function handleClick(e) {
     e.preventDefault();
     const details = document.getElementById('details');
@@ -16,6 +17,7 @@
     const link = document.getElementById(id);
     link.scrollIntoView();
   }
+ 
 </script>
 <div id='help'>
   <h2>Help</h2>
@@ -371,6 +373,7 @@
   <p>All devices:<br /><button>Copy Players to Clipboard</button> will copy a list of the players in your lineup to the clipboard, which you can paste into an email.<br/><button>Download Screenshot</button> will download an image of your lineup, which you can attach to an email.<br /><button>Download PDF</button> will reveal a dropdown where you can select a PDF format of rows(s) x columns to print multiple images of the lineup on a single page.  When you select a format, two more buttons appear: <button>Portrait # X #</button> and <button>Landscape # X #</button>, whick will create a PDF, which you can print and cut up into individual images.</p>
   <!-- <ScrollToTop smooth /> -->
 </div>
+<BackToTop />
 
 <style>
 

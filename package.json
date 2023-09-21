@@ -1,5 +1,5 @@
 {
-	"name": "tlcgolf--svelte",
+	"name": "tlcgolf-svelte",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -10,16 +10,16 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"dependencies": {
-	  "axios": "^1.4.0",
-	  "crypto-js": "^4.1.1",
-	  "dom-to-image": "^2.6.0",
-	  "firebase": "9.6.1",
-	  "is_js": "^0.9.0",
-	  "jspdf": "^2.5.1",
-	  "lodash": "^4.17.21",
-	  "moment": "^2.29.4",
-	  "node-forge": "^1.3.1",
-	  "uuid": "^9.0.0"
+		"axios": "^1.4.0",
+		"crypto-js": "^4.1.1",
+		"dom-to-image": "^2.6.0",
+		"firebase": "^9.23.0",
+		"is_js": "^0.9.0",
+		"jspdf": "^2.5.1",
+		"lodash": "^4.17.21",
+		"moment": "^2.29.4",
+		"node-forge": "^1.3.1",
+		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",

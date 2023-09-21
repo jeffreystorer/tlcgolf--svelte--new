@@ -1,3 +1,4 @@
+import { getSnapshots } from '$lib/components/lineup/utils';
 import { GolferApi, CourseApi } from '$lib/components/fetchdata/apis';
 import { COURSE_IDS } from '$lib/components/common/data';
 import { aGender } from '$lib/components/common/utils/getRosterFields';
@@ -93,8 +94,9 @@ async function fetchCanadianData(cardNo) {
 }
 
 export async function load({ url }) {
-	const ghinNumber = url.searchParams.get("ghinNumber");
-	const dataMode = url.searchParams.get("dataMode");
+	const ghinNumber = url.searchParams.get('ghinNumber');
+	const dataMode = url.searchParams.get('dataMode');
+	let snapshots = getSnapshots(ghinNumber);
 	const tableData = fetchTable(ghinNumber);
 	const tokenData = fetchToken();
 	const [table, token] = await Promise.all([tableData, tokenData]);
@@ -117,14 +119,14 @@ export async function load({ url }) {
 	function createCanadianItem(item) {
 		const parenIndex = item.indexOf('(');
 		if (parenIndex > -1) {
-		const paren = item.substr(parenIndex);
-		const parenType = paren.substr(1, 1);
-		if (parenType === 'C') {
-			const lastCPart = paren.substring(3);
-			let cardNo = lastCPart.replace(')', '');
-			const canadianData = fetchCanadianData(cardNo);
-			canadianDatas.push(canadianData);
-		}
+			const paren = item.substr(parenIndex);
+			const parenType = paren.substr(1, 1);
+			if (parenType === 'C') {
+				const lastCPart = paren.substring(3);
+				let cardNo = lastCPart.replace(')', '');
+				const canadianData = fetchCanadianData(cardNo);
+				canadianDatas.push(canadianData);
+			}
 		}
 	}
 
@@ -156,8 +158,7 @@ export async function load({ url }) {
 	const wednesdayScheduleValues = wednesday.values;
 	const [hasSchedule, schedules] = getSchedules(ghinNumber, allSchedules);
 	let wednesdaySchedules = [];
-	if (ghinNumber === '585871')
-		wednesdaySchedules = getWednesdaySchedules(wednesdayScheduleValues);
+	if (ghinNumber === '585871') wednesdaySchedules = getWednesdaySchedules(wednesdayScheduleValues);
 	function getCaptainObject(ghinNumber) {
 		return captains.find((captain) => captain.ghinNumber === ghinNumber);
 	}
@@ -168,9 +169,7 @@ export async function load({ url }) {
 		? (courseData = processCourseDataFromGHIN(courses))
 		: (courseData = getCourseData(courseDataFromGHIN));
 	let gender;
-	dataMode === 'ghin'
-		? (gender = foundGolfer.gender)
-		: (gender = aGender(roster, ghinNumber));
+	dataMode === 'ghin' ? (gender = foundGolfer.gender) : (gender = aGender(roster, ghinNumber));
 	const defaultTeesSelected = getDefaultTeesSelected(gender);
 
 	const allPlayersInTable = addGHINDataToPlayers(
@@ -178,26 +177,29 @@ export async function load({ url }) {
 		rawAllPlayersInTable,
 		canadianData,
 		ghinData
-	  );
+	);
 
 	const items = {
-		ghinNumber: ghinNumber,
-		lastName: lastName,
-		dataMode: dataMode,
-		captains: captains,
-		bets: bets,
-		hasSchedule: hasSchedule,
-		schedules: schedules,
-		foundGolfer: foundGolfer,
-		wednesdaySchedules: wednesdaySchedules,
-		defaultTeesSelected: defaultTeesSelected,
-		groups: groups,
-		allPlayersInTable: allPlayersInTable,
-		courseData: courseData,
-		roster: roster,
-		rawAllPlayersInTable: rawAllPlayersInTable,
-		token: token
+		snapshots: snapshots,
+		local: {
+			ghinNumber: ghinNumber,
+			lastName: lastName,
+			dataMode: dataMode,
+			captains: captains,
+			bets: bets,
+			hasSchedule: hasSchedule,
+			schedules: schedules,
+			foundGolfer: foundGolfer,
+			wednesdaySchedules: wednesdaySchedules,
+			defaultTeesSelected: defaultTeesSelected,
+			groups: groups,
+			allPlayersInTable: allPlayersInTable,
+			courseData: courseData,
+			roster: roster,
+			rawAllPlayersInTable: rawAllPlayersInTable,
+			token: token
+		},
 	};
 
-	return { items };
+	return  { items };
 }

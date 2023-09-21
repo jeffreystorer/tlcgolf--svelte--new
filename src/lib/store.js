@@ -4,6 +4,7 @@ import { get, returnDisplayNumber } from '$lib/components/common/utils';
 
 /*\/\/\/\/\/\/Values set by useSetAllRecoilState\/\/\/\/\/\/\*/
 
+export const snapshots = writable({});
 export const course = writable(get('course'));
 export const group = writable(get('group'));
 export const teesSelected = writable(get('teesSelected'));
