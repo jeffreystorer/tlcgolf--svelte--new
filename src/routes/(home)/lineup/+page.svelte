@@ -10,12 +10,8 @@
   console.log("😊😊 items", items)
   }) */
   import { snapshots } from '$lib/store';
-  let items = Object.values($snapshots);
 </script>
 <h2>Lineup</h2>
-{#each items as item}
-<p>Title: {item.title}</p>
-{/each}
 <!-- <script>
   import { groups, course, group, linkTime, realGHINNumber, playersInLineup, snapshots } from '$lib/store';
   console.log("😊😊 $snapshots", $snapshots);

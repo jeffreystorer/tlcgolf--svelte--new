@@ -8,8 +8,7 @@ export default function getSnapshots(ghinNumber) {
 	let snapshots;
 	onValue(dbRef, (snapshot) => {
 		let data = snapshot.val();
-		let values = Object.values(data)
-		returnData(data, values);
+		returnData(data);
 	})
 	function returnData(data){
 		snapshots = data;
