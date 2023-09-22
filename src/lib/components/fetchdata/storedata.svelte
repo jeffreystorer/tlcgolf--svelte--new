@@ -3,7 +3,7 @@
     import { snapshots } from '$lib/store'
     /**
         	const items = {
-		snapshots: snapshots,
+		//snapshots: snapshots,
 		local: {
 		ghinNumber: ghinNumber,
 		lastName: lastName,
@@ -40,7 +40,7 @@
     set('teesSelectedSaturday', data.items.local.defaultTeesSelected);
     remove('defaultTeesSelected');
     sset('isLoggedIn', true);
-    $snapshots = data.items.snapshots;
+    //$snapshots = data.items.snapshots;
     goto('/lineup');
     });
 </script>

@@ -10,7 +10,7 @@
 
   function handleChange(e) {
     e.preventDefault();
-    $course = e.target.value;
+    //$course = e.target.value;
     set('course', e.target.value);
     $showChangeTees = false;
     if (!hasMultipleGroups) {

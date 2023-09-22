@@ -1,4 +1,4 @@
-import { getSnapshots } from '$lib/components/lineup/utils';
+//import { getSnapshots } from '$lib/components/lineup/utils';
 import { GolferApi, CourseApi } from '$lib/components/fetchdata/apis';
 import { COURSE_IDS } from '$lib/components/common/data';
 import { aGender } from '$lib/components/common/utils/getRosterFields';
@@ -96,7 +96,7 @@ async function fetchCanadianData(cardNo) {
 export async function load({ url }) {
 	const ghinNumber = url.searchParams.get('ghinNumber');
 	const dataMode = url.searchParams.get('dataMode');
-	let snapshots = getSnapshots(ghinNumber);
+	//let snapshots = getSnapshots(ghinNumber);
 	const tableData = fetchTable(ghinNumber);
 	const tokenData = fetchToken();
 	const [table, token] = await Promise.all([tableData, tokenData]);
@@ -180,7 +180,7 @@ export async function load({ url }) {
 	);
 
 	const items = {
-		snapshots: snapshots,
+		//snapshots: snapshots,
 		local: {
 			ghinNumber: ghinNumber,
 			lastName: lastName,
