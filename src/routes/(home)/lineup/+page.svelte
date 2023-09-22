@@ -27,8 +27,9 @@
   import { GroupAndCourseDropdowns } from '$lib/components/common';
   console.log("😊😊 $groups", $groups)
   const hasMultipleGroups = returnHasMultipleGroups($groups);
+  let values = Object.values($snapshots)
 </script>
-
+{#key $snapshots}
   {#if $displayNumber === 2}
     <div id='lineup'>
       <div>
@@ -36,6 +37,9 @@
         <CaptainsDropdown snapshots={$snapshots} />
         {/if}
       </div>
+      {#each values as value}
+      <p>{value.lineup.playingDate}: {value.title}</p>
+      {/each}
     </div>
   {:else}
   {#if hasMultipleGroups}
@@ -53,6 +57,7 @@
   {/if}
     <GroupAndCourseDropdowns />
   {/if}
+  {/key}
 
 
 
