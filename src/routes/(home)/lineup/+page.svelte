@@ -7,6 +7,8 @@
   } from '$lib/components/common/utils';
   import { getSnapshots } from '$lib/components/lineup/utils';
   import { groups, course, group, displayNumber, linkTime, captainGHINNumber, realGHINNumber, playersInLineup, snapshots } from '$lib/store';
+  console.log("😊😊 $captainGHINNumber", $captainGHINNumber)
+  console.log("😊😊 $groups", $groups)
   beforeUpdate(() => {
     $snapshots = getSnapshots($captainGHINNumber)
   })
@@ -25,10 +27,12 @@
   } from '$lib/components/lineup'; */
   import { CaptainsDropdown } from '$lib/components/lineup/dropdowns';
   import { GroupAndCourseDropdowns } from '$lib/components/common';
-  console.log("😊😊 $groups", $groups)
   const hasMultipleGroups = returnHasMultipleGroups($groups);
+  console.log("😊😊 hasMultipleGroups", hasMultipleGroups)
+  console.log("😊😊 $snapshots", $snapshots)
   let values = Object.values($snapshots)
-</script>
+  console.log("😊😊 values", values)
+</script><!-- 
 {#key $snapshots}
   {#if $displayNumber === 2}
     <div id='lineup'>
@@ -57,10 +61,10 @@
   {/if}
     <GroupAndCourseDropdowns />
   {/if}
-  {/key}
+  {/key} -->
 
 
-
+<!-- 
 <style>
   #lineup {
   align-items: stretch;
@@ -92,4 +96,4 @@
   justify-content: center;
   max-width: 48em;
   }
-</style>
+</style> -->

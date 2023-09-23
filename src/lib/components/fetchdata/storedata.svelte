@@ -32,6 +32,7 @@
 
     const keys = Object.keys(data.items.local);
     const values = Object.values(data.items.local);
+    console.log("😊😊 values", values)
     onMount(() => {
     keys.map((key, index) => set(key, values[index]));
     if (!get('teesSelected')) {
