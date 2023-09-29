@@ -1,0 +1,40 @@
+//child of TeamTable
+
+'use client';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import * as _ from 'lodash';
+import { useRecomputeTeamTables } from '$lib/components/lineup/hooks';
+import * as options from '$lib/components/lineup/optionitems';
+import * as state from '$lib/store';
+
+export default function ManualCHDropdown({ manualCH, playerId, teamNumber }) {
+  const recomputeTeamTables = useRecomputeTeamTables();
+  const teamTables = useRecoilValue(state.teamTables);
+  let newTeamTables = _.cloneDeep(teamTables);
+  let teamName, playerIndex;
+
+  const handleManualCHChange = (event) => {
+    const aManualCH = event.target.value;
+    const anId = Number(event.target.name);
+    const aTeamNumber = event.target.id;
+    teamName = 'team' + aTeamNumber;
+    playerIndex = teamTables[teamName].findIndex(
+      (player) => player.id === Number(anId)
+    );
+    newTeamTables[teamName][playerIndex].manualCH = aManualCH;
+    recomputeTeamTables(playerIndex, newTeamTables, teamName);
+  };
+
+  return (
+    <td>
+      <select
+        id={teamNumber}
+        name={playerId}
+        value={manualCH}
+        onChange={handleManualCHChange}>
+        {options.manualCHOptionItems}
+      </select>
+    </td>
+  );
+}

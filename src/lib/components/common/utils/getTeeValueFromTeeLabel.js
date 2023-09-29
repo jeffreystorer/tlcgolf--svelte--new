@@ -1,0 +1,17 @@
+import { courses } from "$lib/components/common/data";
+import { createTeeArrays } from "$lib/components/common/utils";
+
+export default function getTeeValueFromTeeLabel(
+  defaultTeeLabel,
+  course,
+  courseData
+) {
+  const courseIndex = courses.indexOf(course);
+  const teeArrays = createTeeArrays(courseData);
+  const courseTeeArray = teeArrays[courseIndex];
+  let stepOne = defaultTeeLabel.replace(" (Men only)", "");
+  let stepTwo = stepOne.replace(" (Women only)", "");
+  let teeObj = courseTeeArray.find((obj) => obj.label === stepTwo);
+  let teeValue = teeObj.value;
+  return teeValue;
+}
