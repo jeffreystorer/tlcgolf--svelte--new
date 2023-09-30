@@ -77,6 +77,30 @@
 
 
 <style>
+  		
+
+header {
+align-items: center;
+background-color: var(--background-white);
+display: flex;
+flex-direction: row;
+gap: 0.25em;
+height: fit-content;
+margin: 0 auto 1em auto;
+width: fit-content;
+
+& > h1 {
+background-color: var(--background-blue);
+box-shadow: 0 0.875em 1.75em rgba(0, 0, 0, 0.25),
+0 0.625em 0.625em rgba(0, 0, 0, 0.28);
+color: var(--color-white);
+font-size: var(--step-1);
+font-weight: normal;
+height: 1.5em;
+padding: 0 0.25em;
+width: fit-content;
+}
+}
   nav {
 		height: fit-content;
 		

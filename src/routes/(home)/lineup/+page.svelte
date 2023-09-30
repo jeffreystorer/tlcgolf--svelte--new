@@ -7,6 +7,7 @@
     /* ActiveLineupBox,
     LineupBeingEditedBox,*/
     ConfirmDeleteModal,
+    MissingPlayerModal,
     SavedLineupsBox, 
   } from '$lib/components/lineup';
   import { CaptainsDropdown } from '$lib/components/lineup/dropdowns';
@@ -45,6 +46,7 @@
       {/if} -->
       </section>
       <ConfirmDeleteModal />
+      <MissingPlayerModal />
   {:else}
     {#if hasMultipleGroups}
       <p>

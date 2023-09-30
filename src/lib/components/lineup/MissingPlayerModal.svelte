@@ -1,57 +1,47 @@
-'use client';
-import { usePathname } from 'next/navigation';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import useLineupService from '$lib/components/lineup/hooks/useLineupService';
-import * as state from '$lib/store';
-
-export default function MissingPlayerModal() {
-  const pathname = usePathname();
-  const { deleteLineup } = useLineupService();
-  const message = useRecoilValue(state.missingPlayerMessage);
-  const resetPlayersInLineup = useResetRecoilState(state.playersInLineup);
-  const resetCurrentLineupIndex = useResetRecoilState(state.currentLineupIndex);
-  const resetCurrentLineup = useResetRecoilState(state.currentLineup);
-  const resetLineupTitle = useResetRecoilState(state.lineupTitle);
-  const resetSortOrder = useResetRecoilState(state.sortOrder);
-  const currentLineupKey = useRecoilValue(state.currentLineupKey);
-  const resetCurrentLineupKey = useResetRecoilState(state.currentLineupKey);
+<script> 
+  import { missingPlayerMessage, currentLineupKey, currentLineupIndex, currentLineup, playersInLineup, lineupTitle, sortOrder} from '$lib/store';
+  import { deleteLineup } from '$lib/components/lineup/utils/lineupService';
 
   const clearLineup = () => {
-    resetPlayersInLineup();
-    resetCurrentLineupIndex();
-    resetCurrentLineupKey();
-    resetCurrentLineup();
-    resetLineupTitle();
-    resetSortOrder();
+    $playersInLineup = [];
+    $currentLineupIndex = -1;
+    $currentLineupKey = '';
+    $currentLineup = null;
+    $lineupTitle =  'New Lineup';
+    $sortOrder = 'alphabetical';
     window.location.href = '/lineup';
   };
 
   const handleDelete = () => {
-    deleteLineup(currentLineupKey);
+    deleteLineup($currentLineupKey);
     clearLineup();
   };
 
-  return (
-    <div id='missingplayermodal' class='modal'>
-      <a href={pathname} class='modalClose' hidden></a>
-      <section>
-        <header>
-          <h2>Oops!</h2>
-          <a href={pathname} class='modalClose' hidden></a>
-        </header>
-        <p>{message}</p>
-        <footer>
-          <button class='not-stacked' onClick={clearLineup}>
-            Cancel
-          </button>
-          <a type='button' href='/edittable'>
-            Edit Table
-          </a>
-          <button class='not-stacked' onClick={handleDelete}>
-            Delete
-          </button>
-        </footer>
-      </section>
-    </div>
-  );
-}
+</script>
+
+
+<div id='missingplayermodal' class='modal'>
+  <!-- svelte-ignore a11y-missing-content -->
+  <!-- svelte-ignore a11y-invalid-attribute -->
+  <a href='#' class='modalClose' hidden></a>
+  <section>
+    <header>
+      <h2>Oops!</h2>
+      <!-- svelte-ignore a11y-missing-content -->
+      <!-- svelte-ignore a11y-invalid-attribute -->
+      <a href='#' class='modalClose' hidden></a>
+    </header>
+    <p>{$missingPlayerMessage}</p>
+    <footer>
+      <button class='not-stacked' on:click={clearLineup}>
+        Cancel
+      </button>
+      <a type='button' href='/edittable'>
+        Edit Table
+      </a>
+      <button class='not-stacked' on:click={handleDelete}>
+        Delete
+      </button>
+    </footer>
+  </section>
+</div>
