@@ -1,4 +1,6 @@
 import * as _ from 'lodash';
+import { get } from 'svelte/store'
+import { course, courseData, allPlayersInTable, teamTables, teeTimeCount, teesSelected } from '$lib/store';
 import {
 	buildTeeArray,
 	getGender,
@@ -6,33 +8,11 @@ import {
 	returnCourseHandicapArray
 } from '$lib/components/common/utils';
 
-export default function updateTeamTables(
-	teesSelectedCourse,
-	course,
-	courseData,
-	allPlayersInTable,
-	teamTables,
-	teeTimeCount,
-	group,
-	groups,
-	sortOrder,
-	showFirstName,
-	showLocalNumbers
-) {
-	const playersInGroup = getPlayersInGroup(
-		'createLineupTable',
-		course,
-		group,
-		teesSelectedCourse,
-		courseData,
-		groups,
-		allPlayersInTable,
-		sortOrder,
-		showFirstName,
-		showLocalNumbers
-	);
+export default function updateTeamTables() {
+	const playersInGroup = getPlayersInGroup('createLineupTable');
+	const teesSelectedCourse = get(teesSelected)[get(course)];
 	const teesSelectedArray = buildTeeArray(teesSelectedCourse);
-	let newTeamTables = _.cloneDeep(teamTables);
+	let newTeamTables = _.cloneDeep(get(teamTables));
 
 	for (let i = 0; i < teeTimeCount; i++) {
 		let aTeamName = 'team' + i;
@@ -69,10 +49,10 @@ export default function updateTeamTables(
 		switch (aManualCH) {
 			case 'Auto':
 				newTeamTables[teamName][playerIndex].courseHandicaps = returnCourseHandicapArray(
-					courseData,
+					get(courseData),
 					gender,
 					strHcpIndex,
-					course,
+					get(course),
 					teesSelectedCourse
 				);
 				break;
@@ -93,5 +73,5 @@ export default function updateTeamTables(
 				break;
 		}
 	}
-	return newTeamTables;
+	teamTables.set(newTeamTables);
 }

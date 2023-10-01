@@ -1,5 +1,4 @@
-'use client';
-import React from 'react';
+<script>
 import {
   PlayingDateDropdown,
   TeeTimeCountDropdown,
@@ -7,21 +6,29 @@ import {
   Progs069Dropdown,
   ProgAdjDropdown,
 } from '$lib/components/lineup/dropdowns';
+</script>
 
-export default function LineupDropdowns() {
-  return (
-    <>
-      <div class='select-dropdown-container'>
-        <PlayingDateDropdown />
-        <TeeTimeCountDropdown />
-      </div>
-      <div class='select-dropdown-container'>
-        <LinkTimeDropdown />
-      </div>
-      <div class='select-dropdown-container'>
-        <Progs069Dropdown />
-        <ProgAdjDropdown />
-      </div>
-    </>
-  );
-}
+<div>
+  <PlayingDateDropdown />
+  <TeeTimeCountDropdown />
+</div>
+<div>
+  <LinkTimeDropdown />
+</div>
+<div>
+  <Progs069Dropdown />
+  <ProgAdjDropdown />
+</div>
+
+<style>    
+  div {
+	display: flex;
+	flex-direction: row;
+	gap: 0.25em;
+	color: var(--color-black);
+	height: fit-content;
+	padding: 0.125em;
+	margin: 0 auto 0.5em auto;
+	width: fit-content;
+  }
+</style>

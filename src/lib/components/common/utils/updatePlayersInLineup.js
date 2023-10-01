@@ -1,32 +1,12 @@
+import { get } from 'svelte/store';
+import { idsInLineup, playersInLineup } from '$lib/store';
 import { getPlayersInGroup } from '$lib/components/common/utils';
 
-export default function updatePlayersInLineup(
-	teesSelectedCourse,
-	group,
-	sortOrder,
-	idsInLineup,
-	course,
-	courseData,
-	groups,
-	allPlayersInTable,
-	showFirstName,
-	showLocalNumbers
-) {
-	const playersInGroup = getPlayersInGroup(
-		'createLineupTable',
-		course,
-		group,
-		teesSelectedCourse,
-		courseData,
-		groups,
-		allPlayersInTable,
-		sortOrder,
-		showFirstName,
-		showLocalNumbers
-	);
+export default function updatePlayersInLineup() {
+	const playersInGroup = getPlayersInGroup('createLineupTable');
 	let newPlayersInLineupArray = [];
-	idsInLineup.forEach((id) => {
+	get(idsInLineup).forEach((id) => {
 		newPlayersInLineupArray.push(playersInGroup.find((player) => player.id === Number(id)));
 	});
-	return newPlayersInLineupArray;
+	playersInLineup.set(newPlayersInLineupArray);
 }

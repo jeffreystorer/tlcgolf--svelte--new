@@ -2,12 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../Dropbox/VS Code Projects/tlcgolf--svelte"
-		},
-		{
-			"path": "../Dropbox/VS Code Projects/tlcgolf-next-js/src/components"
 		}
 	],
 	"settings": {}

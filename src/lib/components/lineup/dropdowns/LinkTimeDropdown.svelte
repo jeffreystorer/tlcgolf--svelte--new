@@ -1,22 +1,25 @@
-'use client';
-import React from 'react';
-import { useRecoilState } from 'recoil';
-import { linkTimeOptionItems } from '$lib/components/lineup/optionitems';
-import * as state from '$lib/store';
-
-export default function LinkTimeDropdown() {
-  const [linkTime, setLinkTime] = useRecoilState(state.linkTime);
+<script>
+  import { linkTime } from '$lib/store';
+  import { linkTimeOptionItems } from '$lib/components/lineup/optionitems';
   const handleChange = (event) => {
-    setLinkTime(event.target.value);
+    $linkTime = event.target.value;
   };
+</script>
 
-  return (
-      <label>
-        Link Time
-        <select name='linkTime' value={linkTime} onChange={handleChange}>
-          <option value='Link Time'>Link Time</option>
-          {linkTimeOptionItems}
-        </select>
-      </label>
-  );
-}
+<label>
+  Link Time
+  <select name='linkTime' bind:value={$linkTime} on:change={handleChange}>
+    <option value='Link Time'>Link Time</option>
+    {linkTimeOptionItems}
+  </select>
+</label>
+
+<style>  
+  label {
+    font-size: var(--step-0);
+  }
+  label > select {
+    margin-left: 0.5em;
+  }
+</style>
+  

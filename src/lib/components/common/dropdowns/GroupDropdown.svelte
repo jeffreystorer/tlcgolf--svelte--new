@@ -4,7 +4,6 @@
 
   function handleChange(e) {
     e.preventDefault();
-    //$group = e.target.value;
     set('group', e.target.value);
     $playersInLineup = [];
     $currentLineupIndex = -1;

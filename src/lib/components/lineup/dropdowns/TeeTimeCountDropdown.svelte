@@ -43,7 +43,7 @@ export default function TeeTimeCountDropdown() {
     <select
       class='selector_right'
       value={teeTimeCount}
-      onChange={handleChange}>
+      on:change={handleChange}>
       <option value='0'># of Tee Times</option>
       {teeTimeCountOptionItems}
     </select>

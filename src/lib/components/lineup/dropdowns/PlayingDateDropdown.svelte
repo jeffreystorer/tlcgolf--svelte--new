@@ -15,7 +15,7 @@ export default function PlayingDateDropdown() {
     <select
       class='selector_left'
       value={playingDate}
-      onChange={handleChange}>
+      on:change={handleChange}>
       <option value='Date'>Playing Date</option>
       {playingDateOptionItems}
     </select>

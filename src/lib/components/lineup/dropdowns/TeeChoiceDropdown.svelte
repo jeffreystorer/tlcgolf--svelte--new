@@ -41,7 +41,7 @@ export default function TeeChoiceDropdown({ playerId, teamNumber, baseTee }) {
         id={teamNumber}
         name={playerId}
         value={baseTee}
-        onChange={handleTeeChoiceChange}>
+        on:change={handleTeeChoiceChange}>
         {teeChoiceOptionItems}
       </select>
     </td>

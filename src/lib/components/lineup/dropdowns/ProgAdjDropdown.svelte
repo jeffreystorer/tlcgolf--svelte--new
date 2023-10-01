@@ -12,7 +12,7 @@ export default function ProgAdjDropdown() {
   if (progs069 === '' || progs069 === '0') return false;
 
   return (
-    <select value={progAdj} onChange={handleChange}>
+    <select value={progAdj} on:change={handleChange}>
       <option value=''>Prog Adj?</option>
       <option value='0'>No Adj</option>
       <option value='3'>3 plus 3</option>

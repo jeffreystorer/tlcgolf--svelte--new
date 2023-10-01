@@ -9,7 +9,7 @@ export default function Progs069Dropdown() {
     setProgs069(event.target.value);
   };
   return (
-    <select value={progs069} onChange={handleChange}>
+    <select value={progs069} on:change={handleChange}>
       <option value=''>Progs?</option>
       <option value='0'>No Progs</option>
       <option value='6'>Progs 6/6/6</option>

@@ -1,3 +1,5 @@
+import { get } from 'svelte/store';
+import { course,group,teesSelected,courseData,groups,allPlayersInTable,sortOrder,showFirstName,showLocalNumbers} from '$lib/store';
 import {
 	buildTeeArray,
 	returnCourseHandicapArray,
@@ -6,25 +8,15 @@ import {
 	shuffleArray
 } from '$lib/components/common/utils';
 
-export default function getPlayersInGroup(
-	playersArrayType,
-	course,
-	group,
-	teesSelectedCourse,
-	courseData,
-	groups,
-	allPlayersInTable,
-	sortOrder,
-	showFirstName,
-	showLocalNumbers
-) {
+export default function getPlayersInGroup(playersArrayType) {
 	// eslint-disable-next-line
-	const [teeLabels, teeValues, ratings, slopes, pars] = courseData;
+	const [teeLabels, teeValues, ratings, slopes, pars] = get(courseData);
 	let playersArray = [];
 	let strHcpIndex;
 	let hcpIndex;
 	let gender;
 	//create an array of values of tees selected
+	const teesSelectedCourse = get(teesSelected)[get(course)]
 	let teesSelectedArray = buildTeeArray(teesSelectedCourse);
 	/*For a player whose preferred tee is
   not included in the tees selected,
@@ -34,7 +26,7 @@ export default function getPlayersInGroup(
 
 	switch (playersArrayType) {
 		case 'createLineupTable':
-			switch (sortOrder) {
+			switch (get(sortOrder)) {
 				case 'alphabetical':
 					sortAlphabetical();
 					break;
@@ -55,7 +47,7 @@ export default function getPlayersInGroup(
 
 	//filter allPlayersInTable to the players in the group, then add them to the playersarray
 	function addRowToPlayersArray(item, index) {
-		let groupNumber = groups.indexOf(group);
+		let groupNumber = get(groups).indexOf(get(group));
 		let groupIndex = groupNumber + 6;
 		switch (groupNumber) {
 			case 0:
@@ -73,11 +65,11 @@ export default function getPlayersInGroup(
   not included in the tees selected,
   set the player's tee choice to the first tee selected*/
 		const defaultTeeLabel = aPlayer[2];
-		const defaultTeeValue = getTeeValueFromTeeLabel(defaultTeeLabel, course, courseData);
+		const defaultTeeValue = getTeeValueFromTeeLabel(defaultTeeLabel, get(course), get(courseData));
 		const teeNo = teesSelectedArray.indexOf(defaultTeeValue);
 
 		if (teeNo < 0) {
-			const newTee = getTeeLabelFromTeeValue(teesSelectedArray[0], course, courseData);
+			const newTee = getTeeLabelFromTeeValue(teesSelectedArray[0], get(course), get(courseData));
 			aPlayer[2] = newTee;
 		}
 		let player = compute(aPlayer, index);
@@ -87,7 +79,7 @@ export default function getPlayersInGroup(
 	//construct the row
 	function compute(aPlayer) {
 		gender = aPlayer[5];
-		let teeValue = getTeeValueFromTeeLabel(aPlayer[2], course, courseData);
+		let teeValue = getTeeValueFromTeeLabel(aPlayer[2], get(course), get(courseData));
 		strHcpIndex = aPlayer[4];
 		hcpIndex = strHcpIndex;
 		if (strHcpIndex !== 'no index') hcpIndex = parseFloat(strHcpIndex);
@@ -130,7 +122,7 @@ export default function getPlayersInGroup(
 			}
 
 			let prefix = '';
-			if (showLocalNumbers === true || showLocalNumbers === 'true') {
+			if (get(showLocalNumbers) === true || get(showLocalNumbers) === 'true') {
 				prefix = local + ' ';
 			}
 			playerName = prefix + playerName;
@@ -149,10 +141,10 @@ export default function getPlayersInGroup(
 		};
 		if (playersArrayType !== 'createExportTeamsTable') {
 			const chArray = returnCourseHandicapArray(
-				courseData,
+				get(courseData),
 				gender,
 				strHcpIndex,
-				course,
+				get(course),
 				teesSelectedCourse
 			);
 			playerReturn.courseHandicaps = chArray;

@@ -5,7 +5,7 @@
     updateTeamTables, 
     updatePlayersInLineup
   } from '$lib/components/common/utils';
-  import { groups, course, courseData, playersInLineup, allPlayersInTable, teamTables, teeTimeCount, teesSelected, showChangeTees, group, sortOrder, showFirstName, showLocalNumbers, idsInLineup } from '$lib/store';
+  import { groups, course, showChangeTees, group } from '$lib/store';
   const hasMultipleGroups = returnHasMultipleGroups($groups);
 
   function handleChange(e) {
@@ -16,8 +16,8 @@
       $group=groups[1];
     }
     if ($course !== '') {
-      $teamTables = updateTeamTables($teesSelected[$course], $course, $courseData, $allPlayersInTable, $teamTables, $teeTimeCount, $group, $groups, $sortOrder, $showFirstName, $showLocalNumbers);
-      $playersInLineup = updatePlayersInLineup($teesSelected[$course], $group, $sortOrder, $idsInLineup, $course, $courseData, $groups, $allPlayersInTable, $showFirstName,$showLocalNumbers);
+      updateTeamTables();
+      updatePlayersInLineup();
     }
   }
 </script>

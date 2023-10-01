@@ -36,7 +36,7 @@ export default function WalkRideDropdown({ walk, playerId, teamNumber }) {
         id={teamNumber}
         name={playerId}
         value={walk}
-        onChange={handleWalkRideChange}>
+        on:change={handleWalkRideChange}>
         {walkRideOptionItems}
       </select>
     </td>

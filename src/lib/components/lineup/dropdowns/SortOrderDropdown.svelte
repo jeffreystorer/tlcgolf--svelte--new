@@ -16,7 +16,7 @@ export default function SortOrderDropdown() {
     <div id='sort-order'>
       <label>Sort Order:</label>
       <br />
-      <select value={sortOrder} onChange={handleChange}>
+      <select value={sortOrder} on:change={handleChange}>
         <option value='alphabetical'>Alphabetical</option>
         <option value='byHandicap'>By Handicap</option>
         <option value='random'>Random</option>

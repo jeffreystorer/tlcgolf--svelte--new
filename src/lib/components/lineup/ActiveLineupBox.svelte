@@ -41,7 +41,7 @@ export default function ActiveLineupBox({ snapshots }) {
             <a type='button' class='stacked' href='#gameoptionsmodal'>
               Choose Game Options
             </a>
-            <button class='stacked' onClick={handleClearGame}>
+            <button class='stacked' on:click={handleClearGame}>
               Clear Game
             </button>
           </div>
