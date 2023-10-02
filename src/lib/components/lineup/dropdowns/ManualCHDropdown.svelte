@@ -3,10 +3,11 @@
   export let manualCH;
   export let playerId;
   export let teamNumber;
+  import { v4 as uuidv4 } from 'uuid';
   import { teamTables } from '$lib/store';
   import * as _ from 'lodash';
   import { recomputeTeamTables } from '$lib/components/lineup/utils';
-  import * as options from '$lib/components/lineup/optionitems';
+  import { manualCHList } from '$lib/components/lineup/optionitems';
   let newTeamTables = _.cloneDeep($teamTables);
   let teamName, playerIndex;
 
@@ -30,6 +31,10 @@
     name={playerId}
     bind:value={manualCH}
     on:change={handleManualCHChange}>
-    {options.manualCHOptionItems}
+    {#each manualCHList as manualCH (uuidv4())}
+      <option value={manualCH.value}>
+        {manualCH.text}
+      </option>
+    {/each}
   </select>
 </td>

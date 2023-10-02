@@ -169,36 +169,6 @@ h2 {
 	width: 100%;
 }
 
-#save-lineup {
-	margin-top: 0em;
-}
-
-#save-lineup {
-	font-size: var(--step-0);
-}
-
-#save-lineup fieldset,
-#active-lineup_footer {
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-}
-
-#active-lineup fieldset {
-	gap: 0.5em;
-	margin-bottom: 0.5em;
-}
-#active-lineup_footer {
-	gap: 0em;
-}
-
-#save-lineup label {
-	justify-content: right;
-	margin: 0 auto;
-	width: fit-content;
-}
-
 #save-lineup input {
 	text-align: center;
 }
@@ -458,14 +428,8 @@ select {
 	margin: 0 auto 0.5em auto;
 	width: fit-content;
 }
-#sort-order {
-	flex-direction: column;
-	gap: 0.5em;
-	margin: 0 auto 0.5em auto;
-}
 
-.select-dropdown-container > label,
-#sort-order > label {
+.select-dropdown-container > label {
 	font-size: var(--step-0);
 }
 .select-dropdown-container label > select {
@@ -538,12 +502,6 @@ select {
 	margin: 0 auto;
 }
 
-#active-lineup {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 2em;
-}
-
 svg {
 	min-width: 24px;
 }
@@ -596,10 +554,6 @@ svg {
 	font-weight: normal;
 	text-align: center;
 }
-#active-lineup > table > tbody > tr > td:last-of-type > select {
-	text-align: center;
-	width: 1em;
-}
 
 #players-not-in-tee-time > li {
 	font-size: var(--step-0);
@@ -615,10 +569,6 @@ svg {
 	margin: 0 auto 0.25em auto;
 	padding: 0.5em;
 	resize: none;
-}
-
-#active-lineup p {
-	font-style: italic;
 }
 
 /*******************Export************/

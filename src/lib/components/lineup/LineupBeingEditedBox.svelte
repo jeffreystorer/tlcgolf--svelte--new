@@ -57,7 +57,7 @@
 
 </script>
 
-<div id='lineup-being-edited' class='titled_outer'>
+<div class='titled_outer'>
   <h2>{lineupTitle}</h2>
   {#if currentLineup}
     <CurrentSavedLineup lineupSnapshot={$snapshots[currentLineupIndex]} />

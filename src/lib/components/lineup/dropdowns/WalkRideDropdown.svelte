@@ -1,20 +1,13 @@
 //child of TeamTable
-
-'use client';
-import { useRecoilState } from 'recoil';
-import { v4 as uuidv4 } from 'uuid';
-import * as _ from 'lodash';
-import * as state from '$lib/store';
-
-export default function WalkRideDropdown({ walk, playerId, teamNumber }) {
-  const [teamTables, setTeamTables] = useRecoilState(state.teamTables);
+<script>
+  export let walk;
+  export let playerId;
+  export let teamNumber;
+  import { teamTables } from '$lib/store';
+  import { v4 as uuidv4 } from 'uuid';
+  import * as _ from 'lodash';
   let walkRideArray = ['W', 'R'];
-  const walkRideOptionItems = walkRideArray.map((wr) => (
-    <option key={uuidv4()} value={wr}>
-      {wr}
-    </option>
-  ));
-  let newTeamTables = _.cloneDeep(teamTables);
+  let newTeamTables = _.cloneDeep($teamTables);
   let teamName, playerIndex;
 
   function handleWalkRideChange(event) {
@@ -22,23 +15,24 @@ export default function WalkRideDropdown({ walk, playerId, teamNumber }) {
     const anId = Number(event.target.name);
     const aTeamNumber = event.target.id;
     teamName = 'team' + aTeamNumber;
-    playerIndex = teamTables[teamName].findIndex(
+    playerIndex = $teamTables[teamName].findIndex(
       (player) => player.id === Number(anId)
     );
     newTeamTables[teamName][playerIndex].walk = walkRide;
-    setTeamTables(newTeamTables);
+    $teamTables = newTeamTables;
   }
+</script>
 
-  return (
-    <td>
-      <select
-        class='embedded_walk'
-        id={teamNumber}
-        name={playerId}
-        value={walk}
-        on:change={handleWalkRideChange}>
-        {walkRideOptionItems}
-      </select>
-    </td>
-  );
-}
+<td>
+  <select
+    id={teamNumber}
+    name={playerId}
+    bind:offsetWidth={walk}
+    on:change={handleWalkRideChange}>
+      {#each walkRideArray as wr (uuidv4())}
+        <option value={wr}>
+          {wr}
+        </option>
+      {/each}
+  </select>
+</td>

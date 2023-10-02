@@ -1,54 +1,78 @@
-'use client';
-import React from 'react';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { LineupTextarea, SaveLineup } from '$lib/components/lineup';
-import { AutoButtons } from '$lib/components/lineup/buttons';
-import { useGenerateTeamTables } from '$lib/components/lineup/hooks';
-import { createProgAdjMessage, getCourseName } from '$lib/components/common/utils';
-import { GameOptionsModal } from '$lib/components/lineup';
-import * as state from '$lib/store';
-
-export default function ActiveLineupBox({ snapshots }) {
-  const resetTextareaValue = useResetRecoilState(state.textareaValue);
-  const generateTeamTables = useGenerateTeamTables();
-  const course = useRecoilValue(state.course);
-  const playingDate = useRecoilValue(state.playingDate);
-  const progAdj = useRecoilValue(state.progAdj);
-  const progs069 = useRecoilValue(state.progs069);
-  const okToSave = useRecoilValue(state.okToSave);
-  const okToAddPlayers = useRecoilValue(state.okToAddPlayers);
-  const progAdjMessage = createProgAdjMessage(progAdj, progs069);
-  const courseName = getCourseName(course);
+<script>
+  import { textareaValue,course,playingDate,progAdj,progs069,okToSave, okToAddPlayers} from '$lib/store';
+  import { LineupTextarea, SaveLineup } from '$lib/components/lineup';
+  import { AutoButtons } from '$lib/components/lineup/buttons';
+  import { generateTeamTables } from '$lib/components/lineup/utils';
+  import { createProgAdjMessage, getCourseName } from '$lib/components/common/utils';
+  import { GameOptionsModal } from '$lib/components/lineup';
+  const progAdjMessage = createProgAdjMessage($progAdj, $progs069);
+  const courseName = getCourseName($course);
   let header = '';
-  if (playingDate !== 'Date') {
-    header = playingDate + ' at ' + courseName;
+  if ($playingDate !== 'Date') {
+    header = $playingDate + ' at ' + courseName;
   }
 
   function handleClearGame() {
-    resetTextareaValue();
+    $textareaValue = '';
+  }
+</script>
+
+<div class='titled_outer'>
+  <h2>{header}</h2>
+  <AutoButtons />
+  {generateTeamTables()}
+  {#if (progs069 > 0 && okToAddPlayers)}
+    <p>{progAdjMessage}</p>
+  {/if}
+  {#if okToSave}
+    <div id='footer'>
+      <LineupTextarea />
+      <div class='buttons'>
+        <a type='button' class='stacked' href='#gameoptionsmodal'>
+          Choose Game Options
+        </a>
+        <button class='stacked' on:click={handleClearGame}>
+          Clear Game
+        </button>
+      </div>
+      <GameOptionsModal />
+      <SaveLineup />
+    </div>
+  {/if}
+</div>
+
+<style>
+ 
+
+div:first-of-type {
+	display: flex;
+	flex-direction: column;
+  gap: 0em;
+	margin-bottom: 2em;
+  
+  & fieldset {
+    gap: 0.5em;
+    margin-bottom: 0.5em;
   }
 
-  return (
-    <div id='active-lineup' class='titled_outer'>
-      <h2>{header}</h2>
-      <AutoButtons />
-      {generateTeamTables()}
-      {progs069 > 0 && okToAddPlayers && <p>{progAdjMessage}</p>}
-      {okToSave && (
-        <div id='active-lineup_footer'>
-          <LineupTextarea />
-          <div class='buttons'>
-            <a type='button' class='stacked' href='#gameoptionsmodal'>
-              Choose Game Options
-            </a>
-            <button class='stacked' on:click={handleClearGame}>
-              Clear Game
-            </button>
-          </div>
-          <GameOptionsModal />
-          <SaveLineup snapshots={snapshots} />
-        </div>
-      )}
-    </div>
-  );
+  & table > tbody > tr > td:last-of-type > select {
+    text-align: center;
+    width: 1em;
+  }
+
+  & p {
+    font-style: italic;
+  }
+} 
+
+#footer {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 0em;
+	width: 100%;
 }
+
+
+
+</style>

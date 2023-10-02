@@ -1,27 +1,22 @@
-'use client';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-//import * as _ from "lodash"
-import { teeTimeCountOptionItems } from '$lib/components/lineup/optionitems';
-import * as state from '$lib/store';
+<script>
+  import { v4 as uuidv4 } from 'uuid';
+  import { teeTimeCount, teamTables } from '$lib/store';
 
-export default function TeeTimeCountDropdown() {
-  const [teeTimeCount, setTeeTimeCount] = useRecoilState(state.teeTimeCount);
-  const setTeamTables = useSetRecoilState(state.teamTables);
+ 
 
   const handleChange = (event) => {
-    const oldCount = teeTimeCount;
+    const oldCount = $teeTimeCount;
     const newCount = event.target.value;
     const droppedTimesCount = oldCount - newCount;
-    setTeeTimeCount(event.target.value);
-    if (droppedTimesCount > 0)
+    $teeTimeCount = event.target.value;
+    if (droppedTimesCount > 0) {
       restoreDroppedTeeTimePlayersToPlayersNotInTeeTimes(oldCount, newCount);
+    };
     for (let i = oldCount; i < newCount; i++) {
       if (oldCount > 0) {
         let teamName = 'team' + i;
-        setTeamTables((prevTeamTables) => ({
-          ...prevTeamTables,
-          [teamName]: [],
-        }));
+        $teamTables = ({...$teamTables,
+          [teamName]: []})
       }
     }
   };
@@ -32,20 +27,27 @@ export default function TeeTimeCountDropdown() {
   ) {
     for (let i = newCount; i < oldCount; i++) {
       let teamName = 'team' + i;
-      setTeamTables((teamTables) => ({
-        ...teamTables,
+      $teamTables = ({
+        ...$teamTables,
         [teamName]: [],
-      }));
+      })
     }
   }
+  const teeTimeCounts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  return (
-    <select
-      class='selector_right'
-      value={teeTimeCount}
-      on:change={handleChange}>
-      <option value='0'># of Tee Times</option>
-      {teeTimeCountOptionItems}
-    </select>
-  );
-}
+  </script>
+
+  <select
+    bind:value={$teeTimeCount}
+    on:change={handleChange}>
+    <option value='0'># of Tee Times</option>
+    {#each teeTimeCounts as count (uuidv4())}
+      <option value={count}>
+        {#if count === 1}
+          {count + ' tee time'}
+        {:else}
+          {count + ' tee times'}
+        {/if}
+      </option>
+    {/each}
+  </select>

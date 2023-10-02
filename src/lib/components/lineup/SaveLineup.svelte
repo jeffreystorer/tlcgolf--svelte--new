@@ -1,74 +1,46 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import { useSaveLineupToFirebase } from '$lib/components/lineup/hooks';
-import * as state from '$lib/store';
-
-export default function SaveLineup({ snapshots }) {
-  const router = useRouter();
-  const realGHINNumber = useRecoilValue(state.realGHINNumber);
-  const captainGHINNumber = useRecoilValue(state.captainGHINNumber);
-  const saveLineupToFirebase = useSaveLineupToFirebase();
-  const course = useRecoilValue(state.course);
-  const group = useRecoilValue(state.group);
-  const teesSelected = useRecoilValue(state.teesSelected);
-  const idsInLineup = useRecoilValue(state.idsInLineup);
-  const [lineupTitle, setLineupTitle] = useRecoilState(state.lineupTitle);
-  const playingDate = useRecoilValue(state.playingDate);
-  const teamTables = useRecoilValue(state.teamTables);
-  const linkTime = useRecoilValue(state.linkTime);
-  const teeTimeCount = useRecoilValue(state.teeTimeCount);
-  const textareaValue = useRecoilValue(state.textareaValue);
-  const progs069 = useRecoilValue(state.progs069);
-  const progAdj = useRecoilValue(state.progAdj);
-  const playersInLineup = useRecoilValue(state.playersInLineup);
-  const setCurrentLineupIndex = useSetRecoilState(state.currentLineupIndex);
-  const okToSave = useRecoilValue(state.okToSave);
-  const nextLineupIndex = useRecoilValue(state.nextLineupIndex);
+<script>
+  import { goto } from '$app/navigation';
+  import {snapshots, realGHINNumber, captainGHINNumber,course, group,teesSelected, idsInLineup, lineupTitle, playingDate,teamTables,linkTime,teeTimeCount,textareaValue,progs069, progAdj, playersInLineup,currentLineupIndex,nextLineupIndex} from '$lib/store';
+  import { saveLineupToFirebase } from '$lib/components/lineup/utils';
 
   function handleSubmit(event) {
     event.preventDefault();
-    saveLineup();
-    //increment the lineup index
-    if (realGHINNumber !== captainGHINNumber) {
-      setCurrentLineupIndex(nextLineupIndex);
-    } else {
-      setCurrentLineupIndex(snapshots.length);
-    }
-    router.push('/export');
-  }
-
-  function saveLineup() {
-    let title = lineupTitle;
-    saveLineupToFirebase(
-      title,
-      idsInLineup,
-      playersInLineup,
-      group,
-      course,
-      playingDate,
-      teeTimeCount,
-      linkTime,
-      progs069,
-      progAdj,
-      teamTables,
-      textareaValue,
-      teesSelected[course]
+    saveLineupToFirebase(      
+      $lineupTitle,
+      $idsInLineup,
+      $playersInLineup,
+      $group,
+      $course,
+      $playingDate,
+      $teeTimeCount,
+      $linkTime,
+      $progs069,
+      $progAdj,
+      $teamTables,
+      $textareaValue,
+      $teesSelected[$course]
     );
+    //increment the lineup index
+    if ($realGHINNumber !== $captainGHINNumber) {
+      $currentLineupIndex = nextLineupIndex;
+    } else {
+      $currentLineupIndex($snapshots.length);
+    }
+    goto('/export');
   }
 
   function handleChange(event) {
-    setLineupTitle(event.target.value);
+    $lineupTitle = event.target.value;
   }
+  </script>
   return (
-    <form id='save-lineup' onSubmit={handleSubmit}>
+    <form on:submit={handleSubmit}>
       <fieldset>
         <label>
           Save Lineup as:
           <input
-            id='lineup-title'
             type='text'
-            value={lineupTitle}
+            bind:value={$lineupTitle}
             on:change={handleChange}
             size='36'
           />
@@ -76,5 +48,23 @@ export default function SaveLineup({ snapshots }) {
         <button type='submit'>Save Lineup</button>
       </fieldset>
     </form>
-  );
-}
+
+<style>
+  form {
+    font-size: var(--step-0);
+    margin-top: 0em;
+
+    & fieldset{
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    & label {
+      justify-content: right;
+      margin: 0 auto;
+      width: fit-content;
+    }
+  }
+</style>

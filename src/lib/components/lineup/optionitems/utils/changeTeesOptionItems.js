@@ -1,18 +1,13 @@
-"use client";
-import { useRecoilValue } from "recoil";
+import { get } from 'svelte/store';
+import { courseData } from '$lib/store';
+const _courseData = get(courseData);
 import { courses } from "$lib/components/common/data";
-import { useCreateTeeArrays } from "$lib/components/common/hooks";
+import { createTeeArrays } from "$lib/components/common/utils";
 import { createTeeLabels } from "$lib/components/lineup/optionitems/utils";
-import * as state from "@/store";
-import { v4 as uuidv4 } from "uuid";
 
-export default function useChangeTeesOptionItems() {
-  const courseData = useRecoilValue(state.courseData);
-  const createTeeArrays = useCreateTeeArrays();
-
-  function createChangeTeesOptionItems() {
+  export default function createChangeTeesOptionItems() {
     let teeArrays = createTeeArrays();
-    let teeLabels = createTeeLabels(courseData);
+    let teeLabels = createTeeLabels(_courseData);
     let allTeeOptionItems = [];
     let teeOptionItems = [];
     courses.forEach(processAllCoursesTeeArrays);
@@ -53,14 +48,11 @@ export default function useChangeTeesOptionItems() {
     return allTeeOptionItems;
   }
 
-  function changeTeesOptionItems(courseIndex) {
+  /* function changeTeesOptionItems(courseIndex) {
     let optionItems = createChangeTeesOptionItems();
     return optionItems[courseIndex].map((teeItem) => (
       <option key={uuidv4()} value={teeItem.value}>
         {teeItem.label} {teeItem?.limit}
       </option>
     ));
-  }
-
-  return changeTeesOptionItems;
-}
+  } */

@@ -1,23 +1,22 @@
-'use client';
-import React from 'react';
-import { useRecoilState } from 'recoil';
-import { playingDateOptionItems } from '$lib/components/lineup/optionitems';
-import * as state from '$lib/store';
-
-export default function PlayingDateDropdown() {
-  const [playingDate, setPlayingDate] = useRecoilState(state.playingDate);
+<script>
+  import { v4 as uuidv4 } from 'uuid';
+  import { playingDate } from '$lib/store'
+  import { playingDates} from '$lib/components/lineup/optionitems';
 
   const handleChange = (event) => {
-    setPlayingDate(event.target.value);
+    $playingDate = event.target.value;
   };
 
-  return (
-    <select
-      class='selector_left'
-      value={playingDate}
-      on:change={handleChange}>
-      <option value='Date'>Playing Date</option>
-      {playingDateOptionItems}
-    </select>
-  );
-}
+</script>
+
+<select
+  bind:value={$playingDate}
+  on:change={handleChange}>
+  <option value='Date'>Playing Date</option>
+  
+  {#each playingDates as playinDate (uuidv4())}
+  <option value={playingDate}>
+    {playingDate}
+  </option>
+{/each}
+</select>

@@ -39,16 +39,50 @@ const playingDates = () => {
   return playingDates;
 };
 
-export const playingDateOptionItems = playingDates().map((playingDate) => (
-  <option key={uuidv4()}>{playingDate}</option>
-));
-const teeTimeCounts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+export const linkTimes = () => {
+  let linkTimes = [];
+  linkTimes.push(
+    'Shotgun',
+    '8:30 Shotgun',
+    '8:45 Shotgun',
+    '9:00 Shotgun',
+    '9:30 Shotgun',
+    '10:00 Shotgun',
+    '10:30 Shotgun',
+    '11:00 Shotgun',
+    '11:30 Shotgun',
+    '12:00 Shotgun',
+    '12:30 Shotgun',
+    '1:00 Shotgun',
+    '1:30 Shotgun'
+  );
+  let now = new Date();
+  let year = now.getFullYear();
+  let month = now.getMonth() + 1;
+  let date = now.getDate();
+  let firstLinkTime = new Date(year, month, date, 7, 46, 0, 0);
+  let hour = firstLinkTime.getHours();
+  let minute = firstLinkTime.getMinutes();
 
-export const teeTimeCountOptionItems = teeTimeCounts.map((count) => (
-  <option key={uuidv4()} value={count}>
-    {count === 1 ? count + ' tee time' : count + ' tee times'}
-  </option>
-));
+  function setLinkTime() {
+    let aLinkTime;
+    if (minute < 10) {
+      aLinkTime = hour + ':0' + minute;
+    } else {
+      aLinkTime = hour + ':' + minute;
+    }
+    return aLinkTime;
+  }
+
+  linkTimes.push(setLinkTime());
+  for (let i = 1; i < 72; i++) {
+    firstLinkTime.setMinutes(firstLinkTime.getMinutes() + 8);
+    hour = firstLinkTime.getHours();
+    minute = firstLinkTime.getMinutes();
+    linkTimes.push(setLinkTime());
+  }
+  return linkTimes;
+};
 
 const teeAssignments = [
   '1',
@@ -107,63 +141,13 @@ const teeAssignments = [
   '18B',
 ];
 
-export const linkTimes = () => {
-  let linkTimes = [];
-  linkTimes.push(
-    'Shotgun',
-    '8:30 Shotgun',
-    '8:45 Shotgun',
-    '9:00 Shotgun',
-    '9:30 Shotgun',
-    '10:00 Shotgun',
-    '10:30 Shotgun',
-    '11:00 Shotgun',
-    '11:30 Shotgun',
-    '12:00 Shotgun',
-    '12:30 Shotgun',
-    '1:00 Shotgun',
-    '1:30 Shotgun'
-  );
-  let now = new Date();
-  let year = now.getFullYear();
-  let month = now.getMonth() + 1;
-  let date = now.getDate();
-  let firstLinkTime = new Date(year, month, date, 7, 46, 0, 0);
-  let hour = firstLinkTime.getHours();
-  let minute = firstLinkTime.getMinutes();
-
-  function setLinkTime() {
-    let aLinkTime;
-    if (minute < 10) {
-      aLinkTime = hour + ':0' + minute;
-    } else {
-      aLinkTime = hour + ':' + minute;
-    }
-    return aLinkTime;
-  }
-
-  linkTimes.push(setLinkTime());
-  for (let i = 1; i < 72; i++) {
-    firstLinkTime.setMinutes(firstLinkTime.getMinutes() + 8);
-    hour = firstLinkTime.getHours();
-    minute = firstLinkTime.getMinutes();
-    linkTimes.push(setLinkTime());
-  }
-  return linkTimes;
-};
-export const linkTimeOptionItems = linkTimes().map((linkTime) => (
-  <option key={uuidv4()} value={linkTime}>
-    {linkTime}
-  </option>
-));
-
 export const teeAssignmentOptionItems = teeAssignments.map((teeAssignment) => (
   <option key={uuidv4()} value={teeAssignment}>
     {teeAssignment}
   </option>
 ));
 
-function manualCHList() {
+const manualCHList = () => {
   let manualCHList = [];
   manualCHList.push({ value: '*', text: '*' });
   manualCHList.push({ value: 'Auto', text: 'Auto' });
@@ -175,13 +159,6 @@ function manualCHList() {
   for (let i = 0; i < 61; i++) manualCHList.push({ value: i, text: i });
   return manualCHList;
 }
-
-export const manualCHOptionItems = manualCHList().map((manualCH) => (
-  <option key={uuidv4()} value={manualCH.value}>
-    {manualCH.text}
-  </option>
-));
-
 const holesArray = ['6/6/6', '9&9', '18'];
 
 export const holesOptionItems = holesArray.map((item) => (
