@@ -1,37 +1,17 @@
-'use client';
-import { v4 as uuidv4 } from 'uuid';
-import * as _ from 'lodash';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { useGetPlayersInGroup } from '$lib/components/common/hooks';
-import { SortOrderDropdown } from '$lib/components/lineup/dropdowns';
-import { get } from '$lib/components/common/utils';
-import * as state from '$lib/store';
-
-export default function DeletePlayersFromLineupTable() {
-  const idsInLineup = useRecoilValue(state.idsInLineup);
-  const course = useRecoilValue(state.course);
-  const teesSelected = useRecoilValue(state.teesSelected);
-  const getPlayersInGroup = useGetPlayersInGroup();
-  const playersInGroup = getPlayersInGroup(
-    'createLineupTable',
-    teesSelected[course]
-  );
-  const [teamTables, setTeamTables] = useRecoilState(state.teamTables);
-  const teeTimeCount = useRecoilValue(state.teeTimeCount);
-  const [playersInLineup, setPlayersInLineup] = useRecoilState(
-    state.playersInLineup
-  );
-  const deletePlayerCount = playersInLineup.length;
-  const resetPlayersInLineup = useResetRecoilState(state.playersInLineup);
-
-  function handleDeletePlayersClick(idsToBeDeleted) {
-    deletePlayersFromTeams(idsToBeDeleted);
-  }
+<script>
+  import {idsInLineup, teamTables, teeTimeCount, playersInLineup} from '$lib/store';
+  import { v4 as uuidv4 } from 'uuid';
+  import * as _ from 'lodash';
+  import { getPlayersInGroup } from '$lib/components/common/utils';
+  import { SortOrderDropdown } from '$lib/components/lineup/dropdowns';
+  import { get } from '$lib/components/common/utils';
+  const playersInGroup = getPlayersInGroup('createLineupTable');
+  const deletePlayerCount = $playersInLineup.length;
 
   function deletePlayersFromTeams(idsToBeDeleted) {
-    let newTeamTables = _.cloneDeep(teamTables);
+    let newTeamTables = _.cloneDeep($teamTables);
     idsToBeDeleted.forEach(deletePlayer);
-    setTeamTables(newTeamTables);
+    $teamTables = newTeamTables;
 
     function deletePlayer(item, index) {
       let id = parseInt(item);
@@ -53,12 +33,12 @@ export default function DeletePlayersFromLineupTable() {
         };
       }
     }
-  }
+  };
 
   const handleClick = (idToBeDeleted) => (event) => {
     const idsToBeDeleted = [idToBeDeleted.toString()];
     let newIdsInLineup = [];
-    idsInLineup.forEach((id) => {
+    $idsInLineup.forEach((id) => {
       if (idsToBeDeleted.includes(id) === false) {
         newIdsInLineup.push(id);
       }
@@ -69,27 +49,26 @@ export default function DeletePlayersFromLineupTable() {
         newPlayersInLineupArray.push(player);
       }
     });
-    setPlayersInLineup(newPlayersInLineupArray);
-    handleDeletePlayersClick(idsToBeDeleted);
-  };
-
-  function generateListItems() {
-    let listItems = playersInLineup.map((player) => (
-      <li key={uuidv4()} on:click={handleClick(player.id)}>
-        {player.playerName}
-      </li>
-    ));
-    return listItems;
-  }
+    $playersInLineup = newPlayersInLineupArray;
+    deletePlayersFromTeams(idsToBeDeleted);
+  };  
 
   function handleClear() {
-    resetPlayersInLineup();
-  }
+    $playersInLineup = [];;
+  };
+</script>
 
-  return (
     <div class='players'>
       <h4>{deletePlayerCount} In Lineup</h4>
-      <ul>{generateListItems()}</ul>
+      <ul>
+        {#each $playersInLineup as player (uuidv4())}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+          <li on:click={handleClick(player.id)}>
+            {player.playerName}
+          </li>
+        {/each}
+      </ul>
       <div class='divider'></div>
       <SortOrderDropdown />
       <button class='stacked' on:click={handleClear}>

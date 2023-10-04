@@ -465,18 +465,7 @@ select {
 	width: fit-content;
 }
 
-#change-tees form {
-	margin: 0 auto;
-	padding: 0 0.5em 0.5em 0.5em;
-	text-align: center;
-	width: fit-content;
-}
 
-#change-tees select {
-	margin: 0.5em auto;
-	padding: 0.5em;
-	overflow-y: hidden;
-}
 
 .players {
 	padding: 0 0.25em;
@@ -494,12 +483,6 @@ select {
 .players > ul > li {
 	font-size: var(--step-0);
 	text-align: center;
-}
-
-#add-players > div {
-	display: flex;
-	flex-direction: row;
-	margin: 0 auto;
 }
 
 svg {

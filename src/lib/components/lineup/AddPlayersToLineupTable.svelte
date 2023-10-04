@@ -1,28 +1,16 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useGetPlayersInGroup } from '$lib/components/common/hooks';
-import { usePlayersNotInLineup } from '$lib/components/lineup/hooks';
-import { get } from '$lib/components/common/utils';
-import * as state from '$lib/store';
+<script>
+  import {idsInLineup, playersInLineup} from '$lib/store';
+  import { v4 as uuidv4 } from 'uuid';
+  import { getPlayersInGroup } from '$lib/components/common/utils';
+  import { playersNotInLineup } from '$lib/components/lineup/utils';
 
-export default function AddPlayersToLineupTable() {
-  const playersNotInLineup = usePlayersNotInLineup();
-  const idsInLineup = useRecoilValue(state.idsInLineup);
-  const course = useRecoilValue(state.course);
-  const teesSelected = useRecoilValue(state.teesSelected);
-  const getPlayersInGroup = useGetPlayersInGroup();
-  const playersInGroup = getPlayersInGroup(
-    'createLineupTable',
-    teesSelected[course]
-  );
-  const setPlayersInLineup = useSetRecoilState(state.playersInLineup);
+  const playersInGroup = getPlayersInGroup('createLineupTable');
 
   const addPlayerCount = playersNotInLineup().length;
 
   const handleClick = (idToBeAdded) => (event) => {
     const idsAddedToLineupArray = [idToBeAdded];
-    const oldIdsInLineup = idsInLineup;
+    const oldIdsInLineup = $idsInLineup;
     const newIdsInLineup = oldIdsInLineup.concat(idsAddedToLineupArray);
     let newPlayersInLineupArray = [];
     newIdsInLineup.forEach((id) => {
@@ -43,7 +31,7 @@ export default function AddPlayersToLineupTable() {
           : -1
         : -1
     );
-    setPlayersInLineup(newPlayersInLineupArray);
+    $playersInLineup = newPlayersInLineupArray;
   }
 
   function generateListItems() {
@@ -54,11 +42,15 @@ export default function AddPlayersToLineupTable() {
     ));
     return listItems;
   }
+</script>
 
-  return (
-    <div class='players'>
-      <h4>{addPlayerCount} Not In Lineup</h4>
-      <ul>{generateListItems()}</ul>
-    </div>
-  );
-}
+<div class='players'>
+  <h4>{addPlayerCount} Not In Lineup</h4>
+  <ul>
+    {#each playersNotInLineup() as player (uuidv4())}
+      <li on:click={handleClick(player.id)}>
+        {player.playerName}
+      </li>
+    {/each}
+  </ul>
+</div>
