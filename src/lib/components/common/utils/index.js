@@ -5,7 +5,7 @@ export { default as computeAdjTeamProgs } from '$lib/components/common/utils/com
 export { default as returnCourseHandicapArray } from '$lib/components/common/utils/returnCourseHandicapArray';
 export { default as createProgAdjMessage } from '$lib/components/common/utils/createProjAdjMessage';
 export { default as getCourseName } from '$lib/components/common/utils/getCourseName';
-//export { default as getTeeTimes } from '$lib/components/common/utils/getTeeTimes';
+export { default as getTeeTimes } from '$lib/components/common/utils/getTeeTimes';
 export { default as getGender } from '$lib/components/common/utils/getGender';
 export { default as setRatingSlopePar } from '$lib/components/common/utils/setRatingSlopePar';
 export { default as setTeamHcpAndProgs } from '$lib/components/common/utils/setTeamHcpAndProgs';

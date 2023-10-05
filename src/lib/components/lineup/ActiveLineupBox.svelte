@@ -1,8 +1,8 @@
 <script>
-  import { textareaValue,course,playingDate,progAdj,progs069,okToSave, okToAddPlayers} from '$lib/store';
-  import { LineupTextarea, SaveLineup } from '$lib/components/lineup';
+  import { v4 as uuidv4 } from 'uuid';
+  import { teeTimeCount, teamTables, textareaValue,course,playingDate,progAdj,progs069,okToSave, okToAddPlayers} from '$lib/store';
+  import { LineupTextarea, SaveLineup, TeamTable } from '$lib/components/lineup';
   import { AutoButtons } from '$lib/components/lineup/buttons';
-  import { generateTeamTables } from '$lib/components/lineup/utils';
   import { createProgAdjMessage, getCourseName } from '$lib/components/common/utils';
   import { GameOptionsModal } from '$lib/components/lineup';
   const progAdjMessage = createProgAdjMessage($progAdj, $progs069);
@@ -15,12 +15,21 @@
   function handleClearGame() {
     $textareaValue = '';
   }
+
+  const arrayTeeTimeIndexes = (start, stop, step) =>
+    Array.from(
+    { length: (stop - start) / step + 1 },
+    (value, index) => start + index * step
+    );
+  const teeTimeIndexes = arrayTeeTimeIndexes(0,teeTimeCount,1)
 </script>
 
 <div class='titled_outer'>
   <h2>{header}</h2>
   <AutoButtons />
-  {generateTeamTables()}
+  {#each teeTimeIndexes as item (uuidv4())}
+    <TeamTable teamNumber={item} teamMembers={$teamTables['team' + item]} />
+  {/each}
   {#if (progs069 > 0 && okToAddPlayers)}
     <p>{progAdjMessage}</p>
   {/if}

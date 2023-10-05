@@ -58,8 +58,8 @@
 </script>
 
 <div class='titled_outer'>
-  <h2>{lineupTitle}</h2>
-  {#if currentLineup}
+  <h2>{$lineupTitle}</h2>
+  {#if $currentLineup}
     <CurrentSavedLineup lineupSnapshot={$snapshots[currentLineupIndex]} />
   {/if}
   {#if (!currentLineup && playersInLineup.length > 0 && linkTime !== 'Set Link Time Above')}

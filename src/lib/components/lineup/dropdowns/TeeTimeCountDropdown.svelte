@@ -40,7 +40,7 @@
   <select
     bind:value={$teeTimeCount}
     on:change={handleChange}>
-    <option value='0'># of Tee Times</option>
+    <option value=0># of Tee Times</option>
     {#each teeTimeCounts as count (uuidv4())}
       <option value={count}>
         {#if count === 1}

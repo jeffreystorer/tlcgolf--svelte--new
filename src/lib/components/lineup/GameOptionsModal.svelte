@@ -1,7 +1,7 @@
 <script>  
   import { v4 as uuidv4 } from 'uuid';
   import {textareaValue, teeTimeCount, playerCount, bets} from '$lib/store';
-  import {teeAssignments, holesArray, grossupArray, entryPerArray, rulesArray, puttsArray} from '$lib/components/lineup/optionitems';
+  import {holesArray, grossupArray, entryPerArray, rulesArray, puttsArray} from '$lib/components/lineup/optionitems';
   const excessPayoutMessage =
     'You are paying out more than the pot.  Please adjust your payouts.';
   const missingHolesMessage = 'Please select the number of holes for each bet.';
@@ -39,11 +39,11 @@
       alert(excessPayoutMessage);
       return;
     }
-    let textareaValue = holes + ' ' + bet;
-    if (max !== '') textareaValue = textareaValue + '\n' + max;
-    if (grossup !== '') textareaValue = textareaValue + '\n' + grossup;
-    textareaValue =
-      textareaValue +
+    let _textareaValue = holes + ' ' + bet;
+    if (max !== '') _textareaValue = _textareaValue + '\n' + max;
+    if (grossup !== '') _textareaValue = _textareaValue + '\n' + grossup;
+    _textareaValue =
+      _textareaValue +
       '\n' +
       'Entry: $' +
       entry +
@@ -51,17 +51,17 @@
       '  Pot: $' +
       pot +
       '\n';
-    if (thirdPayout > 0) textareaValue = textareaValue + '\n';
-    textareaValue = textareaValue + 'Payout: $' + firstPayout;
-    if (secondPayout > 0) textareaValue = textareaValue + '/$' + secondPayout;
-    if (thirdPayout > 0) textareaValue = textareaValue + '/$' + thirdPayout;
+    if (thirdPayout > 0) _textareaValue = _textareaValue + '\n';
+    _textareaValue = _textareaValue + 'Payout: $' + firstPayout;
+    if (secondPayout > 0) _textareaValue = _textareaValue + '/$' + secondPayout;
+    if (thirdPayout > 0) _textareaValue = _textareaValue + '/$' + thirdPayout;
     if (remainder > 0)
-      textareaValue =
-        textareaValue + '\nRemaining pot of $' + remainder + ' for skins';
-    if (rules !== '') textareaValue = textareaValue + '\n' + rules;
-    if (putts !== '') textareaValue = textareaValue + '\n' + putts;
-    setTextareaValue((prev) => textareaValue);
-    window.location.href = '#';
+      _textareaValue =
+        _textareaValue + '\nRemaining pot of $' + remainder + ' for skins';
+    if (rules !== '') _textareaValue = _textareaValue + '\n' + rules;
+    if (putts !== '') _textareaValue = _textareaValue + '\n' + putts;
+    $textareaValue = _textareaValue;
+    window.location.href = '/lineup';
   }
 
   function computePot(entry, entryPer) {
@@ -86,7 +86,6 @@
     thirdPayout
   ) {
     let payoutTotal = firstPayout + secondPayout + thirdPayout;
-    console.log('😊😊 payoutTotal', payoutTotal);
     switch (holes) {
       case '6/6/6':
         return pot - payoutTotal * 3;
@@ -98,33 +97,34 @@
         break;
     }
   }
-
-//TODO: Fix failure to remember bet
 </script>
 
-
- 
-  
-
-
 <div id='gameoptionsmodal' class='modal'>
+  <!-- svelte-ignore a11y-missing-content -->
+  <!-- svelte-ignore a11y-invalid-attribute -->
   <a href='#' class='modalClose' hidden></a>
   <section>
     <header>
       <h2>Choose the options for your game</h2>
+      <!-- svelte-ignore a11y-missing-content -->
+      <!-- svelte-ignore a11y-invalid-attribute -->
       <a href='#' class='modalClose' hidden></a>
     </header>
-    <form onSubmit={handleSubmit}>
+    <form on:submit={handleSubmit}>
       <fieldset>
         <select name='holes'>
           <option value=''>Select Number of Holes for Each Bet</option>
-          {holesOptionItems}
+          {#each holesArray as item (uuidv4())}
+            <option value={item}>
+              {item}
+            </option>
+          {/each}
         </select>
         <select name='bet'>
           <option value=''>Select Bet</option>
-          {#each bets as bet (uuidv4())}
-            <option value={bet}>
-              {bet}
+          {#each bets as item (uuidv4())}
+            <option value={item}>
+              {item}
             </option>
           {/each}
         </select>
@@ -134,11 +134,20 @@
         </label>
         <select name='grossup'>
           <option value=''>Gross Up?</option>
-          {grossupOptionItems}
+          
+          {#each grossupArray as item (uuidv4())}
+            <option value={item}>
+              {item}
+            </option>
+          {/each}
         </select>
         <select name='entryPer'>
-          <option value=''>Entry per player or team?</option>
-          {entryPerOptionItems}
+          <option value=''>Entry per player or team?</option>          
+          {#each entryPerArray as item (uuidv4())}
+            <option value={item}>
+              {item}
+            </option>
+          {/each}
         </select>
         <article>
           <label>
@@ -146,6 +155,7 @@
             <br />
             <input type='number' name='entry' min='1' max='100' />
           </label>
+          <!-- svelte-ignore a11y-label-has-associated-control -->
           <label>
             <br />
             Payouts:
@@ -167,14 +177,23 @@
           </label>
         </article>
         <select name='rules'>
-          <option value=''>Winter or Summer Rules?</option>
-          {rulesOptionItems}
+          <option value=''>Winter or Summer Rules?</option>                   
+          {#each rulesArray as item (uuidv4())}
+            <option value={item}>
+              {item}
+            </option>
+          {/each}
         </select>
         <select name='putts'>
           <option value=''>Putts Good?</option>
-          {puttsOptionItems}
+          {#each puttsArray as item (uuidv4())}
+          <option value={item}>
+            {item}
+          </option>
+        {/each}
         </select>
         <footer>
+          <!-- svelte-ignore a11y-invalid-attribute -->
           <a type='button' class='not-stacked modalClose' href='#'>
             Cancel
           </a>

@@ -1,8 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-import { createTeeOptionItems } from '$lib/components/lineup/optionitems/utils';
-
-//date and time Dropdowns option items
-
 const days = [
   'Sunday',
   'Monday',
@@ -26,7 +21,7 @@ const months = [
   'Nov.',
   'Dec.',
 ];
-const playingDates = () => {
+export const playingDates = () => {
   let playingDates = [];
   const today = new Date();
   for (let i = 0; i < 8; i++) {
@@ -38,7 +33,6 @@ const playingDates = () => {
   }
   return playingDates;
 };
-
 export const linkTimes = () => {
   let linkTimes = [];
   linkTimes.push(
@@ -83,8 +77,7 @@ export const linkTimes = () => {
   }
   return linkTimes;
 };
-
-const teeAssignments = [
+export const teeAssignments = [
   '1',
   '1A',
   '1B',
@@ -140,7 +133,7 @@ const teeAssignments = [
   '18A',
   '18B',
 ];
-const manualCHList = () => {
+export const manualCHList = () => {
   let manualCHList = [];
   manualCHList.push({ value: '*', text: '*' });
   manualCHList.push({ value: 'Auto', text: 'Auto' });
@@ -152,48 +145,14 @@ const manualCHList = () => {
   for (let i = 0; i < 61; i++) manualCHList.push({ value: i, text: i });
   return manualCHList;
 }
-const holesArray = ['6/6/6', '9&9', '18'];
-
-export const holesOptionItems = holesArray.map((item) => (
-  <option key={uuidv4()} value={item}>
-    {item}
-  </option>
-));
-
-const grossupArray = ['Threesome(s)=4/3', 'Foursomes(s)=3/4'];
-
-export const grossupOptionItems = grossupArray.map((item) => (
-  <option key={uuidv4()} value={item}>
-    {item}
-  </option>
-));
-
-const entryPerArray = ['player', 'team'];
-
-export const entryPerOptionItems = entryPerArray.map((item) => (
-  <option key={uuidv4()} value={'/' + item}>
-    per {item}
-  </option>
-));
-
-const rulesArray = ['Winter Rules', 'Summer Rules', 'LCP through the green'];
-
-export const rulesOptionItems = rulesArray.map((item) => (
-  <option key={uuidv4()} value={item}>
-    {item}
-  </option>
-));
-
-const puttsArray = [
+export const holesArray = ['6/6/6', '9&9', '18'];
+export const grossupArray = ['Threesome(s)=4/3', 'Foursomes(s)=3/4'];
+export const entryPerArray = ['player', 'team'];
+export const rulesArray = ['Winter Rules', 'Summer Rules', 'LCP through the green'];
+export const puttsArray = [
   { nickName: 'Hole All', fullName: 'PLEASE HOLE ALL PUTTS THAT COUNT' },
   {
     nickName: 'Good within a Shoe Length',
     fullName: 'PUTTS GOOD WITHIN A SHOE LENGTH',
   },
 ];
-
-export const puttsOptionItems = puttsArray.map((item) => (
-  <option key={uuidv4()} value={item.fullName}>
-    {item.fullName}
-  </option>
-));

@@ -12,9 +12,8 @@
 <select
   bind:value={$playingDate}
   on:change={handleChange}>
-  <option value='Date'>Playing Date</option>
-  
-  {#each playingDates as playinDate (uuidv4())}
+  <option value='Date'>Playing Date</option>  
+  {#each playingDates() as playingDate (uuidv4())}
   <option value={playingDate}>
     {playingDate}
   </option>

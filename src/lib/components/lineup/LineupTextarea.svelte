@@ -1,5 +1,5 @@
 <script>
-  import TextArea from '$lib/components/lineup';
+  import { TextAreaAutosize } from '$lib/components/lineup';
   import { textareaValue } from '$lib/store';
 
   const handleChange = (event) => {
@@ -8,7 +8,7 @@
 
 </script>
 
-<TextArea
+<TextAreaAutosize
   minRows{1}
   maxRows{20}
   bind:value={$textareaValue}

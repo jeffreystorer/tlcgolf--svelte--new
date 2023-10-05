@@ -1,6 +1,6 @@
 import { derived, readable, writable } from 'svelte/store';
 import { get, returnDisplayNumber } from '$lib/components/common/utils';
-//import { getPlayersNotInTeeTime } from "$lib/components/lineup/utils";
+import { getPlayersNotInTeeTime } from "$lib/components/lineup/utils";
 
 /*\/\/\/\/\/\/Values set by useSetAllRecoilState\/\/\/\/\/\/\*/
 
@@ -90,8 +90,8 @@ export const playerCount = derived(teamTables, ($teamTables) => {
 	}
 	return playerCount;
 });
-/* export const playersNotInTeeTime = derived([playersInLineup, teamTables], ($items) => 
-  {return getPlayersNotInTeeTime($items[0], $items[1]); */
+export const playersNotInTeeTime = derived([playersInLineup, teamTables], ($items) => 
+  {return getPlayersNotInTeeTime($items[0], $items[1])});
 export const okToSave = derived(
 	[playingDate, teeTimeCount, linkTime, playersInLineup, teamTables],
 	($items) => {
@@ -108,7 +108,7 @@ export const okToSave = derived(
 		return ok;
 	}
 );
-export const okAddPlayers = derived(
+export const okToAddPlayers = derived(
 	[playingDate, teeTimeCount, linkTime, playersInLineup, teamTables],
 	($items) => {
 		let ok = false;

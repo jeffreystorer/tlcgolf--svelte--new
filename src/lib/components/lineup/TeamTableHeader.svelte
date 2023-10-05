@@ -5,7 +5,7 @@
   import { ChevronDown } from 'react-feather';
   import { ChevronUp } from 'react-feather';
   import * as _ from 'lodash';
-  import { get, returnHeaderRow, getTeeTimes } from '$lib/components/common/utils';
+  import { returnHeaderRow, getTeeTimes } from '$lib/components/common/utils';
   import {teeAssignments} from '$lib/components/lineup/optionitems';
   //playerCount is used to size the box
   const playersNotInTeeTimeCount = $playersNotInTeeTime.length;

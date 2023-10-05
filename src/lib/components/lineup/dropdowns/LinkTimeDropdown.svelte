@@ -11,7 +11,7 @@
   Link Time
   <select name='linkTime' bind:value={$linkTime} on:change={handleChange}>
     <option value='Link Time'>Link Time</option>
-    {#each linkTimes as linkTime (uuidv4())}
+    {#each linkTimes() as linkTime (uuidv4())}
     <option value={linkTime}>
       {linkTime}
     </option>

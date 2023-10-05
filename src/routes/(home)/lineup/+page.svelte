@@ -4,7 +4,7 @@
   $snapshots = data.snapshots;
   import  {onMount} from 'svelte';
   import {
-    /* ActiveLineupBox,*/
+    ActiveLineupBox,
     LineupBeingEditedBox,
     ConfirmDeleteModal,
     MissingPlayerModal,
@@ -39,11 +39,11 @@
         {/if}
         <LineupBeingEditedBox />
       </article>
-      <!-- {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}
+      {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}
         <article>
           <ActiveLineupBox snapshots={$snapshots} />
         </article>
-      {/if} -->
+      {/if}
       </section>
       <ConfirmDeleteModal />
       <MissingPlayerModal />

@@ -21,8 +21,8 @@ export default function getPlayersInGroup(playersArrayType) {
 	/*For a player whose preferred tee is
   not included in the tees selected,
   set the player's tee choice to the first tee selected*/
-
-	allPlayersInTable.forEach(addRowToPlayersArray);
+	const _allPlayersInTable = get(allPlayersInTable)
+	_allPlayersInTable.forEach(addRowToPlayersArray);
 
 	switch (playersArrayType) {
 		case 'createLineupTable':
@@ -88,7 +88,8 @@ export default function getPlayersInGroup(playersArrayType) {
 		let local = aPlayer[6];
 		let playerName = firstName + ' ' + lastName + ' (' + strHcpIndex + ')';
 		let walkRide = 'R';
-		if (groups.slice(-1) === 'Walk') {
+		const _groups = get(groups)
+		if (_groups.slice(-1) === 'Walk') {
 			let walk = aPlayer.slice(-1);
 			switch (walk) {
 				case 'YES':

@@ -1,12 +1,12 @@
 import { get } from 'svelte/store';
 import { courseData } from '$lib/store';
-const _courseData = get(courseData);
 import { courses } from "$lib/components/common/data";
 import { createTeeArrays } from "$lib/components/common/utils";
 import { createTeeLabels } from "$lib/components/lineup/optionitems/utils";
 
   export default function createChangeTeesOptionItems() {
-    let teeArrays = createTeeArrays();
+    const _courseData = get(courseData);
+    let teeArrays = createTeeArrays(_courseData);
     let teeLabels = createTeeLabels(_courseData);
     let allTeeOptionItems = [];
     let teeOptionItems = [];
