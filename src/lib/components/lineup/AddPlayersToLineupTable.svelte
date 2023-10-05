@@ -34,20 +34,15 @@
     $playersInLineup = newPlayersInLineupArray;
   }
 
-  function generateListItems() {
-    let listItems = playersNotInLineup().map((player) => (
-      <li key={uuidv4()} on:click={handleClick(player.id)}>
-        {player.playerName}
-      </li>
-    ));
-    return listItems;
-  }
+ 
 </script>
 
 <div class='players'>
   <h4>{addPlayerCount} Not In Lineup</h4>
   <ul>
     {#each playersNotInLineup() as player (uuidv4())}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <li on:click={handleClick(player.id)}>
         {player.playerName}
       </li>

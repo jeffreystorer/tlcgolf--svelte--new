@@ -140,13 +140,6 @@ const teeAssignments = [
   '18A',
   '18B',
 ];
-
-export const teeAssignmentOptionItems = teeAssignments.map((teeAssignment) => (
-  <option key={uuidv4()} value={teeAssignment}>
-    {teeAssignment}
-  </option>
-));
-
 const manualCHList = () => {
   let manualCHList = [];
   manualCHList.push({ value: '*', text: '*' });

@@ -6,7 +6,7 @@ export { default as handleSortPlayersInLineup } from "$lib/components/lineup/uti
 export { default as lineupService} from "$lib/components/lineup/utils/lineupService";
 export { default as loadSavedLineup} from "$lib/components/lineup/utils/loadSavedLineup";
 export { default as playersNotInLineup} from "$lib/components/lineup/utils/playersNotInLineup";
-export { default as recomputeTeamTables} from "$lib/components/lineup/utilsrecomputeTeamTables";
+export { default as recomputeTeamTables} from "$lib/components/lineup/utils/recomputeTeamTables";
 export { default as saveLineupToFirebase } from "$lib/components/lineup/utils/saveLineupToFirebase";
 export { default as setAutoABCD } from "$lib/components/lineup/utils/setAutoABCD";
 export { default as setAutoPop } from "$lib/components/lineup/utils/setAutoPop";

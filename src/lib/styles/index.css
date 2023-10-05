@@ -488,10 +488,6 @@ select {
 svg {
 	min-width: 24px;
 }
-#players-not-in-tee-time > li {
-	font-size: var(--step-0);
-	font-weight: normal;
-}
 
 
 

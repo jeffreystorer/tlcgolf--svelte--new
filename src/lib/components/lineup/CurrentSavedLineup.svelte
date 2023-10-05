@@ -5,7 +5,6 @@
   import {playersInLineup,currentLineupIndex,currentLineup,lineupTitle,sortOrder,playingDate,teeTimeCount,linkTime,progs069,progAdj,currentLineupKey,deleteAll} from '$lib/store';
   import { ConfirmDeleteModal } from '$lib/components/lineup';
   import { loadSavedLineup } from '$lib/components/lineup/utils';
-  import useLineupService from '$lib/components/lineup/hooks/useLineupService';
 
   const editLineup = () => {
     $sortOrder = 'alphabetical';

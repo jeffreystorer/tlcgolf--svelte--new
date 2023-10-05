@@ -1,30 +1,16 @@
-'use client';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { v4 as uuidv4 } from 'uuid';
-import { ChevronDown } from 'react-feather';
-import { ChevronUp } from 'react-feather';
-import * as _ from 'lodash';
-import { TitledBox } from '$lib/components/common';
-import { get, returnHeaderRow, getTeeTimes } from '$lib/components/common/utils';
-import * as options from '$lib/components/lineup/optionitems';
-import * as state from '$lib/store';
-
-const TeamTableHeader = ({ teamNumber, teamMembers }) => {
-  const course = useRecoilValue(state.course);
-  const teesSelected = useRecoilValue(state.teesSelected);
-  const playersNotInTeeTime = useRecoilValue(state.playersNotInTeeTime);
-  const teeTimeCount = useRecoilValue(state.teeTimeCount);
-  const linkTime = useRecoilValue(state.linkTime);
-  const playersInLineup = useRecoilValue(state.playersInLineup);
-  const [teamTables, setTeamTables] = useRecoilState(state.teamTables);
+<script>
+  export let teamNumber;
+  import {course, teesSelected, playersNotInTeeTime, teeTimeCount, linkTime, playersInLineup, teamTables,showAddTeamMember} from '$lib/store';
+  import { v4 as uuidv4 } from 'uuid';
+  import { ChevronDown } from 'react-feather';
+  import { ChevronUp } from 'react-feather';
+  import * as _ from 'lodash';
+  import { get, returnHeaderRow, getTeeTimes } from '$lib/components/common/utils';
+  import {teeAssignments} from '$lib/components/lineup/optionitems';
   //playerCount is used to size the box
-  const playersNotInTeeTimeCount = playersNotInTeeTime.length;
-  const [showAddTeamMember, setShowAddTeamMember] = useRecoilState(
-    state.showAddTeamMember
-  );
-  const times = getTeeTimes(linkTime, teeTimeCount);
+  const playersNotInTeeTimeCount = $playersNotInTeeTime.length;
+  const times = getTeeTimes($linkTime, $teeTimeCount);
   const teamName = 'team' + teamNumber;
-
   function handleAddTeamMember(name, idToBeAddedToTeam) {
     const optionValues = [idToBeAddedToTeam];
     optionValues.forEach(addPlayer);
@@ -32,10 +18,10 @@ const TeamTableHeader = ({ teamNumber, teamMembers }) => {
       let newPlayerObj = playersInLineup.find(
         (player) => player.id === Number(item)
       );
-      setTeamTables((prevTeamTables) => ({
-        ...prevTeamTables,
-        [name]: prevTeamTables[name].concat(newPlayerObj),
-      }));
+      $teamTables = ({
+        ...$teamTables,
+        [name]: $teamTables[name].concat(newPlayerObj),
+      });
     }
   }
 
@@ -45,7 +31,7 @@ const TeamTableHeader = ({ teamNumber, teamMembers }) => {
   }
 
   function moveTeamUp(teamNumber) {
-    let newTeamTables = _.cloneDeep(teamTables);
+    let newTeamTables = _.cloneDeep($teamTables);
     let teams = [];
     let i;
     let teamName = '';
@@ -57,40 +43,27 @@ const TeamTableHeader = ({ teamNumber, teamMembers }) => {
     let teamNameGoingDown = 'team' + (teamNumber - 1);
     newTeamTables[teamNameGoingUp] = teams[teamNumber - 1];
     newTeamTables[teamNameGoingDown] = teams[teamNumber];
-    setTeamTables(newTeamTables);
+    $teamTables = newTeamTables;
   }
 
-  let cols = returnHeaderRow(teesSelected[course]);
-  const getHeader = () => {
-    cols.shift();
-    var keys = cols;
-    return keys.map((key, index) => {
-      return (
-        <th scope='col' key={uuidv4()}>
-          {key}
-        </th>
-      );
-    });
-  };
-
   function handleTeeTimeClick() {
-    setShowAddTeamMember((prev) => ({
-      ...prev,
+    $showAddTeamMember = ({
+      ...$showAddTeamMember,
       [teamName]: true,
-    }));
+    });
   }
 
   function handleTeeAssignmentChange(e) {
     let newTeamTables = _.cloneDeep(teamTables);
     newTeamTables.teeAssignments[teamNumber] = e.target.value;
-    setTeamTables(newTeamTables);
+    $teamTables = newTeamTables;
   }
 
   function handleDoneClick() {
-    setShowAddTeamMember((prev) => ({
-      ...prev,
+    $showAddTeamMember = ({
+      ...$showAddTeamMember,
       [teamName]: false,
-    }));
+    });
   }
 
   const handleClick = (idToBeAddedToTeam) => (event) => {
@@ -98,62 +71,76 @@ const TeamTableHeader = ({ teamNumber, teamMembers }) => {
     handleAddTeamMember(teamName, idToBeAddedToTeam);
   };
 
-  function generatePlayersNotInTeeTimeListItems() {
-    let listItems = playersNotInTeeTime.map((player) => (
-      <li key={uuidv4()} on:click={handleClick(player.id)}>
-        {player.playerName}
-      </li>
-    ));
-    return listItems;
+  let cols = returnHeaderRow($teesSelected[$course]);
+  cols.shift();
+  const keys = cols;
+
+</script>
+
+
+<thead>
+  {#if ($showAddTeamMember[teamName] && $playersNotInTeeTimeCount > 0)}
+    <tr key={uuidv4()}>
+      <th scope='col' colSpan={$teesSelected[$course].length + 4}>
+        <div class='titled_inner'>
+          <h3>{'Add to ' + times[teamNumber] + ' Team'}</h3>
+          <ul>
+            {#each $playersNotInTeeTime as player (uuidv4())}
+              <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+              <!-- svelte-ignore a11y-click-events-have-key-events -->
+              <li on:click={handleClick(player.id)}>
+                {player.playerName}
+              </li>
+            {/each}
+          </ul>
+          <button class='not-stacked' on:click={handleDoneClick}>
+            Done
+          </button>
+        </div>
+      </th>
+    </tr>
+  {/if}
+  <tr>
+    <th scope='col' on:click={(e) => handleMoveTeamUp(e, teamNumber)}>
+      {#if teamNumber > 0}
+        <ChevronUp size='24' strokeWidth='3px' />
+      {:else }
+        <ChevronUp size='24' strokeWidth='3px' color='white' />
+      {/if}
+    </th>
+    <th scope='col' on:click={handleTeeTimeClick}>
+      {times[teamNumber]}
+      {#if playersNotInTeeTimeCount > 0}
+        <span>
+          <ChevronDown size='24' strokeWidth='3px' />
+        </span>
+      {/if}
+      {#if times[teamNumber].includes('Shotgun')}
+        <div class='select-dropdown-container'>
+          <select
+            name='teeAssignmentDropdown'
+            value={teamTables.teeAssignments[teamNumber]}
+            on:change={handleTeeAssignmentChange}>
+            {#each teeAssignments as teeAssignment (uuidv4())}
+              <option value={teeAssignment}>
+                {teeAssignment}
+              </option>
+            {/each}
+          </select>
+        </div>
+      {/if}
+    </th>
+    {#each keys as key (uuidv4())}
+      <th scope='col'>
+        {key}
+      </th>
+    {/each}
+  </tr>
+</thead>
+
+<style>  
+  ul > li {
+    font-size: var(--step-0);
+    font-weight: normal;
   }
-
-  return (
-    <thead>
-      {showAddTeamMember[teamName] && playersNotInTeeTimeCount > 0 && (
-        <tr key={uuidv4()}>
-          <th scope='col' colSpan={teesSelected[course].length + 4}>
-            <div class='titled_inner'>
-              <h3>{'Add to ' + times[teamNumber] + ' Team'}</h3>
-              <ul id='players-not-in-tee-time'>
-                {generatePlayersNotInTeeTimeListItems()}
-              </ul>
-              <button class='not-stacked' on:click={handleDoneClick}>
-                Done
-              </button>
-            </div>
-          </th>
-        </tr>
-      )}
-      <tr>
-        <th scope='col' on:click={(e) => handleMoveTeamUp(e, teamNumber)}>
-          {teamNumber > 0 ? (
-            <ChevronUp size='24' strokeWidth='3px' />
-          ) : (
-            <ChevronUp size='24' strokeWidth='3px' color='white' />
-          )}
-        </th>
-        <th scope='col' on:click={handleTeeTimeClick}>
-          {times[teamNumber]}
-          {playersNotInTeeTimeCount > 0 && (
-            <span>
-              <ChevronDown size='24' strokeWidth='3px' />
-            </span>
-          )}
-          {times[teamNumber].includes('Shotgun') && (
-            <div class='select-dropdown-container'>
-              <select
-                name='teeAssignmentDropdown'
-                value={teamTables.teeAssignments[teamNumber]}
-                on:change={handleTeeAssignmentChange}>
-                {options.teeAssignmentOptionItems}
-              </select>
-            </div>
-          )}
-        </th>
-        {getHeader()}
-      </tr>
-    </thead>
-  );
-};
-
-export default TeamTableHeader;
+</style>

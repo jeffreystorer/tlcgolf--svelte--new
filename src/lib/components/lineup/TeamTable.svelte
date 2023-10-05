@@ -21,7 +21,7 @@
       teamMembers,
       $progAdj,
       $progs069,
-      $teesSelected[$getcourse]
+      $teesSelected[$course]
     );
     teamHcp = teamHcpAndProgsValues[0];
     teamProgs = teamHcpAndProgsValues[1];
@@ -46,50 +46,11 @@
     setTeamValues();
   };
 
-  function generateCols(i) {
-    let tds = [];
-    for (var j = 0; j < teeCount; j++) {
-     
-    }
-
-    let aChosenTeeIndex = rows[i].courseHandicaps.indexOf(rows[i].teeChoice);
-    let manualCH = rows[i].courseHandicaps[aChosenTeeIndex];
-
-    tds.push(
-      <TeeChoiceDropdown
-        key={uuidv4()}
-        baseTee={rows[i].teeChoice}
-        playerId={rows[i].id}
-        teamNumber={teamNumber}
-      />
-    );
-
-    if (groups.slice(-1) === 'Walk') {
-      tds.push(
-        <WalkRideDropdown
-          key={uuidv4()}
-          walk={rows[i].walk}
-          playerId={rows[i].id}
-          teamNumber={teamNumber}
-        />
-      );
-    }
-
-    tds.push(
-      <ManualCHDropdown
-        key={uuidv4()}
-        manualCH={manualCH}
-        playerId={rows[i].id}
-        teamNumber={teamNumber}
-      />
-    );
-
-    return tds;
-  }
+ 
 </script>
 
 <table>
-  <TeamTableHeader {teamNumber} {teamMembers} />
+  <TeamTableHeader {teamNumber} />
   <tbody>
     {#each rows as row, index (uuidv4())}
       <tr>
@@ -106,7 +67,26 @@
               <td >{row.courseHandicaps[index]}</td>;
             {/if}
           {/each}
-          
+          <TeeChoiceDropdown
+            key={uuidv4()}
+            baseTee={row.teeChoice}
+            playerId={row.id}
+            teamNumber={teamNumber}
+          />
+          {#if (groups.slice(-1) === 'Walk')}
+            <WalkRideDropdown
+              key={uuidv4()}
+              walk={row.walk}
+              playerId={row.id}
+              teamNumber={teamNumber}
+            />
+          {/if}
+          <ManualCHDropdown
+            key={uuidv4()}
+            manualCH={rows.courseHandicaps[row.courseHandicaps.indexOf(row.teeChoice)]}
+            playerId={row.id}
+            teamNumber={teamNumber}
+          />
       </tr>
     {/each}
   </tbody>
