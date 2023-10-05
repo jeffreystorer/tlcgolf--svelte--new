@@ -15,3 +15,4 @@ export { default as SavedLineupsBox } from "$lib/components/lineup/SavedLineupsB
 export { default as ChangeTees } from "$lib/components/lineup/ChangeTees";
 export { default as TeamTable } from "$lib/components/lineup/TeamTable";
 export { default as TeamTableHeader } from "$lib/components/lineup/TeamTableHeader";
+export { default as TextAreaAutosize } from "$lib/components/lineup/TextAreaAutosize";

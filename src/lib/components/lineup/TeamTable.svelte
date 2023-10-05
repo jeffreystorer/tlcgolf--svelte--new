@@ -1,33 +1,27 @@
-'use client';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { v4 as uuidv4 } from 'uuid';
-import { TeamTableHeader } from '$lib/components/lineup';
-import {
-  TeeChoiceDropdown,
-  ManualCHDropdown,
-  WalkRideDropdown,
-} from '$lib/components/lineup/dropdowns';
-import * as state from '$lib/store';
-import { get, setTeamHcpAndProgs } from '$lib/components/common/utils';
-
-const TeamTable = ({ teamNumber, teamMembers }) => {
-  const course = useRecoilValue(state.course);
-  const teesSelected = useRecoilValue(state.teesSelected);
-  const setTeamTables = useSetRecoilState(state.teamTables);
-  const progs069 = useRecoilValue(state.progs069);
-  const progAdj = useRecoilValue(state.progAdj);
+<script>
+  export let teamNumber;
+  export let teamMembers;
+  import { v4 as uuidv4 } from 'uuid';
+  import {course, teesSelected, teamTables, progAdj, progs069, groups} from '$lib/store';
+  import { TeamTableHeader } from '$lib/components/lineup';
+  import {
+    TeeChoiceDropdown,
+    ManualCHDropdown,
+    WalkRideDropdown,
+  } from '$lib/components/lineup/dropdowns';
+  import { get, setTeamHcpAndProgs } from '$lib/components/common/utils';
   const showTeamHcp = true;
-  const groups = useRecoilValue(state.groups);
+
   let teamName = 'team' + teamNumber;
   let teamHcp, teamProgs;
-  let teamHcpAndProgsValues;
+  let teamHcpAndProgsValues;  
   function setTeamValues() {
     teamHcpAndProgsValues = setTeamHcpAndProgs(
       teamName,
       teamMembers,
-      progAdj,
-      progs069,
-      teesSelected[course]
+      $progAdj,
+      $progs069,
+      $teesSelected[$getcourse]
     );
     teamHcp = teamHcpAndProgsValues[0];
     teamProgs = teamHcpAndProgsValues[1];
@@ -35,7 +29,8 @@ const TeamTable = ({ teamNumber, teamMembers }) => {
   setTeamValues();
   let rows = teamMembers;
   let rowsTD = [];
-  let teeCount = teesSelected[course].length;
+  let tees = $teesSelected[$course];
+  let teeCount = tees.length;
   let playerCount;
   if (teamMembers) {
     playerCount = teamMembers.length;
@@ -44,40 +39,17 @@ const TeamTable = ({ teamNumber, teamMembers }) => {
   }
 
   const handleClick = (teamName, id) => (event) => {
-    setTeamTables((prevTeamTables) => ({
-      ...prevTeamTables,
-      [teamName]: prevTeamTables[teamName].filter((player) => player.id !== id),
-    }));
+    $teamTables = ({
+      ...$teamTables,
+      [teamName]: $teamTables[teamName].filter((player) => player.id !== id),
+    });
     setTeamValues();
   };
-
-  function generateRows() {
-    for (let i = 0; i < playerCount; i++) {
-      rowsTD[i] = (
-        <tr key={rows[i].id}>
-          <td></td>
-          <th scope='row' on:click={handleClick(teamName, teamMembers[i].id)}>
-            {rows[i].playerName}
-          </th>
-          {generateCols(i)}
-        </tr>
-      );
-    }
-    return rowsTD;
-  }
 
   function generateCols(i) {
     let tds = [];
     for (var j = 0; j < teeCount; j++) {
-      if (rows[i].teeChoice === teesSelected[course][j].value) {
-        tds[j] = (
-          <td class='ch-chosen' key={uuidv4()}>
-            {rows[i].courseHandicaps[j]}
-          </td>
-        );
-      } else {
-        tds[j] = <td key={uuidv4()}>{rows[i].courseHandicaps[j]}</td>;
-      }
+     
     }
 
     let aChosenTeeIndex = rows[i].courseHandicaps.indexOf(rows[i].teeChoice);
@@ -114,27 +86,95 @@ const TeamTable = ({ teamNumber, teamMembers }) => {
 
     return tds;
   }
+</script>
 
-  return (
-    <table class='team-table'>
-      <TeamTableHeader teamNumber={teamNumber} teamMembers={teamMembers} />
-      <tbody>{generateRows()}</tbody>
-      <tfoot>
-        <tr>
-          <th scope='row' colSpan={teeCount + 2}>
-            {showTeamHcp || progs069 > 0 ? (
-              <span>Team Hcp: {teamHcp}</span>
-            ) : null}
-            {progs069 > 0 ? (
-              <span>
-                &nbsp;&nbsp;Team Progs per {progs069}: {teamProgs}
-              </span>
-            ) : null}
-          </th>
-        </tr>
-      </tfoot>
-    </table>
-  );
-};
+<table>
+  <TeamTableHeader {teamNumber} {teamMembers} />
+  <tbody>
+    {#each rows as row, index (uuidv4())}
+      <tr>
+        <td></td>
+        <th scope='row' on:click={handleClick(teamName, teamMembers[index].id)}>
+          {row.playerName}
+        </th>
+          {#each tees as tee, index (uuidv4())}
+            {#if (row.teeChoice === tee.value)}
+              <td class='ch-chosen'>
+                {row.courseHandicaps[index]}
+              </td>
+            {:else}
+              <td >{row.courseHandicaps[index]}</td>;
+            {/if}
+          {/each}
+          
+      </tr>
+    {/each}
+  </tbody>
+  <tfoot>
+    <tr>
+      <th scope='row' colSpan={teeCount + 2}>
+        {#if (showTeamHcp || progs069 > 0)}
+          <span>Team Hcp: {teamHcp}</span>
+        {/if}
+        {#if progs069 > 0}
+          <span>
+            &nbsp;&nbsp;Team Progs per {progs069}: {teamProgs}
+          </span>
+        {/if}
+      </th>
+    </tr>
+  </tfoot>
+</table>
 
-export default TeamTable;
+<style>
+  table {
+	  display: block;
+
+    & thead th {
+      font-size: var(--step-0);
+      width: fit-content;
+    }
+
+    & thead th:nth-of-type(1),
+    & thead th:nth-of-type(2) {
+      text-align: left;
+    }
+
+    & thead > tr > th:nth-of-type(2) {
+      display: inline-flex;
+      float: left;
+    }
+
+    & tbody > tr > td {
+      height: fit-content;
+    }
+
+    & tbody > tr > td:last-of-type > select {
+      appearance: none;
+      border: none;
+      font-weight: 700;
+      margin-left: 0.25em;
+      width: 2em;
+    }
+
+    & tbody > tr > th {
+      font-size: var(--step-0);
+      font-weight: normal;
+      padding: 0 0.125em;
+      text-align: left;
+      width: 15em;
+    }
+
+    & tfoot th {
+      font-size: var(--step-0);
+      font-style: italic;
+      font-weight: normal;
+      text-align: center;
+    }
+  }
+
+  .ch-chosen {
+    text-decoration: underline;
+  }
+
+</style>
