@@ -50,7 +50,7 @@
       size={13}>
       {#each optionItems as teeItem (uuidv4())}
         <option value={teeItem.value}>
-          {teeItem.label} {teeItem?.limit}
+          {teeItem.label} {#if teeItem.limit}{teeItem.limit}{/if}
         </option>
       {/each}
     </select>

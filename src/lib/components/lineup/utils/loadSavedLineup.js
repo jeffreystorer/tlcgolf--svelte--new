@@ -5,36 +5,22 @@ import {
   updateTeamTables
 } from "$lib/components/common/utils";
 
-export default function loadSavedLineup({
-  _title,
-  _playersInLineup,
-  _players,
-  _course,
-  _game,
-  _linkTime,
-  _playingDate,
-  _progs069,
-  _progAdj,
-  _teamTables,
-  _teeTimeCount,
-  _textareaValue,
-  _teesSelected,
-}) {
-  group.set(_game);
-  course.set(_course);
+export default function loadSavedLineup(savedLineup){
+  group.set(savedLineup.game);
+  course.set(savedLineup.course);
   let missingPlayer = false;
   teesSelected.set({
     ...get(teesSelected),
-    [_course]: _teesSelected,
+    [savedLineup.course]: savedLineup.teesSelected,
   });
 
-  lineupTitle.set(_title);
-  linkTime.set(_linkTime);
-  playingDate.set(_playingDate);
-  progs069.set(_progs069);
-  progAdj.set(_progAdj);
-  if (_teamTables) {
-    teamTables.set(_teamTables);
+  lineupTitle.set(savedLineup.title);
+  linkTime.set(savedLineup.linkTime);
+  playingDate.set(savedLineup.playingDate);
+  progs069.set(savedLineup.progs069);
+  progAdj.set(savedLineup.progAdj);
+  if (savedLineup.teamTables) {
+    teamTables.set(savedLineup.teamTables);
   } else {
     teamTables.set({
       teeAssignments: [1],
@@ -50,16 +36,16 @@ export default function loadSavedLineup({
       team9: []
     });
   }
-  teeTimeCount.set(_teeTimeCount);
-  textareaValue.set(_textareaValue);
+  teeTimeCount.set(savedLineup.teeTimeCount);
+  textareaValue.set(savedLineup.textareaValue);
   //A saved lineup will not include an empty team
-  let teamCount = Object.keys(_teamTables).length - 2;
+  let teamCount = Object.keys(savedLineup.teamTables).length - 2;
 
   if (teeTimeCount > teamCount) {
     for (let i = teamCount; i < teeTimeCount; i++) {
       let newTeam = "team" + i;
       teamTables.set({
-        ..._teamTables,
+        ...savedLineup.teamTables,
         [newTeam]: [],
       });
     }
@@ -69,7 +55,7 @@ export default function loadSavedLineup({
   if (missingPlayer) return;
 
   //teesSelected below is teesSelected[course]
-  const teesSelectedCourse = _teesSelected;
+  const teesSelectedCourse = savedLineup.teesSelected;
   const playersInGroup = getPlayersInGroup(
     get(course),
     get(group),
@@ -82,7 +68,7 @@ export default function loadSavedLineup({
   );
   updateTeamTables();
   let newPlayersInLineupArray = [];
-  playersInLineup.forEach((id) => {
+  get(playersInLineup).forEach((id) => {
     newPlayersInLineupArray.push(
       playersInGroup.find((player) => player.id === Number(id))
     );
@@ -90,10 +76,10 @@ export default function loadSavedLineup({
   playersInLineup.set(newPlayersInLineupArray);
 
   function checkForPlayersInLineupButNotInTable() {
-    _playersInLineup.forEach(testPlayer);
+    savedLineup.playersInLineup.forEach(testPlayer);
 
     function testPlayer(anId) {
-      let aPlayerObj = _players.find((obj) => obj.id === Number(anId));
+      let aPlayerObj = savedLineup.players.find((obj) => obj.id === Number(anId));
       let lastName = aPlayerObj.lastName;
       var i = 0;
       var playerFound = false;

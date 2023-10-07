@@ -8,7 +8,7 @@
   };
 
   const handleDeleteLineup = () => {
-    deleteLineup(currentLineupKey);
+    deleteLineup($currentLineupKey);
     clearLineup();
   };
 
@@ -34,7 +34,7 @@
           <!-- svelte-ignore a11y-invalid-attribute -->
           <a href='#' class='modalClose' hidden></a>
         </header>
-        {#if deleteAll}
+        {#if $deleteAll}
           <p>Are you sure you want to delete all Lineups?</p>
         {:else}
           <p>Are you sure you want to delete this Lineup?</p>
@@ -44,7 +44,7 @@
           <a type='button' class='not-stacked modalClose' href='#'>
             Cancel
           </a>
-          {#if deleteAll}
+          {#if $deleteAll}
             <button class='not-stacked' on:click={handleDeleteAll}>
               Delete All
             </button>

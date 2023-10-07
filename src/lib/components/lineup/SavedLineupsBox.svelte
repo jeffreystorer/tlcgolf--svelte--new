@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import { snapshots, currentLineup, currentLineupKey, currentLineupIndex, deleteAll} from '$lib/store';
+  import { snapshots, currentLineup, currentLineupKey, currentLineupIndex, deleteAll, lineupTitle} from '$lib/store';
   let currentSnapshot = [];
   onMount(() => {
     if ($currentLineupIndex > -1) {
@@ -11,6 +11,7 @@
         lineup: currentSnapshot.lineup,
         title: currentSnapshot.title
       };
+      $lineupTitle = currentSnapshot.title;
     }
   });
 
@@ -19,9 +20,10 @@
     $currentLineupIndex = index;
     $currentLineup = {
       key: currentSnapshot.key,
-        lineup: currentSnapshot.lineup,
+      lineup: currentSnapshot.lineup,
       title: currentSnapshot.title
     };
+    $lineupTitle = currentSnapshot.title;
   }
 
   function handleDeleteAll(e) {

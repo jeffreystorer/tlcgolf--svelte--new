@@ -1,8 +1,6 @@
 <script>
   import { v4 as uuidv4 } from 'uuid';
-  import { teeTimeCount, teamTables } from '$lib/store';
-
- 
+  import { teeTimeCount, teamTables } from '$lib/store'; 
 
   const handleChange = (event) => {
     const oldCount = $teeTimeCount;
@@ -40,7 +38,7 @@
   <select
     bind:value={$teeTimeCount}
     on:change={handleChange}>
-    <option value=0># of Tee Times</option>
+    <option value='0'># of Tee Times</option>
     {#each teeTimeCounts as count (uuidv4())}
       <option value={count}>
         {#if count === 1}

@@ -58,9 +58,10 @@
 </script>
 
 <div class='titled_outer'>
+  {#key $currentLineupIndex}
   <h2>{$lineupTitle}</h2>
   {#if $currentLineup}
-    <CurrentSavedLineup lineupSnapshot={$snapshots[currentLineupIndex]} />
+    <CurrentSavedLineup lineupSnapshot={$snapshots[$currentLineupIndex]} />
   {/if}
   {#if (!currentLineup && playersInLineup.length > 0 && linkTime !== 'Set Link Time Above')}
       <button class='stacked' on:click={clearLineup}>
@@ -91,4 +92,5 @@
       <ClearPlayersFromTeamsButton />
     {/if}
   </div>
+  {/key}
 </div>

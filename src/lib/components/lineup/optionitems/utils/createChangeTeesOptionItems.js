@@ -47,12 +47,3 @@ import { createTeeLabels } from "$lib/components/lineup/optionitems/utils";
     }
     return allTeeOptionItems;
   }
-
-  /* function changeTeesOptionItems(courseIndex) {
-    let optionItems = createChangeTeesOptionItems();
-    return optionItems[courseIndex].map((teeItem) => (
-      <option key={uuidv4()} value={teeItem.value}>
-        {teeItem.label} {teeItem?.limit}
-      </option>
-    ));
-  } */
