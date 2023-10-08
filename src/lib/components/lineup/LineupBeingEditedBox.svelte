@@ -1,5 +1,5 @@
 <script>
-  import { snapshots, playersInLineup, linkTime, currentLineupIndex, currentLineup, lineupTitle, sortOrder, playingDate, teeTimeCount, progs069, progAdj, currentLineupKey, teamTables, showAddTeamMember, showAddDeletePlayersButton, showAddDeletePlayers, showChangeTees, okToSave, okToAddPlayers, group} from '$lib/store';
+  import { course, snapshots, playersInLineup, linkTime, currentLineupIndex, currentLineup, lineupTitle, sortOrder, playingDate, teeTimeCount, progs069, progAdj, currentLineupKey, teamTables, showAddTeamMember, showAddDeletePlayersButton, showAddDeletePlayers, showChangeTees, okToSave, okToAddPlayers, group} from '$lib/store';
   import { GroupAndCourseDropdowns } from '$lib/components/common';
   import {
     AddDeletePlayersInLineup,
@@ -58,39 +58,40 @@
 </script>
 
 <div class='titled_outer'>
+  <!-- {#key [$currentLineupIndex, $playingDate, $course, $group, $teeTimeCount, $linkTime, $progs069, $progAdj, $playersInLineup]} -->
   {#key $currentLineupIndex}
-  <h2>{$lineupTitle}</h2>
-  {#if $currentLineup}
-    <CurrentSavedLineup lineupSnapshot={$snapshots[$currentLineupIndex]} />
-  {/if}
-  {#if (!currentLineup && playersInLineup.length > 0 && linkTime !== 'Set Link Time Above')}
-      <button class='stacked' on:click={clearLineup}>
-        Clear
-      </button>
-  {/if}
-  <GroupAndCourseDropdowns />
-  <LineupDropdowns />
-  <div class='buttons_stacked'>
-    {#if okToAddPlayers}
-      {#if (ghinNumber === '585871' && group === 'Wednesday')}
-        <WednesdayButton />
-      {/if}
-      {#if !showChangeTees}
-        <ChangeTeesButton />
-      {/if}
-      {#if showChangeTees}
-        <ChangeTees />
-      {/if}
-      {#if showAddDeletePlayersButton}
-        <AddDeletePlayersButton />
-      {/if}
-      {#if showAddDeletePlayers}
-        <AddDeletePlayersInLineup />
-      {/if}
+    <h2>{$lineupTitle}</h2>
+    {#if $currentLineup}
+      <CurrentSavedLineup lineupSnapshot={$snapshots[$currentLineupIndex]} />
     {/if}
-    {#if okToSave}
-      <ClearPlayersFromTeamsButton />
+    {#if (!$currentLineup && $playersInLineup.length > 0 && $linkTime !== 'Set Link Time Above')}
+        <button class='stacked' on:click={clearLineup}>
+          Clear
+        </button>
     {/if}
-  </div>
+    <GroupAndCourseDropdowns />
+    <LineupDropdowns />
+    <div class='buttons_stacked'>
+      {#if $okToAddPlayers}
+        {#if (ghinNumber === '585871' && $group === 'Wednesday')}
+          <WednesdayButton />
+        {/if}
+        {#if !$showChangeTees}
+          <ChangeTeesButton />
+        {/if}
+        {#if $showChangeTees}
+          <ChangeTees />
+        {/if}
+        {#if $showAddDeletePlayersButton}
+          <AddDeletePlayersButton />
+        {/if}
+        {#if $showAddDeletePlayers}
+          <AddDeletePlayersInLineup />
+        {/if}
+      {/if}
+      {#if $okToSave}
+        <ClearPlayersFromTeamsButton />
+      {/if}
+    </div>
   {/key}
 </div>

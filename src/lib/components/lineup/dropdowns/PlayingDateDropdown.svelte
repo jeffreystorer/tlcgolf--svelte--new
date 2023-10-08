@@ -2,9 +2,11 @@
   import { v4 as uuidv4 } from 'uuid';
   import { playingDate } from '$lib/store'
   import { playingDates} from '$lib/components/lineup/optionitems';
-
-  const handleChange = (event) => {
-    $playingDate = event.target.value;
+  console.log("😊😊 $playingDate on load", $playingDate)
+  const handleChange = (e) => {
+    //$playingDate = e.target.value;
+    console.log("😊😊 event.target.value", event.target.value)
+    console.log("😊😊 $playingDat on change", $playingDate)
   };
 
 </script>

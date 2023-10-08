@@ -3,6 +3,6 @@
   function handleClick() {
     $showChangeTees = true;
   }
-  </script>
+</script>
 
-<button on:click={handleClick}>Change showChangeTees</button>;
+<button class='stacked' on:click={handleClick}>Change Tees</button>;

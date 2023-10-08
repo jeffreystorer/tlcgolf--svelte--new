@@ -6,6 +6,7 @@ import {
 } from "$lib/components/common/utils";
 
 export default function loadSavedLineup(savedLineup){
+  const _teeTimeCount = get(teeTimeCount);
   group.set(savedLineup.game);
   course.set(savedLineup.course);
   let missingPlayer = false;
@@ -41,7 +42,7 @@ export default function loadSavedLineup(savedLineup){
   //A saved lineup will not include an empty team
   let teamCount = Object.keys(savedLineup.teamTables).length - 2;
 
-  if (teeTimeCount > teamCount) {
+  if (_teeTimeCount > teamCount) {
     for (let i = teamCount; i < teeTimeCount; i++) {
       let newTeam = "team" + i;
       teamTables.set({
