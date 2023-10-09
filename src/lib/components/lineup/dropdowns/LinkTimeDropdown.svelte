@@ -1,20 +1,18 @@
 <script>
-  import { v4 as uuidv4 } from 'uuid';
   import { linkTime } from '$lib/store';
-  import { linkTimes} from '$lib/components/lineup/optionitems';
-  const handleChange = (event) => {
-    $linkTime = event.target.value;
-  };
+  import { linkTimes} from '$lib/components/lineup/optionitems';  
 </script>
 
 <label>
   Link Time
-  <select name='linkTime' bind:value={$linkTime} on:change={handleChange}>
-    <option value='Link Time'>Link Time</option>
-    {#each linkTimes() as linkTime (uuidv4())}
-    <option value={linkTime}>
-      {linkTime}
-    </option>
+  <select 
+    name='linkTime'
+    bind:value={$linkTime}>
+    <option value='Set Link Time Above'>Link Time</option>
+    {#each linkTimes() as lTime}
+      <option value={lTime}>
+        {lTime}
+      </option>
     {/each}
   </select>
 </label>

@@ -6,7 +6,6 @@ import {
 } from "$lib/components/common/utils";
 
 export default function loadSavedLineup(savedLineup){
-  const _teeTimeCount = get(teeTimeCount);
   group.set(savedLineup.game);
   course.set(savedLineup.course);
   let missingPlayer = false;
@@ -42,8 +41,8 @@ export default function loadSavedLineup(savedLineup){
   //A saved lineup will not include an empty team
   let teamCount = Object.keys(savedLineup.teamTables).length - 2;
 
-  if (_teeTimeCount > teamCount) {
-    for (let i = teamCount; i < teeTimeCount; i++) {
+  if (get(teeTimeCount) > teamCount) {
+    for (let i = teamCount; i < get(teeTimeCount); i++) {
       let newTeam = "team" + i;
       teamTables.set({
         ...savedLineup.teamTables,
@@ -69,12 +68,13 @@ export default function loadSavedLineup(savedLineup){
   );
   updateTeamTables();
   let newPlayersInLineupArray = [];
-  get(playersInLineup).forEach((id) => {
+  savedLineup.playersInLineup.forEach((id) => {
     newPlayersInLineupArray.push(
       playersInGroup.find((player) => player.id === Number(id))
     );
   });
   playersInLineup.set(newPlayersInLineupArray);
+  
 
   function checkForPlayersInLineupButNotInTable() {
     savedLineup.playersInLineup.forEach(testPlayer);

@@ -1,10 +1,8 @@
 <script>
   import {idsInLineup, teamTables, teeTimeCount, playersInLineup} from '$lib/store';
-  import { v4 as uuidv4 } from 'uuid';
   import * as _ from 'lodash';
   import { getPlayersInGroup } from '$lib/components/common/utils';
   import { SortOrderDropdown } from '$lib/components/lineup/dropdowns';
-  import { get } from '$lib/components/common/utils';
   const playersInGroup = getPlayersInGroup('createLineupTable');
   const deletePlayerCount = $playersInLineup.length;
 
@@ -13,7 +11,7 @@
     idsToBeDeleted.forEach(deletePlayer);
     $teamTables = newTeamTables;
 
-    function deletePlayer(item, index) {
+    function deletePlayer(item) {
       let id = parseInt(item);
       let i, j;
       for (i = 0; i < teeTimeCount; i++) {
@@ -61,7 +59,7 @@
     <div class='players'>
       <h4>{deletePlayerCount} In Lineup</h4>
       <ul>
-        {#each $playersInLineup as player (uuidv4())}
+        {#each $playersInLineup as player}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
           <li on:click={handleClick(player.id)}>
@@ -75,5 +73,3 @@
         Clear
       </button>
     </div>
-  );
-}

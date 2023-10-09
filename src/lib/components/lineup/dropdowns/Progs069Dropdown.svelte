@@ -1,12 +1,10 @@
 <script>
   import { progs069 } from '$lib/store';
-  const handleChange = (event) => {
-    $progs069 = event.target.value;
-  };
-
 </script>
 
-<select bind:value={$progs069} on:change={handleChange}>
+<select
+  name='progs069'
+  bind:value={$progs069}>
   <option value=''>Progs?</option>
   <option value='0'>No Progs</option>
   <option value='6'>Progs 6/6/6</option>

@@ -1,4 +1,5 @@
 export default function teamTablesEmpty(teamTables) {
+  console.log("😊😊 teamTables", teamTables)
   let empty = true
   let teamName;
   try {

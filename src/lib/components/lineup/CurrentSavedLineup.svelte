@@ -36,7 +36,7 @@
     $lineupTitle = "New Lineup";
     $sortOrder = 'alphabetical';
     $playingDate = 'Date';
-    $teeTimeCount = 0;
+    $teeTimeCount = '0';
     $linkTime = 'Set Link Time Above';
     $progs069 = '';
     $progAdj = '';

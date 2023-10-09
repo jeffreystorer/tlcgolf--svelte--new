@@ -1,6 +1,6 @@
 <script>
   export let data;
-  import { snapshots, groups, course, group, displayNumber, linkTime, captainGHINNumber, realGHINNumber, playersInLineup } from '$lib/store';
+  import { snapshots, groups, displayNumber, linkTime, realGHINNumber, playersInLineup } from '$lib/store';
   $snapshots = data.snapshots;
   import  {onMount} from 'svelte';
   import {
@@ -41,7 +41,7 @@
       </article>
       {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}
         <article>
-          <ActiveLineupBox snapshots={$snapshots} />
+          <ActiveLineupBox />
         </article>
       {/if}
       </section>

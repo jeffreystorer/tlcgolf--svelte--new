@@ -46,7 +46,7 @@ export const showDownloadPDF = writable(false);
 export const showDownloadPDFButton = writable(true);
 export const teeAssignments = writable([1]);
 export const linkTime = writable('Set Link Time Above');
-export const teeTimeCount = writable(0);
+export const teeTimeCount = writable('0');
 export const teamTables = writable({
 	teeAssignments: [1],
 	team0: [],
@@ -78,8 +78,12 @@ export const realGHINNumber = readable(get('ghinNumber'));
 export const deleteAll = writable(true);
 export const nextLineupIndex = writable('');
 export const playersInLineup = writable([]);
-export const idsInLineup = derived(playersInLineup, ($playersInLineup) => {
+export const idsInLineup = derived(playersInLineup, ($playersInLineup) => {	
+	if ($playersInLineup[0]){
 	return $playersInLineup.map((player) => player.id.toString());
+	} else {
+		return [];
+	}
 });
 export const playerCount = derived(teamTables, ($teamTables) => {
 	let teamCount = Object.keys($teamTables).length - 1;
