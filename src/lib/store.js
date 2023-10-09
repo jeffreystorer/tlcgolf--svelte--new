@@ -46,7 +46,7 @@ export const showDownloadPDF = writable(false);
 export const showDownloadPDFButton = writable(true);
 export const teeAssignments = writable([1]);
 export const linkTime = writable('Set Link Time Above');
-export const teeTimeCount = writable('0');
+export const teeTimeCount = writable('');
 export const teamTables = writable({
 	teeAssignments: [1],
 	team0: [],

@@ -2,7 +2,6 @@
 	export let value = '';
 	export let minRows = 1;
 	export let maxRows;
-    export let cols = '36';
 	
 	$: minHeight = `${1 + minRows * 1.2}em`;
 	$: maxHeight = maxRows ? `${1 + maxRows * 1.2}em` : `auto`;
@@ -14,7 +13,9 @@
 		style="min-height: {minHeight}; max-height: {maxHeight}"
 	>{value + '\n'}</pre>
 
-	<textarea cols={cols} bind:value></textarea>	
+	<textarea
+		placeholder='Enter your bets, entry fee, payouts, and rules here or click the "Choose Game Options" button below to enter them automatically.'
+		bind:value></textarea>
 </div>
 
 <style>
@@ -39,6 +40,10 @@
       font-style: normal;
       margin: 0 auto 0.25em auto;
       padding: 0.5em;
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+	  top: 0;
       resize: none;
 	}
 </style>

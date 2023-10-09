@@ -24,30 +24,25 @@
     if ($realGHINNumber !== $captainGHINNumber) {
       $currentLineupIndex = nextLineupIndex;
     } else {
-      $currentLineupIndex($snapshots.length);
+      $currentLineupIndex = $snapshots.length;
     }
     goto('/export');
   }
-
-  function handleChange(event) {
-    $lineupTitle = event.target.value;
-  }
   </script>
-  return (
-    <form on:submit={handleSubmit}>
-      <fieldset>
-        <label>
-          Save Lineup as:
-          <input
-            type='text'
-            bind:value={$lineupTitle}
-            on:change={handleChange}
-            size='36'
-          />
-        </label>
-        <button type='submit'>Save Lineup</button>
-      </fieldset>
-    </form>
+  
+  <form on:submit={handleSubmit}>
+    <fieldset>
+      <label>
+        Save Lineup as:
+        <input
+          type='text'
+          bind:value={$lineupTitle}
+          size='36'
+        />
+      </label>
+      <button type='submit'>Save Lineup</button>
+    </fieldset>
+  </form>
 
 <style>
   form {
