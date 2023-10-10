@@ -2,7 +2,6 @@
   import { teeTimeCount, teamTables } from '$lib/store'; 
   import { teeTimeCounts } from '$lib/components/lineup/optionitems';
   const handleChange = (e) => {
-    console.log("😊😊 $teeTimeCount", $teeTimeCount)
     const oldCount = $teeTimeCount;
     const newCount = e.target.value;
     const droppedTimesCount = oldCount - newCount;
@@ -37,7 +36,7 @@
     name='teeTimeCount'
     bind:value={$teeTimeCount}
     on:change={handleChange}>
-    <option value=0># of Tee Times</option>
+    <option value=''># of Tee Times</option>
     {#each teeTimeCounts() as tCount}
        <option value={tCount}>
         {#if tCount === 1}
