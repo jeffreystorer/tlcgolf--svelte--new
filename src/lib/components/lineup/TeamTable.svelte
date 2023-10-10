@@ -1,7 +1,6 @@
 <script>
   export let teamNumber;
   export let teamMembers;
-  import { v4 as uuidv4 } from 'uuid';
   import {course, teesSelected, teamTables, progAdj, progs069, groups} from '$lib/store';
   import { TeamTableHeader } from '$lib/components/lineup';
   import {
@@ -52,13 +51,13 @@
 <table>
   <TeamTableHeader {teamNumber} />
   <tbody>
-    {#each rows as row, index (uuidv4())}
+    {#each rows as row, index}
       <tr>
         <td></td>
         <th scope='row' on:click={handleClick(teamName, teamMembers[index].id)}>
           {row.playerName}
         </th>
-          {#each tees as tee, index (uuidv4())}
+          {#each tees as tee, index}
             {#if (row.teeChoice === tee.value)}
               <td class='ch-chosen'>
                 {row.courseHandicaps[index]}
@@ -68,21 +67,18 @@
             {/if}
           {/each}
           <TeeChoiceDropdown
-            key={uuidv4()}
             baseTee={row.teeChoice}
             playerId={row.id}
             teamNumber={teamNumber}
           />
           {#if (groups.slice(-1) === 'Walk')}
             <WalkRideDropdown
-              key={uuidv4()}
               walk={row.walk}
               playerId={row.id}
               teamNumber={teamNumber}
             />
           {/if}
           <ManualCHDropdown
-            key={uuidv4()}
             manualCH={rows.courseHandicaps[row.courseHandicaps.indexOf(row.teeChoice)]}
             playerId={row.id}
             teamNumber={teamNumber}

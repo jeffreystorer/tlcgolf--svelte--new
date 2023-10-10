@@ -2,7 +2,7 @@
   import { idsInLineup,teeTimeCount, showAddDeletePlayers, showAddDeletePlayersButton} from '$lib/store';
   import { createTeam } from '$lib/components/lineup/utils';
   import { setAutoPop } from '$lib/components/lineup/utils';
-  const playerCount = $idsInLineup.length;
+  $: playerCount = $idsInLineup.length;
 
   function handleClick() {
     const teeTimes = Number($teeTimeCount);

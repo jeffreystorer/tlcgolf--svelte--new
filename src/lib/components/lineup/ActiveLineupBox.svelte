@@ -52,7 +52,6 @@ div:first-of-type {
 	display: flex;
 	flex-direction: column;
   gap: 0em;
-	margin-bottom: 2em;
   
   & fieldset {
     gap: 0.5em;
@@ -67,7 +66,7 @@ div:first-of-type {
   & p {
     font-style: italic;
   }
-} 
+}
 
 #footer {
 	align-items: center;
@@ -75,6 +74,10 @@ div:first-of-type {
 	flex-direction: column;
 	gap: 0em;
 	width: 100%;
+
+  & div {
+    display: block;
+  }
 }
 
 

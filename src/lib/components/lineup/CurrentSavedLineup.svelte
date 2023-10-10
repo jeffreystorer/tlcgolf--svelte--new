@@ -58,7 +58,7 @@
     <button class='stacked' on:click={clearLineup}>
       Clear
     </button>
-    <button type='button' on:click={handleDelete}>
+    <button class='stacked' on:click={handleDelete}>
       Delete
     </button>
     <ConfirmDeleteModal />

@@ -1,5 +1,5 @@
 <script>
-  import {idsInLineup, teamTables, teeTimeCount, playersInLineup} from '$lib/store';
+  import {idsInLineup, teamTables, teeTimeCount, playersInLineup, sortOrder} from '$lib/store';
   import * as _ from 'lodash';
   import { getPlayersInGroup } from '$lib/components/common/utils';
   import { SortOrderDropdown } from '$lib/components/lineup/dropdowns';
@@ -52,7 +52,8 @@
   };  
 
   function handleClear() {
-    $playersInLineup = [];;
+    $playersInLineup = [];
+    $sortOrder = 'alphabetical';
   };
 </script>
 

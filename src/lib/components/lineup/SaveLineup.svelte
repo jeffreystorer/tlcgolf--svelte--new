@@ -61,5 +61,9 @@
       margin: 0 auto;
       width: fit-content;
     }
+
+    & input{
+      text-align: center;
+    }
   }
 </style>

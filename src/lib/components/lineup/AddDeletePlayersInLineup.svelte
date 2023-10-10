@@ -7,7 +7,7 @@ import {
 import { playersNotInLineup } from '$lib/components/lineup/utils';
 
   const addPlayerCount = playersNotInLineup().length;
-  const deletePlayerCount = $playersInLineup.length;
+  $: deletePlayerCount = $playersInLineup.length;
 
   function handleDone() {
     $showAddDeletePlayers = false;
@@ -17,14 +17,16 @@ import { playersNotInLineup } from '$lib/components/lineup/utils';
 
 <div class='titled_inner'>
   <h3>Add/Delete Players In Lineup</h3>
-  <div>
-    {#if addPlayerCount > 0}
-      <AddPlayersToLineupTable />
-    {/if}
-    {#if deletePlayerCount > 0}
-      <DeletePlayersFromLineupTable />
-    {/if}
-  </div>
+  {#key $playersInLineup}
+    <div>
+      {#if addPlayerCount > 0}
+        <AddPlayersToLineupTable />
+      {/if}
+      {#if deletePlayerCount > 0}
+        <DeletePlayersFromLineupTable />
+      {/if}
+    </div>
+  {/key}
   <button class='stacked' on:click={handleDone}>
     Done
   </button>
