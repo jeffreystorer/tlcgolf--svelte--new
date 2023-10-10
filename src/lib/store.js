@@ -2,10 +2,6 @@ import { derived, readable, writable } from 'svelte/store';
 import { get, returnDisplayNumber } from '$lib/components/common/utils';
 import { getPlayersNotInTeeTime } from "$lib/components/lineup/utils";
 
-/*\/\/\/\/\/\/Values set by useSetAllRecoilState\/\/\/\/\/\/\*/
-
-
-
 export const snapshots = writable([]);
 export const course = writable(get('course'));
 export const group = writable(get('group'));

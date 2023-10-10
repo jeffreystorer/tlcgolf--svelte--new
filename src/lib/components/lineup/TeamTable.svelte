@@ -1,6 +1,7 @@
 <script>
   export let teamNumber;
   export let teamMembers;
+  import * as _ from 'lodash';
   import {course, teesSelected, teamTables, progAdj, progs069, groups} from '$lib/store';
   import { TeamTableHeader } from '$lib/components/lineup';
   import {
@@ -8,7 +9,7 @@
     ManualCHDropdown,
     WalkRideDropdown,
   } from '$lib/components/lineup/dropdowns';
-  import { get, setTeamHcpAndProgs } from '$lib/components/common/utils';
+  import { setTeamHcpAndProgs } from '$lib/components/common/utils';
   const showTeamHcp = true;
 
   let teamName = 'team' + teamNumber;
@@ -27,7 +28,6 @@
   }
   setTeamValues();
   let rows = teamMembers;
-  let rowsTD = [];
   let tees = $teesSelected[$course];
   let teeCount = tees.length;
   let playerCount;
@@ -38,10 +38,9 @@
   }
 
   const handleClick = (teamName, id) => (event) => {
-    $teamTables = ({
-      ...$teamTables,
-      [teamName]: $teamTables[teamName].filter((player) => player.id !== id),
-    });
+    let _teamTables = _.cloneDeep($teamTables);
+    _teamTables[teamName].filter((player) => player.id !== id);
+    $teamTables = _teamTables;
     setTeamValues();
   };
 
@@ -89,12 +88,12 @@
   <tfoot>
     <tr>
       <th scope='row' colSpan={teeCount + 2}>
-        {#if (showTeamHcp || progs069 > 0)}
+        {#if (showTeamHcp || $progs069 > 0)}
           <span>Team Hcp: {teamHcp}</span>
         {/if}
-        {#if progs069 > 0}
+        {#if $progs069 > 0}
           <span>
-            &nbsp;&nbsp;Team Progs per {progs069}: {teamProgs}
+            &nbsp;&nbsp;Team Progs per {$progs069}: {teamProgs}
           </span>
         {/if}
       </th>

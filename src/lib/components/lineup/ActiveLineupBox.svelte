@@ -16,7 +16,7 @@
     { length: (stop - start) / step + 1 },
     (value, index) => start + index * step
     );
-  const teeTimeIndexes = arrayTeeTimeIndexes(0,teeTimeCount,1)
+  const teeTimeIndexes = arrayTeeTimeIndexes(0,$teeTimeCount,1)
 </script>
 
 <div class='titled_outer'>

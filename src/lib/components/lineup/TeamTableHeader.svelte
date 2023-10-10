@@ -1,13 +1,13 @@
 <script>
   export let teamNumber;
   import {course, teesSelected, playersNotInTeeTime, teeTimeCount, linkTime, playersInLineup, teamTables,showAddTeamMember} from '$lib/store';
-  import { v4 as uuidv4 } from 'uuid';
   import { ChevronDown } from 'react-feather';
   import { ChevronUp } from 'react-feather';
   import * as _ from 'lodash';
   import { returnHeaderRow, getTeeTimes } from '$lib/components/common/utils';
   import {teeAssignments} from '$lib/components/lineup/optionitems';
   //playerCount is used to size the box
+  console.log("😊😊 $playersNotInTeeTime", $playersNotInTeeTime)
   const playersNotInTeeTimeCount = $playersNotInTeeTime.length;
   const times = getTeeTimes($linkTime, $teeTimeCount);
   const teamName = 'team' + teamNumber;
@@ -79,13 +79,13 @@
 
 
 <thead>
-  {#if ($showAddTeamMember[teamName] && $playersNotInTeeTimeCount > 0)}
-    <tr key={uuidv4()}>
+  {#if ($showAddTeamMember[teamName] && playersNotInTeeTimeCount > 0)}
+    <tr>
       <th scope='col' colSpan={$teesSelected[$course].length + 4}>
         <div class='titled_inner'>
           <h3>{'Add to ' + times[teamNumber] + ' Team'}</h3>
           <ul>
-            {#each $playersNotInTeeTime as player (uuidv4())}
+            {#each $playersNotInTeeTime as player}
               <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
               <!-- svelte-ignore a11y-click-events-have-key-events -->
               <li on:click={handleClick(player.id)}>
@@ -121,7 +121,7 @@
             name='teeAssignmentDropdown'
             value={teamTables.teeAssignments[teamNumber]}
             on:change={handleTeeAssignmentChange}>
-            {#each teeAssignments as teeAssignment (uuidv4())}
+            {#each teeAssignments as teeAssignment}
               <option value={teeAssignment}>
                 {teeAssignment}
               </option>
@@ -130,7 +130,7 @@
         </div>
       {/if}
     </th>
-    {#each keys as key (uuidv4())}
+    {#each keys as key}
       <th scope='col'>
         {key}
       </th>

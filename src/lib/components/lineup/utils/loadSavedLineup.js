@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { get } from 'svelte/store';
 import {
 	courseData,
@@ -58,10 +59,9 @@ export default function loadSavedLineup(savedLineup) {
 	if (get(teeTimeCount) > teamCount) {
 		for (let i = teamCount; i < get(teeTimeCount); i++) {
 			let newTeam = 'team' + i;
-			teamTables.set({
-				...savedLineup.teamTables,
-				[newTeam]: []
-			});
+			let _teamTables = _.cloneDeep(savedLineup.teamTables);
+			_teamTables[newTeam] = [];
+			teamTables.set(_teamTables);
 		}
 	}
 
