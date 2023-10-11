@@ -1,4 +1,3 @@
-//child of TeamTable
 <script>
   export let walk;
   export let playerId;

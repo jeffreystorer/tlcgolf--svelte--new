@@ -99,7 +99,7 @@ export const okToSave = derived(
 		if (
 			$items[0] !== 'Date' &&
 			$items[1] > 0 &&
-			$items[2] !== 'Link Time' &&
+			$items[2] !== 'Set Link Time Above' &&
 			$items[3].length > 0 &&
 			$items[4].team0.length > 0
 		) {

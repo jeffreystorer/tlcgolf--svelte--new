@@ -1,13 +1,13 @@
 <script>
   export let teamNumber;
   import {course, teesSelected, playersNotInTeeTime, teeTimeCount, linkTime, playersInLineup, teamTables,showAddTeamMember} from '$lib/store';
-  import { ChevronDown } from 'react-feather';
-  import { ChevronUp } from 'react-feather';
+  import ChevronUpBlack from '$lib/components/lineup/assets/chevron-up_black.svg'
+  import ChevronUpWhite from '$lib/components/lineup/assets/chevron-up_white.svg'
+  import ChevronDown from '$lib/components/lineup/assets/chevron-down_black.svg'
   import * as _ from 'lodash';
   import { returnHeaderRow, getTeeTimes } from '$lib/components/common/utils';
   import {teeAssignments} from '$lib/components/lineup/optionitems';
   //playerCount is used to size the box
-  console.log("😊😊 $playersNotInTeeTime", $playersNotInTeeTime)
   const playersNotInTeeTimeCount = $playersNotInTeeTime.length;
   const times = getTeeTimes($linkTime, $teeTimeCount);
   const teamName = 'team' + teamNumber;
@@ -15,13 +15,12 @@
     const optionValues = [idToBeAddedToTeam];
     optionValues.forEach(addPlayer);
     function addPlayer(item, index) {
-      let newPlayerObj = playersInLineup.find(
+      let _teamTables = _.cloneDeep($teamTables);
+      let newPlayerObj = $playersInLineup.find(
         (player) => player.id === Number(item)
-      );
-      $teamTables = ({
-        ...$teamTables,
-        [name]: $teamTables[name].concat(newPlayerObj),
-      });
+      );      
+      _teamTables[name].push(newPlayerObj);
+      $teamTables = _teamTables;
     }
   }
 
@@ -31,19 +30,19 @@
   }
 
   function moveTeamUp(teamNumber) {
-    let newTeamTables = _.cloneDeep($teamTables);
+    let _teamTables = _.cloneDeep($teamTables);
     let teams = [];
     let i;
     let teamName = '';
     for (i = 0; i < teeTimeCount; i++) {
       teamName = 'team' + i;
-      teams.push(newTeamTables[teamName]);
+      teams.push(_teamTables[teamName]);
     }
     let teamNameGoingUp = 'team' + teamNumber;
     let teamNameGoingDown = 'team' + (teamNumber - 1);
-    newTeamTables[teamNameGoingUp] = teams[teamNumber - 1];
-    newTeamTables[teamNameGoingDown] = teams[teamNumber];
-    $teamTables = newTeamTables;
+    _teamTables[teamNameGoingUp] = teams[teamNumber - 1];
+    _teamTables[teamNameGoingDown] = teams[teamNumber];
+    $teamTables = _teamTables;
   }
 
   function handleTeeTimeClick() {
@@ -54,9 +53,9 @@
   }
 
   function handleTeeAssignmentChange(e) {
-    let newTeamTables = _.cloneDeep(teamTables);
-    newTeamTables.teeAssignments[teamNumber] = e.target.value;
-    $teamTables = newTeamTables;
+    let _teamTables = _.cloneDeep(teamTables);
+    _teamTables.teeAssignments[teamNumber] = e.target.value;
+    $teamTables = _teamTables;
   }
 
   function handleDoneClick() {
@@ -103,16 +102,16 @@
   <tr>
     <th scope='col' on:click={(e) => handleMoveTeamUp(e, teamNumber)}>
       {#if teamNumber > 0}
-        <ChevronUp size='24' strokeWidth='3px' />
+        <img src={ChevronUpBlack} alt='Chevron Up Black'/>
       {:else }
-        <ChevronUp size='24' strokeWidth='3px' color='white' />
+        <img src={ChevronUpWhite} alt='Chevron up White' />
       {/if}
     </th>
     <th scope='col' on:click={handleTeeTimeClick}>
       {times[teamNumber]}
       {#if playersNotInTeeTimeCount > 0}
         <span>
-          <ChevronDown size='24' strokeWidth='3px' />
+          <img src={ChevronDown} alt='Chevron Down' />
         </span>
       {/if}
       {#if times[teamNumber].includes('Shotgun')}

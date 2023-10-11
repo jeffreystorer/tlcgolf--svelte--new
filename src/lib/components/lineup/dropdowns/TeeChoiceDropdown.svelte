@@ -1,4 +1,3 @@
-//child of TeamTable
 <script>
   export let playerId;
   export let teamNumber;
@@ -9,19 +8,19 @@
   import { recomputeTeamTables } from '$lib/components/lineup/utils';
   import { buildTeeArray } from '$lib/components/common/utils';
   const teesSelectedArray = buildTeeArray($teesSelected[$course]);
-  let newTeamTables = _.cloneDeep(teamTables);
   let teamName, playerIndex;
   
   function handleTeeChoiceChange(event) {
+    let _teamTables = _.cloneDeep($teamTables);
     const aTeeChoice = event.target.value;
     const anId = Number(event.target.name);
     const aTeamNumber = event.target.id;
     teamName = 'team' + aTeamNumber;
-    playerIndex = $teamTables[teamName].findIndex(
+    playerIndex = _teamTables[teamName].findIndex(
       (player) => player.id === Number(anId)
     );
-    newTeamTables[teamName][playerIndex].teeChoice = aTeeChoice;
-    recomputeTeamTables(playerIndex, newTeamTables, teamName);
+    _teamTables[teamName][playerIndex].teeChoice = aTeeChoice;
+    recomputeTeamTables(playerIndex, _teamTables, teamName);
   }
 
 </script>

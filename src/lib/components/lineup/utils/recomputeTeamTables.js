@@ -6,26 +6,26 @@ import {
 } from "$lib/components/common/utils";
 import { getGender } from "$lib/components/common/utils";
 
-export default function recomputeTeamTables(playerIndex, newTeamTables, teamName) {
+export default function recomputeTeamTables(playerIndex, _teamTables, teamName) {
     const teesSelectedCourse = get(teesSelected)[get(course)]
     const teesSelectedArray = buildTeeArray(teesSelectedCourse);
-    const aTeeChoice = newTeamTables[teamName][playerIndex].teeChoice;
+    const aTeeChoice = _teamTables[teamName][playerIndex].teeChoice;
     let teeNo = teesSelectedArray.indexOf(aTeeChoice);
     if (teeNo < 0) teeNo = 0;
-    const strHcpIndex = newTeamTables[teamName][playerIndex].strHcpIndex;
+    const strHcpIndex = _teamTables[teamName][playerIndex].strHcpIndex;
     const gender = getGender(
-      newTeamTables[teamName][playerIndex].id.toString(),
-      allPlayersInTable
+      _teamTables[teamName][playerIndex].id.toString(),
+      get(allPlayersInTable)
     );
-    const aManualCH = newTeamTables[teamName][playerIndex].manualCH;
-    const playerName = newTeamTables[teamName][playerIndex].playerName;
+    const aManualCH = _teamTables[teamName][playerIndex].manualCH;
+    const playerName = _teamTables[teamName][playerIndex].playerName;
     if (playerName.endsWith("*")) {
       const newPlayerName = playerName.slice(0, -1);
-      newTeamTables[teamName][playerIndex].playerName = newPlayerName;
+      _teamTables[teamName][playerIndex].playerName = newPlayerName;
     }
     switch (aManualCH) {
       case "Auto":
-        newTeamTables[teamName][playerIndex].courseHandicaps =
+        _teamTables[teamName][playerIndex].courseHandicaps =
           returnCourseHandicapArray(
             get(courseData),
             gender,
@@ -36,19 +36,19 @@ export default function recomputeTeamTables(playerIndex, newTeamTables, teamName
         break;
       case "-":
         for (let j = 0; j < teesSelectedArray.length; j++) {
-          newTeamTables[teamName][playerIndex].courseHandicaps[j] = "X";
+          _teamTables[teamName][playerIndex].courseHandicaps[j] = "X";
         }
         break;
       default:
         for (let j = 0; j < teesSelectedArray.length; j++) {
-          newTeamTables[teamName][playerIndex].courseHandicaps[j] = "*";
+          _teamTables[teamName][playerIndex].courseHandicaps[j] = "*";
         }
-        newTeamTables[teamName][playerIndex].courseHandicaps[teeNo] = aManualCH;
-        if (!newTeamTables[teamName][playerIndex].playerName.endsWith("*")) {
-          newTeamTables[teamName][playerIndex].playerName =
-            newTeamTables[teamName][playerIndex].playerName + "*";
+        _teamTables[teamName][playerIndex].courseHandicaps[teeNo] = aManualCH;
+        if (!_teamTables[teamName][playerIndex].playerName.endsWith("*")) {
+          _teamTables[teamName][playerIndex].playerName =
+            _teamTables[teamName][playerIndex].playerName + "*";
         }
         break;
     }
-    teamTables.set(newTeamTables);
+    teamTables.set(_teamTables);
   }

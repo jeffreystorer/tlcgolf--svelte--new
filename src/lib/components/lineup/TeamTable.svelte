@@ -62,7 +62,7 @@
                 {row.courseHandicaps[index]}
               </td>
             {:else}
-              <td >{row.courseHandicaps[index]}</td>;
+              <td >{row.courseHandicaps[index]}</td>
             {/if}
           {/each}
           <TeeChoiceDropdown
@@ -70,7 +70,7 @@
             playerId={row.id}
             teamNumber={teamNumber}
           />
-          {#if (groups.slice(-1) === 'Walk')}
+          {#if ($groups.slice(-1) === 'Walk')}
             <WalkRideDropdown
               walk={row.walk}
               playerId={row.id}
@@ -78,7 +78,6 @@
             />
           {/if}
           <ManualCHDropdown
-            manualCH={rows.courseHandicaps[row.courseHandicaps.indexOf(row.teeChoice)]}
             playerId={row.id}
             teamNumber={teamNumber}
           />

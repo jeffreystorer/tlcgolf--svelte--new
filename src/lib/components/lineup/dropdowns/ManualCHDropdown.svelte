@@ -1,6 +1,4 @@
-//child of TeamTable
 <script>
-  export let manualCH;
   export let playerId;
   export let teamNumber;
   import { v4 as uuidv4 } from 'uuid';
@@ -8,19 +6,20 @@
   import * as _ from 'lodash';
   import { recomputeTeamTables } from '$lib/components/lineup/utils';
   import { manualCHList } from '$lib/components/lineup/optionitems';
-  let newTeamTables = _.cloneDeep($teamTables);
+  let manualCH;
   let teamName, playerIndex;
 
   const handleManualCHChange = (event) => {
+    let _teamTables = _.cloneDeep($teamTables);
     const aManualCH = event.target.value;
     const anId = Number(event.target.name);
     const aTeamNumber = event.target.id;
     teamName = 'team' + aTeamNumber;
-    playerIndex = teamTables[teamName].findIndex(
+    playerIndex = _teamTables[teamName].findIndex(
       (player) => player.id === Number(anId)
     );
-    newTeamTables[teamName][playerIndex].manualCH = aManualCH;
-    recomputeTeamTables(playerIndex, newTeamTables, teamName);
+    _teamTables[teamName][playerIndex].manualCH = aManualCH;
+    recomputeTeamTables(playerIndex, _teamTables, teamName);
   };
 
 </script>
@@ -31,9 +30,9 @@
     name={playerId}
     bind:value={manualCH}
     on:change={handleManualCHChange}>
-    {#each manualCHList as manualCH (uuidv4())}
-      <option value={manualCH.value}>
-        {manualCH.text}
+    {#each manualCHList() as ch (uuidv4())}
+      <option value={ch.value}>
+        {ch.text}
       </option>
     {/each}
   </select>
