@@ -35,8 +35,6 @@
     $showChangeTees = false;
     updatePlayersInLineup();
     updateTeamTables();
-    console.log("😊😊 $playersInLineup", $playersInLineup);
-    console.log("😊😊 $teamTables", $teamTables);
   }
   let allOptionItems = createChangeTeesOptionItems();
   let optionItems = allOptionItems[courseIndex];

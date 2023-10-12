@@ -17,14 +17,16 @@ export default function updateTeamTables() {
 	for (let i = 0; i < get(teeTimeCount); i++) {
 		let aTeamName = 'team' + i;
 		try {
-			let aPlayerCount = _teamTables[aTeamName].length;
-			for (let j = 0; j < aPlayerCount; j++) {
-				let aTeamMemberId = _teamTables[aTeamName][j].id;
-				let aPlayerObj = playersInGroup.find((obj) => obj.id === aTeamMemberId);
-				_teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
-				_teamTables[aTeamName][j].strHcpIndex = aPlayerObj.strHcpIndex;
-				_teamTables[aTeamName][j].teeChoice = aPlayerObj.teeChoice;
-				updatePlayerOnTeam(aTeamName, j);
+			let aPlayerCount = _teamTables[aTeamName] ? _teamTables[aTeamName].length : 0;
+			if (aPlayerCount > 0) {
+				for (let j = 0; j < aPlayerCount; j++) {
+					let aTeamMemberId = _teamTables[aTeamName][j].id;
+					let aPlayerObj = playersInGroup.find((obj) => obj.id === aTeamMemberId);
+					_teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
+					_teamTables[aTeamName][j].strHcpIndex = aPlayerObj.strHcpIndex;
+					_teamTables[aTeamName][j].teeChoice = aPlayerObj.teeChoice;
+					updatePlayerOnTeam(aTeamName, j);
+				}
 			}
 		} catch (error) { console.log("updateTeamTables: error updatingPlayerOnTeam")
 		}

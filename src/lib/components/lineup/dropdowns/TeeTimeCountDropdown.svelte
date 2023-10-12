@@ -1,20 +1,29 @@
 <script>
-  import { teeTimeCount, teamTables } from '$lib/store'; 
+  import { onMount} from 'svelte';
+  import * as _ from 'lodash';
+  import { teeTimeCount, teamTables } from '$lib/store';
+  import { updateTeamTables} from '$lib/components/common/utils'; 
   import { teeTimeCounts } from '$lib/components/lineup/optionitems';
+  let oldCount;
+  onMount(() => [
+    oldCount= $teeTimeCount
+  ]);
+
   const handleChange = (e) => {
-    const oldCount = $teeTimeCount;
-    const newCount = e.target.value;
-    const droppedTimesCount = oldCount - newCount;
+    const droppedTimesCount = oldCount - $teeTimeCount;
     if (droppedTimesCount > 0) {
-      restoreDroppedTeeTimePlayersToPlayersNotInTeeTimes(oldCount, newCount);
+      restoreDroppedTeeTimePlayersToPlayersNotInTeeTimes(oldCount, $teeTimeCount);
     };
-    for (let i = oldCount; i < newCount; i++) {
+    for (let i = oldCount; i < $teeTimeCount; i++) {
       if (oldCount > 0) {
         let teamName = 'team' + i;
-        $teamTables = ({...$teamTables,
-          [teamName]: []})
+        let _teamTables = _.cloneDeep($teamTables);
+        _teamTables[teamName] = [];
+        $teamTables = _teamTables
       }
     }
+    oldCount = oldCount - droppedTimesCount;
+    updateTeamTables();
   };
 
   function restoreDroppedTeeTimePlayersToPlayersNotInTeeTimes(
@@ -22,11 +31,10 @@
     newCount
   ) {
     for (let i = newCount; i < oldCount; i++) {
-      let teamName = 'team' + i;
-      $teamTables = ({
-        ...$teamTables,
-        [teamName]: [],
-      })
+      let teamName = 'team' + i;      
+      let _teamTables = _.cloneDeep($teamTables);
+        _teamTables[teamName] = [];
+        $teamTables = _teamTables
     }
   }
 

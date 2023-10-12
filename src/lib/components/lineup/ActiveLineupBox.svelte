@@ -3,7 +3,7 @@
   import { LineupTextarea, SaveLineup, TeamTable } from '$lib/components/lineup';
   import { AutoButtons } from '$lib/components/lineup/buttons';
   import { createProgAdjMessage, getCourseName } from '$lib/components/common/utils';
-  //import { GameOptionsModal } from '$lib/components/lineup';
+  import { GameOptionsModal } from '$lib/components/lineup';
   const progAdjMessage = createProgAdjMessage($progAdj, $progs069);
   $: header = $playingDate + ' at ' + getCourseName($course);
 
@@ -42,7 +42,7 @@
           Clear Game
         </button>
       </div>
-      <!-- <GameOptionsModal /> -->
+      <GameOptionsModal />
       <SaveLineup />
     </div>
   {/if}

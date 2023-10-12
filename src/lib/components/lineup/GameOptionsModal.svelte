@@ -1,10 +1,10 @@
-<script>  
-  import { v4 as uuidv4 } from 'uuid';
+<script>
   import {textareaValue, teeTimeCount, playerCount, bets} from '$lib/store';
   import {holesArray, grossupArray, entryPerArray, rulesArray, puttsArray} from '$lib/components/lineup/optionitems';
   const excessPayoutMessage =
     'You are paying out more than the pot.  Please adjust your payouts.';
   const missingHolesMessage = 'Please select the number of holes for each bet.';
+  let entryPer = 'player';
   function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -16,7 +16,7 @@
     let max = '';
     if (maxValue) max = 'Net double bogey max.';
     const grossup = formJson.grossup;
-    const entryPer = formJson.entryPer;
+    entryPer = formJson.entryPer;
     const entry = Number(formJson.entry);
     const firstPayout = Number(formJson.firstPayout);
     const secondPayout = Number(formJson.secondPayout);
@@ -61,17 +61,16 @@
     if (rules !== '') _textareaValue = _textareaValue + '\n' + rules;
     if (putts !== '') _textareaValue = _textareaValue + '\n' + putts;
     $textareaValue = _textareaValue;
-    window.location.href = '/lineup';
+    //window.location.href = '/lineup';
   }
 
   function computePot(entry, entryPer) {
     switch (entryPer) {
       case '/player':
-      case '':
-        return playerCount * entry;
+        return $playerCount * entry;
         break;
       case '/team':
-        return teeTimeCount * entry;
+        return $teeTimeCount * entry;
         break;
       default:
         break;
@@ -114,7 +113,7 @@
       <fieldset>
         <select name='holes'>
           <option value=''>Select Number of Holes for Each Bet</option>
-          {#each holesArray as item (uuidv4())}
+          {#each holesArray as item}
             <option value={item}>
               {item}
             </option>
@@ -122,7 +121,7 @@
         </select>
         <select name='bet'>
           <option value=''>Select Bet</option>
-          {#each bets as item (uuidv4())}
+          {#each $bets as item}
             <option value={item}>
               {item}
             </option>
@@ -135,17 +134,17 @@
         <select name='grossup'>
           <option value=''>Gross Up?</option>
           
-          {#each grossupArray as item (uuidv4())}
+          {#each grossupArray as item}
             <option value={item}>
               {item}
             </option>
           {/each}
         </select>
         <select name='entryPer'>
-          <option value=''>Entry per player or team?</option>          
-          {#each entryPerArray as item (uuidv4())}
-            <option value={item}>
-              {item}
+          <option value='/player'>Entry per player or team?</option>          
+          {#each entryPerArray as item}
+            <option value={'/' + item}>
+              per {item}
             </option>
           {/each}
         </select>
@@ -178,7 +177,7 @@
         </article>
         <select name='rules'>
           <option value=''>Winter or Summer Rules?</option>                   
-          {#each rulesArray as item (uuidv4())}
+          {#each rulesArray as item}
             <option value={item}>
               {item}
             </option>
@@ -186,9 +185,9 @@
         </select>
         <select name='putts'>
           <option value=''>Putts Good?</option>
-          {#each puttsArray as item (uuidv4())}
-          <option value={item}>
-            {item}
+          {#each puttsArray as item}
+          <option value={item.fullName}>
+            {item.nickName}
           </option>
         {/each}
         </select>

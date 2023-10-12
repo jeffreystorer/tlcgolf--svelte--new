@@ -48,55 +48,57 @@
 
 <table>
   <TeamTableHeader {teamNumber} />
-  <tbody>
-    {#each rows as row, index}
-      <tr>
-        <td></td>
-        <th scope='row' on:click={handleClick(teamName, teamMembers[index].id)}>
-          {row.playerName}
-        </th>
-          {#each tees as tee, index}
-            {#if (row.teeChoice === tee.value)}
-              <td class='ch-chosen'>
-                {row.courseHandicaps[index]}
-              </td>
-            {:else}
-              <td >{row.courseHandicaps[index]}</td>
-            {/if}
-          {/each}
-          <TeeChoiceDropdown
-            baseTee={row.teeChoice}
-            playerId={row.id}
-            teamNumber={teamNumber}
-          />
-          {#if ($groups.slice(-1) === 'Walk')}
-            <WalkRideDropdown
-              walk={row.walk}
+  {#if rows}
+    <tbody>
+      {#each rows as row, index}
+        <tr>
+          <td></td>
+          <th scope='row' on:click={handleClick(teamName, teamMembers[index].id)}>
+            {row.playerName}
+          </th>
+            {#each tees as tee, index}
+              {#if (row.teeChoice === tee.value)}
+                <td class='ch-chosen'>
+                  {row.courseHandicaps[index]}
+                </td>
+              {:else}
+                <td >{row.courseHandicaps[index]}</td>
+              {/if}
+            {/each}
+            <TeeChoiceDropdown
+              baseTee={row.teeChoice}
               playerId={row.id}
               teamNumber={teamNumber}
             />
+            {#if ($groups.slice(-1) === 'Walk')}
+              <WalkRideDropdown
+                walk={row.walk}
+                playerId={row.id}
+                teamNumber={teamNumber}
+              />
+            {/if}
+            <ManualCHDropdown
+              playerId={row.id}
+              teamNumber={teamNumber}
+            />
+        </tr>
+      {/each}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th scope='row' colSpan={teeCount + 2}>
+          {#if (showTeamHcp || $progs069 > 0)}
+            <span>Team Hcp: {teamHcp}</span>
           {/if}
-          <ManualCHDropdown
-            playerId={row.id}
-            teamNumber={teamNumber}
-          />
+          {#if $progs069 > 0}
+            <span>
+              &nbsp;&nbsp;Team Progs per {$progs069}: {teamProgs}
+            </span>
+          {/if}
+        </th>
       </tr>
-    {/each}
-  </tbody>
-  <tfoot>
-    <tr>
-      <th scope='row' colSpan={teeCount + 2}>
-        {#if (showTeamHcp || $progs069 > 0)}
-          <span>Team Hcp: {teamHcp}</span>
-        {/if}
-        {#if $progs069 > 0}
-          <span>
-            &nbsp;&nbsp;Team Progs per {$progs069}: {teamProgs}
-          </span>
-        {/if}
-      </th>
-    </tr>
-  </tfoot>
+    </tfoot>
+  {/if}
 </table>
 
 <style>

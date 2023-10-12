@@ -1,11 +1,11 @@
 <script>
-import {
-  PlayingDateDropdown,
-  TeeTimeCountDropdown,
-  LinkTimeDropdown,
-  Progs069Dropdown,
-  ProgAdjDropdown,
-} from '$lib/components/lineup/dropdowns';
+  import {
+    PlayingDateDropdown,
+    TeeTimeCountDropdown,
+    LinkTimeDropdown,
+    Progs069Dropdown,
+    ProgAdjDropdown,
+  } from '$lib/components/lineup/dropdowns';
 </script>
 
 <div>

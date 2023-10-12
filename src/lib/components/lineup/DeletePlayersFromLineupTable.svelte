@@ -7,29 +7,27 @@
   const deletePlayerCount = $playersInLineup.length;
 
   function deletePlayersFromTeams(idsToBeDeleted) {
-    let newTeamTables = _.cloneDeep($teamTables);
+    let _teamTables = _.cloneDeep($teamTables);
     idsToBeDeleted.forEach(deletePlayer);
-    $teamTables = newTeamTables;
+    $teamTables = _teamTables;
 
     function deletePlayer(item) {
       let id = parseInt(item);
       let i, j;
-      for (i = 0; i < teeTimeCount; i++) {
+      for (i = 0; i < $teeTimeCount; i++) {
         let teamName = 'team' + i;
-        let memberCount = newTeamTables[teamName].length;
+        let memberCount = _teamTables[teamName].length;
         for (j = 0; j < memberCount; j++) {
-          newTeamTables = processTeamTables(newTeamTables, teamName);
+          _teamTables = processTeamTables(_teamTables, teamName);
         }
       }
 
-      function processTeamTables(newTeamTables, teamName) {
-        return {
-          ...newTeamTables,
-          [teamName]: newTeamTables[teamName].filter(
+      function processTeamTables(_teamTables, teamName) {
+        _teamTables[teamName] = _teamTables[teamName].filter(
             (player) => player.id !== id
-          ),
-        };
-      }
+          );
+        return _teamTables;
+      };      
     }
   };
 
