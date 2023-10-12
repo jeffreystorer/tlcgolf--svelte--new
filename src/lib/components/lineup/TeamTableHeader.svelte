@@ -34,7 +34,7 @@
     let teams = [];
     let i;
     let teamName = '';
-    for (i = 0; i < teeTimeCount; i++) {
+    for (i = 0; i < $teeTimeCount; i++) {
       teamName = 'team' + i;
       teams.push(_teamTables[teamName]);
     }

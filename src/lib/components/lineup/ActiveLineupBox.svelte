@@ -1,5 +1,5 @@
 <script>
-  import { teeTimeCount, teamTables, textareaValue, course, playingDate,progAdj,progs069,okToSave, okToAddPlayers} from '$lib/store';
+  import { teeTimeCount, teamTables, textareaValue, course, playingDate,progAdj,progs069,okToSave, okToAddPlayers, sortOrder} from '$lib/store';
   import { LineupTextarea, SaveLineup, TeamTable } from '$lib/components/lineup';
   import { AutoButtons } from '$lib/components/lineup/buttons';
   import { createProgAdjMessage, getCourseName } from '$lib/components/common/utils';
@@ -21,29 +21,31 @@
 </script>
 
 <div class='titled_outer'>
-    <h2>{header}</h2>
+  <h2>{header}</h2>
+  {#key $sortOrder}
     <AutoButtons />
-    {#each teeTimeIndexes as item }
-      <TeamTable teamNumber={item} teamMembers={$teamTables['team' + item]} />
-    {/each}
-    {#if (progs069 > 0 && okToAddPlayers)}
-      <p>{progAdjMessage}</p>
-    {/if}
-    {#if okToSave}
-      <div id='footer'>
-        <LineupTextarea />
-        <div class='buttons'>
-          <a type='button' class='stacked' href='#gameoptionsmodal'>
-            Choose Game Options
-          </a>
-          <button class='stacked' on:click={handleClearGame}>
-            Clear Game
-          </button>
-        </div>
-        <!-- <GameOptionsModal /> -->
-        <SaveLineup />
+  {/key}
+  {#each teeTimeIndexes as item }
+    <TeamTable teamNumber={item} teamMembers={$teamTables['team' + item]} />
+  {/each}
+  {#if (progs069 > 0 && okToAddPlayers)}
+    <p>{progAdjMessage}</p>
+  {/if}
+  {#if okToSave}
+    <div id='footer'>
+      <LineupTextarea />
+      <div class='buttons'>
+        <a type='button' class='stacked' href='#gameoptionsmodal'>
+          Choose Game Options
+        </a>
+        <button class='stacked' on:click={handleClearGame}>
+          Clear Game
+        </button>
       </div>
-    {/if}
+      <!-- <GameOptionsModal /> -->
+      <SaveLineup />
+    </div>
+  {/if}
 </div>
 
 <style>

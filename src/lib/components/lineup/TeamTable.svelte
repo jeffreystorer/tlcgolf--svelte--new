@@ -39,11 +39,10 @@
 
   const handleClick = (teamName, id) => (event) => {
     let _teamTables = _.cloneDeep($teamTables);
-    _teamTables[teamName].filter((player) => player.id !== id);
+    _teamTables[teamName] = _teamTables[teamName].filter((player) => player.id !== id);
     $teamTables = _teamTables;
     setTeamValues();
   };
-
  
 </script>
 

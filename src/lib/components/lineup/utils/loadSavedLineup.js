@@ -24,10 +24,9 @@ export default function loadSavedLineup(savedLineup) {
 	group.set(savedLineup.game);
 	course.set(savedLineup.course);
 	let missingPlayer = false;
-	teesSelected.set({
-		...get(teesSelected),
-		[savedLineup.course]: savedLineup.teesSelected
-	});
+	let _teesSelected = _.cloneDeep(get(teesSelected))
+	_teesSelected[savedLineup.course] = savedLineup.teesSelected;
+	teesSelected.set(_teesSelected);
 
 	lineupTitle.set(savedLineup.title);
 	linkTime.set(savedLineup.linkTime);

@@ -1,5 +1,6 @@
 <script>
-  import { course, teesSelected, showChangeTees} from '$lib/store';
+  import * as _ from 'lodash';
+  import { course, teesSelected, showChangeTees, playersInLineup, teamTables} from '$lib/store';
   import { CancelChangeTeesButton } from '$lib/components/lineup/buttons';
   import { courses } from '$lib/components/common/data';
   import {
@@ -8,11 +9,9 @@
   } from '$lib/components/common/utils';
   import { createChangeTeesOptionItems } from '$lib/components/lineup/optionitems/utils';
   import { buildTeeArray, set } from '$lib/components/common/utils';
-  import * as _ from 'lodash';
-  import { v4 as uuidv4 } from 'uuid';
 
   const courseIndex = courses.indexOf($course);
-  const defaultValue = buildTeeArray($teesSelected[$course]);
+  let value = buildTeeArray($teesSelected[$course]);
   let tees = [];
 
   function handleSubmit(e) {
@@ -30,10 +29,14 @@
       const text = mText.replace(' (Women only)', '');
       tees.push({ label: text, value: element.value });
     });
-    $teesSelected = { ...$teesSelected, [course]: tees };
+    let _teesSelected = _.cloneDeep($teesSelected)
+    _teesSelected[$course] = tees;
+    $teesSelected = _teesSelected;
     $showChangeTees = false;
     updatePlayersInLineup();
     updateTeamTables();
+    console.log("😊😊 $playersInLineup", $playersInLineup);
+    console.log("😊😊 $teamTables", $teamTables);
   }
   let allOptionItems = createChangeTeesOptionItems();
   let optionItems = allOptionItems[courseIndex];
@@ -43,12 +46,12 @@
   <h3>Change Tees</h3>
   <form on:submit={handleSubmit}>
     <select
-      defaultValue={defaultValue}
+      multiple
+      bind:value={value}
       id='teeSelector'
       name='tees'
-      multiple={true}
       size={13}>
-      {#each optionItems as teeItem (uuidv4())}
+      {#each optionItems as teeItem}
         <option value={teeItem.value}>
           {teeItem.label} {#if teeItem.limit}{teeItem.limit}{/if}
         </option>

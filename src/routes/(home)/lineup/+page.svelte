@@ -1,6 +1,6 @@
 <script>
   export let data;
-  import { snapshots, groups, displayNumber, linkTime, realGHINNumber, playersInLineup } from '$lib/store';
+  import { snapshots, groups, displayNumber, linkTime, realGHINNumber, playersInLineup, teamTables } from '$lib/store';
   $snapshots = data.snapshots;
   import  {onMount} from 'svelte';
   import {
@@ -39,11 +39,13 @@
         {/if}
         <LineupBeingEditedBox />
       </article>
-      {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}
-        <article>
-          <ActiveLineupBox />
-        </article>
-      {/if}
+      {#key $teamTables}
+        {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}
+          <article>
+            <ActiveLineupBox />
+          </article>
+        {/if}
+      {/key}
       </section>
       <ConfirmDeleteModal />
       <MissingPlayerModal />
