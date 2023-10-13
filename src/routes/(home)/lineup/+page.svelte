@@ -23,7 +23,7 @@
   const isLoggedIn = sget('isLoggedIn');
   onMount(() => {
     if (!isLoggedIn) {
-      goto.push('/');
+      goto('/');
     }
   });
 </script>

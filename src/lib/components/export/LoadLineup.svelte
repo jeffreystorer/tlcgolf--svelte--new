@@ -1,28 +1,13 @@
-import { useRecoilValue } from 'recoil';
-import firebaseApp from '@/firebase';
-import { ref, getDatabase } from 'firebase/database';
-import { useList } from 'react-firebase-hooks/database';
-import { Table } from '$lib/components/export';
-import * as state from '$lib/store';
-import { set } from '$lib/components/common/utils';
+  <script>
+    import { snapshots, currentLineupIndex } from '$lib/store';
+    import { Table } from '$lib/components/export';
+    import { get } from '$lib/components/common/utils';
 
-export default function LoadLineup() {
-  const currentLineupIndex = useRecoilValue(state.currentLineupIndex);
-  const ghinNumber = localStorage.getItem('ghinNumber')
-    ? JSON.parse(localStorage.getItem('ghinNumber'))
+  const ghinNumber = get('ghinNumber') 
+    ? get('ghinNumber')
     : '';
-  const firebaseRef = '"' + ghinNumber.toString() + '"';
-  const dbRef = ref(getDatabase(firebaseApp), '/' + firebaseRef);
-  const [snapshots, loading, error] = useList(dbRef);
-  if (loading) return null;
-  if (error)
-    return (
-      <p>
-        <strong>Error: {error}</strong>
-      </p>
-    );
 
-  const aLineup = snapshots[currentLineupIndex];
+  const aLineup = $snapshots[$currentLineupIndex];
   let savedLineup;
   try {
     savedLineup = aLineup.val();
@@ -31,9 +16,6 @@ export default function LoadLineup() {
   }
   set('lineup', savedLineup.lineup);
   set('title', savedLineup.title);
-  return (
-    <>
-      <Table />
-    </>
-  );
-}
+  </script>
+
+  <Table />
