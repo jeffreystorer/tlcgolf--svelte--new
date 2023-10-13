@@ -153,7 +153,7 @@ export const grossupArray = ['Threesome(s)=4/3', 'Foursomes(s)=3/4'];
 export const entryPerArray = ['player', 'team'];
 export const rulesArray = ['Winter Rules', 'Summer Rules', 'LCP through the green'];
 export const puttsArray = [
-  { nickName: 'Hole All', fullName: 'PLEASE HOLE ALL PUTTS\n  THAT COUNT' },
+  { nickName: 'Hole All', fullName: 'HOLE ALL PUTTS THAT COUNT' },
   {
     nickName: 'Good within a Shoe Length',
     fullName: 'PUTTS GOOD WITHIN A SHOE LENGTH',

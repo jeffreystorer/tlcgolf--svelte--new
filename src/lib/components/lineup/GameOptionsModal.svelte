@@ -61,7 +61,7 @@
     if (rules !== '') _textareaValue = _textareaValue + '\n' + rules;
     if (putts !== '') _textareaValue = _textareaValue + '\n' + putts;
     $textareaValue = _textareaValue;
-    //window.location.href = '/lineup';
+    window.location.href = '#';
   }
 
   function computePot(entry, entryPer) {
