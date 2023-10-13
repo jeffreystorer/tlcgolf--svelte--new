@@ -1,15 +1,12 @@
 <script>
-  import {teesSelected, course, progs069, progAdj, linkTime, teeTimeCount, teamTables, showFirstName,showTeamHcp,showLocalNumbers,showIndividualHandicaps} from '$lib/store';
+  import {teesSelected, course, progs069, progAdj, linkTime, teeTimeCount, teamTables, playingDate, showIndividualHandicaps, textareaValue} from '$lib/store';
   import * as _ from 'lodash';
   import {
-    ActiveLineup,
     LineupTeamTable,
     TeamsTeamTable,
   } from '$lib/components/export/activelineup';
   import { getPlayersInGroup } from '$lib/components/common/utils';
   import {
-    get,
-    set,
     createProgAdjMessage,
     getCourseName,
     getTeeTimes,
@@ -91,52 +88,48 @@
       console.log('error setting ManualCourseHandicaps');
     }
   }
-
-  let LineupTeamTables = [];
-  function generateExportLineupTeamTables() {
-    for (var i = 0; i < lineup.teeTimeCount; i++) {
-      let teamName = 'team' + i;
-      lineupTeamMembers = lineupTeamTables[teamName];
-      setManualCHCourseHandicaps(lineupTeamMembers);
-      LineupTeamTables[i] = (
-        <LineupTeamTable
-          key={uuidv4()}
-          showTeamHcp={showTeamHcp}
-          teamNumber={i}
-          times={times}
-          teamTables={lineupTeamTables}
-          teamMembers={lineupTeamMembers}
-          progAdj={lineup.progAdj}
-          progs069={lineup.progs069}
-          teesSelected={lineup.teesSelected}
-        />
-      );
-    }
-    return LineupTeamTables;
-  }
-
-  let TeamsTeamTables = [];
-  function generateExportTeamsTeamTables() {
-    for (var i = 0; i < lineup.teeTimeCount; i++) {
-      let teamName = 'team' + i;
-      teamsTeamMembers = teamsTeamTables[teamName];
-      TeamsTeamTables[i] = (
-        <TeamsTeamTable
-          key={uuidv4()}
-          teamNumber={i}
-          times={times}
-          teamTables={teamsTeamTables}
-          teamMembers={teamsTeamMembers}
-        />
-      );
-    }
-    return TeamsTeamTables;
-  }
+  const arrayTeeTimeIndexes = (start, stop, step) =>
+    Array.from(
+    { length: (stop - start) / step + 1 },
+    (value, index) => start + index * step
+    );
+  const teeTimeIndexes = arrayTeeTimeIndexes(0,$teeTimeCount - 1,1);
+ 
 </script>
 
-<ActiveLineup
-  courseName={courseName}
-  generateExportLineupTeamTables={generateExportLineupTeamTables}
-  generateExportTeamsTeamTables={generateExportTeamsTeamTables}
-  progAdjMessage={progAdjMessage}
-/>
+<div id='lineup-table-export'>
+  <div id='lineup-image'>
+    <h2>{$playingDate + ' at ' + courseName}</h2>
+    <div>
+      {#if $showIndividualHandicaps}
+        {#each teeTimeIndexes as item}        
+          {setManualCHCourseHandicaps(lineupTeamMembers)}
+          <LineupTeamTable
+            teamNumber={item}
+            times={times}
+            teamTables={lineupTeamTables}
+            teamMembers={lineupTeamTables['team' + item]}
+          />
+        {/each}
+      {:else}
+      {#each teeTimeIndexes as item}
+        <TeamsTeamTable
+          teamNumber={item}
+          times={times}
+          teamTables={teamsTeamTables}
+          teamMembers={teamsTeamTables['team' + item]}
+        />
+  {/each}
+      {/if}
+    </div>
+    {#if ($showIndividualHandicaps && $progs069 > 0)}
+      <p>{progAdjMessage}</p>
+    {/if}
+    <textarea
+      id='textarea-export'
+      cols='36'
+      value={$textareaValue}
+      readOnly={true}
+    />
+  </div>
+</div>

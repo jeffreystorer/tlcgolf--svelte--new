@@ -1,28 +1,23 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { LineupTeamTableHeader } from '$lib/components/export/activelineup';
-import { setTeamHcpAndProgs } from '$lib/components/common/utils';
+<script>
+  export let teamMembers;
+  export let teamNumber;
+  export let times;
+  export let teamTables;
+  import {showTeamHcp, progs069, progAdj, course, teesSelected} from '$lib/store';
+  import { LineupTeamTableHeader } from '$lib/components/export/activelineup';
+  import { setTeamHcpAndProgs } from '$lib/components/common/utils';
 
-const LineupTeamTable = ({
-  showTeamHcp,
-  teamNumber,
-  teamMembers,
-  teamTables,
-  times,
-  progs069,
-  progAdj,
-  teesSelected,
-}) => {
   let teamName = 'team' + teamNumber;
   let teamHcp, teamProgs;
   let teamHcpAndProgsValues;
+  let _teesSelected = $teesSelected[$course]
   function setTeamValues() {
     teamHcpAndProgsValues = setTeamHcpAndProgs(
       teamName,
       teamMembers,
-      progAdj,
-      progs069,
-      teesSelected
+      $progAdj,
+      $progs069,
+      _teesSelected
     );
     teamHcp = teamHcpAndProgsValues[0];
     teamProgs = teamHcpAndProgsValues[1];
@@ -30,7 +25,7 @@ const LineupTeamTable = ({
   setTeamValues();
   let rows = teamMembers;
   let rowsTD = [];
-  let teeCount = teesSelected.length;
+  let teeCount = _teesSelected.length;
   let playerCount;
   if (teamMembers) {
     playerCount = teamMembers.length;
@@ -63,14 +58,15 @@ const LineupTeamTable = ({
         tds[j] = <td key={uuidv4()}>{rows[i].courseHandicaps[j]}</td>;
       }
     }
-    return tds;
+      return tds;
   }
+</script>
 
   return (
     <table>
       <thead>
         <LineupTeamTableHeader
-          teesSelected={teesSelected}
+          teesSelected={_teesSelected}
           teamTables={teamTables}
           times={times}
           teamNumber={teamNumber}
