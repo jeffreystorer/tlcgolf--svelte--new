@@ -1,51 +1,24 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import * as _ from 'lodash';
-import {
-  ActiveLineup,
-  LineupTeamTable,
-  TeamsTeamTable,
-} from '$lib/components/export/activelineup';
-import { useGetPlayersInGroup } from '$lib/components/common/hooks';
-import {
-  get,
-  set,
-  createProgAdjMessage,
-  getCourseName,
-  getTeeTimes,
-} from '$lib/components/common/utils';
-
-export default function ActiveLineupContainer({
-  showFirstName,
-  showTeamHcp,
-  showLocalNumbers,
-  showIndividualHandicaps,
-}) {
-  const teesSelected = get('teesSelected');
-  const course = get('course');
-  const getPlayersInGroup = useGetPlayersInGroup();
-  const lineup = get('lineup');
-  let courseName = getCourseName(lineup.course);
-  const progAdjMessage = createProgAdjMessage(lineup.progAdj, lineup.progs069);
-  const times = getTeeTimes(lineup.linkTime, lineup.teeTimeCount);
-  let textAreaRowCount;
-  if (lineup.textAreaRowCount > 0) {
-    textAreaRowCount = lineup.textAreaRowCount;
-    set('textAreaRowCount', textAreaRowCount);
-  } else {
-    textAreaRowCount = 8;
-  }
-
-  let notUsed = '';
-  let lineupPlayersArray = getPlayersInGroup(
-    'createExportLineupTable',
-    teesSelected[course]
-  );
-
-  let teamsPlayersArray = getPlayersInGroup(
-    'createExportTeamsTable',
-    teesSelected[course]
-  );
+<script>
+  import {teesSelected, course, progs069, progAdj, linkTime, teeTimeCount, teamTables, showFirstName,showTeamHcp,showLocalNumbers,showIndividualHandicaps} from '$lib/store';
+  import * as _ from 'lodash';
+  import {
+    ActiveLineup,
+    LineupTeamTable,
+    TeamsTeamTable,
+  } from '$lib/components/export/activelineup';
+  import { getPlayersInGroup } from '$lib/components/common/utils';
+  import {
+    get,
+    set,
+    createProgAdjMessage,
+    getCourseName,
+    getTeeTimes,
+  } from '$lib/components/common/utils';
+  let courseName = getCourseName($course);
+  const progAdjMessage = createProgAdjMessage($progAdj, $progs069);
+  const times = getTeeTimes($linkTime, $teeTimeCount);
+  let lineupPlayersArray = getPlayersInGroup('createExportLineupTable');
+  let teamsPlayersArray = getPlayersInGroup('createExportTeamsTable');
 
   let lineupTeamTables = updateLineupTeamTables();
   let teamsTeamTables = updateTeamsTeamTables();
@@ -53,37 +26,37 @@ export default function ActiveLineupContainer({
   let teamsTeamMembers = [];
 
   function updateLineupTeamTables() {
-    let teamTables = _.cloneDeep(lineup.teamTables);
-    for (let i = 0; i < lineup.teeTimeCount; i++) {
+    let _teamTables = _.cloneDeep($teamTables);
+    for (let i = 0; i < $teeTimeCount; i++) {
       let aTeamName = 'team' + i;
       try {
-        let aPlayerCount = teamTables[aTeamName].length;
+        let aPlayerCount = _teamTables[aTeamName].length;
         for (let j = 0; j < aPlayerCount; j++) {
-          let aTeamMemberId = teamTables[aTeamName][j].id;
+          let aTeamMemberId = _teamTables[aTeamName][j].id;
           let aPlayerObj = lineupPlayersArray.find(
             (obj) => obj.id === aTeamMemberId
           );
-          teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
-          teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps;
+          _teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
+          _teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps;
         }
       } catch (error) {
         console.log('error updating Lineup Team Tables');
       }
     }
-    return teamTables;
+    return _teamTables;
   }
   function updateTeamsTeamTables() {
-    let teamTables = _.cloneDeep(lineup.teamTables);
-    for (let i = 0; i < lineup.teeTimeCount; i++) {
+    let _teamTables = _.cloneDeep($teamTables);
+    for (let i = 0; i < $teeTimeCount; i++) {
       let aTeamName = 'team' + i;
       try {
-        let aPlayerCount = teamTables[aTeamName].length;
+        let aPlayerCount = _teamTables[aTeamName].length;
         for (let j = 0; j < aPlayerCount; j++) {
-          let aTeamMemberId = teamTables[aTeamName][j].id;
+          let aTeamMemberId = _teamTables[aTeamName][j].id;
           let aPlayerObj = teamsPlayersArray.find(
             (obj) => obj.id === aTeamMemberId
           );
-          teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
+          _teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
         }
       } catch (error) {
         console.log('error updating Teams Team Tables');
@@ -99,7 +72,7 @@ export default function ActiveLineupContainer({
         let aTeeChoice = teamMembers[i].teeChoice;
         let aManualCH = teamMembers[i].manualCH;
         if (aManualCH !== 'Auto') {
-          let teesSelectedArray = lineup.teesSelected.map((a) => a.value);
+          let teesSelectedArray = $teesSelected[$course].map((a) => a.value);
           let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
           if (aManualCH !== '-') {
             for (let j = 0; j < teesSelectedArray.length; j++) {
@@ -159,15 +132,11 @@ export default function ActiveLineupContainer({
     }
     return TeamsTeamTables;
   }
+</script>
 
-  return (
-    <ActiveLineup
-      lineup={lineup}
-      courseName={courseName}
-      showIndividualHandicaps={showIndividualHandicaps}
-      generateExportLineupTeamTables={generateExportLineupTeamTables}
-      generateExportTeamsTeamTables={generateExportTeamsTeamTables}
-      progAdjMessage={progAdjMessage}
-    />
-  );
-}
+<ActiveLineup
+  courseName={courseName}
+  generateExportLineupTeamTables={generateExportLineupTeamTables}
+  generateExportTeamsTeamTables={generateExportTeamsTeamTables}
+  progAdjMessage={progAdjMessage}
+/>

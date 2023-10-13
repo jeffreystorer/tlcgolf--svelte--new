@@ -1,80 +1,52 @@
-import React from 'react';
-import { useRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
-import { get } from '$lib/components/common/utils';
-import * as state from '$lib/store';
+<script>
+  import {progs069, showFirstName, showTeamHcp, showIndividualHandicaps, showLocalNumbers, dimensionIndex} from '$lib/store';
 
-export default function ShowCheckboxesContainer() {
-  const lineup = get('lineup');
-  const progs069 = lineup.progs069;
-  const [showFirstName, setShowFirstName] = useRecoilState(state.showFirstName);
-  const [showTeamHcp, setShowTeamHcp] = useRecoilState(state.showTeamHcp);
-  const [showIndividualHandicaps, setShowIndividualHandicaps] = useRecoilState(
-    state.showIndividualHandicaps
-  );
-  const [showLocalNumbers, setShowLocalNumbers] = useRecoilState(
-    state.showLocalNumbers
-  );
-  const resetDimensionIndex = useResetRecoilState(state.dimensionIndex);
-
-  function handleShowFirstNameChange() {
-    resetDimensionIndex();
-    setShowFirstName((prevState) => !prevState);
+  function handleChange() {
+    $dimensionIndex = 0;
   }
+  
+</script>
 
-  function handleShowTeamHandicapChange() {
-    resetDimensionIndex();
-    setShowTeamHcp((prevState) => !prevState);
-  }
-
-  function handleShowIndividualHandicapsChange() {
-    resetDimensionIndex();
-    setShowIndividualHandicaps((prevState) => !prevState);
-  }
-
-  function handleShowLocalNumbersChange() {
-    resetDimensionIndex();
-    setShowLocalNumbers((prevState) => !prevState);
-  }
-
-  return (
-    <div id='showcheckboxes-container'>
-      <label>
-        <input
-          type='checkbox'
-          on:change={handleShowFirstNameChange}
-          defaultChecked={showFirstName}
-        />
-        Show First Name
-      </label>
-      {progs069 < 1 && showIndividualHandicaps && (
-        <label>
-          <input
-            type='checkbox'
-            id='showTeamHcp'
-            on:change={handleShowTeamHandicapChange}
-            checked={showTeamHcp}
-          />
-          Show Team Hcp
-        </label>
-      )}
-      <label>
-        <input
-          type='checkbox'
-          id='showIndividualHandicaps'
-          on:change={handleShowIndividualHandicapsChange}
-          defaultChecked={showIndividualHandicaps}
-        />
-        Show Individual Handicaps
-      </label>
-      <label>
-        <input
-          type='checkbox'
-          id='showLocalNumbers'
-          on:change={handleShowLocalNumbersChange}
-          defaultChecked={showLocalNumbers}
-        />
-        Show Local Numbers
-      </label>
-    </div>
-  );
-}
+<div id='showcheckboxes-container'>
+  <label>
+    <input
+      name='showFirstName'
+      type='checkbox'
+      on:change={handleChange}
+      bind:value={$showFirstName}
+    />
+    Show First Name
+  </label>
+  {#if (progs069 < 1 && $showIndividualHandicaps)}
+    <label>
+      <input
+        name='showTeamHcp'
+        type='checkbox'
+        id='showTeamHcp'
+        on:change={handleChange}
+        bind:value={$showTeamHcp}
+      />
+      Show Team Hcp
+    </label>
+  {/if}
+  <label>
+    <input
+      name='showIndividualHandicaps'
+      type='checkbox'
+      id='showIndividualHandicaps'
+      on:change={handleChange}
+      bind:value={$showIndividualHandicaps}
+    />
+    Show Individual Handicaps
+  </label>
+  <label>
+    <input
+      name='showLocalNumbers'
+      type='checkbox'
+      id='showLocalNumbers'
+      on:change={handleChange}
+      bind:value={$showLocalNumbers}
+    />
+    Show Local Numbers
+  </label>
+</div>
