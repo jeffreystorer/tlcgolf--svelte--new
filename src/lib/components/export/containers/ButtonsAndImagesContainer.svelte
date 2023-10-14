@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ReactPhotoCollage } from 'react-photo-collage';
-import { useRecoilValue } from 'recoil';
-import { BlankLines } from '$lib/components/common';
-import {
-  CopyAndDownloadButtonsContainer,
-  PDFButtonsContainer,
-} from '$lib/components/export/containers';
-import { LineupImage, Collage } from '$lib/components/export/images';
+<script>>
+  import { BlankLines } from '$lib/components/common';
+  import {
+    CopyAndDownloadButtonsContainer,
+    PDFButtonsContainer,
+  } from '$lib/components/export/containers';
+  import { LineupImage, Collage } from '$lib/components/export/images';
+
+
+
+</script
 import { dimensionArray } from '$lib/components/export/optionitems';
 import * as state from '$lib/store';
 import { get, set } from '$lib/components/common/utils';
