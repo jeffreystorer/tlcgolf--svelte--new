@@ -1,14 +1,15 @@
 <script>
   import { textareaValue } from '$lib/store';
-  $: lines = $textareaValue.split('\n').length
-  $: rows =  lines < 4 ? 4 : lines;
+  let lines = $textareaValue.split('\n').length
+  let rows =  lines < 4 ? 4 : lines;
 </script>
 
 <textarea
-  bind:value={$textareaValue}
+  value={$textareaValue}
   rows={rows}
   cols='36'
-  placeholder='Enter your bets, entry fee, payouts, and rules here or click the "Choose Game Options" button below to enter them automatically.'></textarea>
+  readonly='true'
+/>
 
  <style>
   textarea {

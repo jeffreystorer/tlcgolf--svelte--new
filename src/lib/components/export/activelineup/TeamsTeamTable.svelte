@@ -1,29 +1,14 @@
-import React from 'react';
+<script>
+  export let teamMembers;
+  export let teamNumber;
+  export let times;
+  export let teamTables;
+  import { TeamsTeamTableHeader } from '$lib/components/export/activelineup';
 
-import { TeamsTeamTableHeader } from '$lib/components/export/activelineup';
-
-const TeamsTeamTable = ({ teamNumber, teamMembers, teamTables, times }) => {
   let rows = teamMembers;
-  let rowsTD = [];
-  let playerCount;
-  if (teamMembers) {
-    playerCount = teamMembers.length;
-  } else {
-    playerCount = 0;
-  }
+</script>
 
-  function generateRows() {
-    for (let i = 0; i < playerCount; i++) {
-      rowsTD[i] = (
-        <tr key={rows[i].id}>
-          <th scope='row'>{rows[i].playerName}</th>
-        </tr>
-      );
-    }
-    return rowsTD;
-  }
-
-  return (
+  
     <table>
       <thead>
         <TeamsTeamTableHeader
@@ -32,9 +17,13 @@ const TeamsTeamTable = ({ teamNumber, teamMembers, teamTables, times }) => {
           teamTables={teamTables}
         />
       </thead>
-      <tbody>{generateRows()}</tbody>
+      <tbody>
+        {#each rows as row}
+          <tr>
+            <th scope='row'>
+              {row.playerName}
+            </th>
+          </tr>
+        {/each}
+      </tbody>
     </table>
-  );
-};
-
-export default TeamsTeamTable;

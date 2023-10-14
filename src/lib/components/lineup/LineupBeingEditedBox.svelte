@@ -58,7 +58,6 @@
 </script>
 
 <div class='titled_outer'>
-  <!-- {#key [$currentLineupIndex, $playingDate, $course, $group, $teeTimeCount, $linkTime, $progs069, $progAdj, $playersInLineup]} -->
   {#key $currentLineupIndex}
     <h2>{$lineupTitle}</h2>
     {#if $currentLineup}

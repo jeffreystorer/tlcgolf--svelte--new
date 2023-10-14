@@ -1,25 +1,13 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { returnHeaderRow } from '$lib/components/export/utils';
+<script>
+  export let teesSelected;
+  export let times;
+  export let teamNumber;
+  export let teamTables;
 
-const LineupTeamTableHeader = ({
-  teesSelected,
-  times,
-  teamNumber,
-  teamTables,
-}) => {
+  import { returnHeaderRow } from '$lib/components/export/utils';  
+  
   let cols = returnHeaderRow(teesSelected);
-  const getHeader = () => {
-    cols.shift();
-    var items = cols;
-    return items.map((item) => {
-      return (
-        <th scope='col' key={uuidv4()}>
-          {item}
-        </th>
-      );
-    });
-  };
+  cols.shift();
   let teeTime;
   try {
     teeTime = times[teamNumber];
@@ -28,14 +16,13 @@ const LineupTeamTableHeader = ({
     }
   } catch (error) {}
 
-  return (
-    <>
-      <tr>
-        <th scope='col'>{teeTime}</th>
-        {getHeader()}
-      </tr>
-    </>
-  );
-};
+</script>
 
-export default LineupTeamTableHeader;
+<tr>
+  <th scope='col'>{teeTime}</th>
+    {#each cols as col}
+        <th scope='col'>
+          {col}
+        </th>
+    {/each}
+</tr>

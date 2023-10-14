@@ -1,7 +1,8 @@
 <script>
-  import {teesSelected, course, progs069, progAdj, linkTime, teeTimeCount, teamTables, playingDate, showIndividualHandicaps, textareaValue} from '$lib/store';
+  import {teesSelected, course, progs069, progAdj, linkTime, teeTimeCount, teamTables, playingDate, showFirstName, showIndividualHandicaps, showLocalNumbers, showTeamHcp, textareaValue} from '$lib/store';
   import * as _ from 'lodash';
   import {
+    ExportTextarea,
     LineupTeamTable,
     TeamsTeamTable,
   } from '$lib/components/export/activelineup';
@@ -59,51 +60,27 @@
         console.log('error updating Teams Team Tables');
       }
     }
-    return teamTables;
+    return _teamTables;
   }
 
-  function setManualCHCourseHandicaps(teamMembers) {
-    //iterate through teamMembers
-    try {
-      for (let i = 0; i < teamMembers.length; i++) {
-        let aTeeChoice = teamMembers[i].teeChoice;
-        let aManualCH = teamMembers[i].manualCH;
-        if (aManualCH !== 'Auto') {
-          let teesSelectedArray = $teesSelected[$course].map((a) => a.value);
-          let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
-          if (aManualCH !== '-') {
-            for (let j = 0; j < teesSelectedArray.length; j++) {
-              teamMembers[i].courseHandicaps[j] = '*';
-            }
-            teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH;
-            teamMembers[i].playerName = teamMembers[i].playerName + '*';
-          } else {
-            for (let j = 0; j < teesSelectedArray.length; j++) {
-              teamMembers[i].courseHandicaps[j] = 'X';
-            }
-          }
-        }
-      }
-    } catch (error) {
-      console.log('error setting ManualCourseHandicaps');
-    }
-  }
+  
+  
   const arrayTeeTimeIndexes = (start, stop, step) =>
     Array.from(
     { length: (stop - start) / step + 1 },
     (value, index) => start + index * step
     );
   const teeTimeIndexes = arrayTeeTimeIndexes(0,$teeTimeCount - 1,1);
- 
 </script>
 
 <div id='lineup-table-export'>
   <div id='lineup-image'>
     <h2>{$playingDate + ' at ' + courseName}</h2>
     <div>
+      
+    
       {#if $showIndividualHandicaps}
-        {#each teeTimeIndexes as item}        
-          {setManualCHCourseHandicaps(lineupTeamMembers)}
+        {#each teeTimeIndexes as item}
           <LineupTeamTable
             teamNumber={item}
             times={times}
@@ -119,17 +96,12 @@
           teamTables={teamsTeamTables}
           teamMembers={teamsTeamTables['team' + item]}
         />
-  {/each}
+      {/each}
       {/if}
     </div>
     {#if ($showIndividualHandicaps && $progs069 > 0)}
       <p>{progAdjMessage}</p>
     {/if}
-    <textarea
-      id='textarea-export'
-      cols='36'
-      value={$textareaValue}
-      readOnly={true}
-    />
+    <ExportTextarea/>
   </div>
 </div>

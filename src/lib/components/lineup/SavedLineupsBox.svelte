@@ -44,7 +44,7 @@
           <p>Click on a lineup to edit, export, or delete</p>
           <div class='divider'></div>
           <ul id='ul'>
-            {#each $snapshots as snapshot, index (index)}
+            {#each $snapshots as snapshot, index}
               <li>
                 <a href='#ul' class={index === $currentLineupIndex ? 'active_li' : 'li'}
                 on:click={() => handleClick(snapshot, index)}>

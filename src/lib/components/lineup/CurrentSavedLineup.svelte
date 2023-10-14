@@ -20,7 +20,7 @@
   };
 
   onMount(() => {
-    editLineup();
+    if (lineupSnapshot) editLineup();
   });
 
   const exportLineup = () => {

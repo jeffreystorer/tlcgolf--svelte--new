@@ -4,10 +4,10 @@
   import domtoimage from 'dom-to-image';
   import {
     ActiveLineupContainer,
-    ButtonsAndImagesContainer,
+    //ButtonsAndImagesContainer,
     ShowCheckboxesContainer,
   } from '$lib/components/export/containers';
-  import { screenshotUrl, dimensionIndex, course, group, groups, currentLineupIndex} from '$lib/store';
+  import { screenshotUrl, dimensionIndex, course, group, groups, currentLineupIndex, showFirstName, showTeamHcp, showLocalNumbers} from '$lib/store';
   import * as courseData from '$lib/components/common/data';
   import { sget } from '$lib/components/common/utils';
   const isLoggedIn = sget('isLoggedIn');
@@ -19,7 +19,7 @@
       if (
       !$groups.includes(group) &&
       !courseData.courses.includes(course) &&
-      !$currentLineupIndex > -1
+      $currentLineupIndex < 0
       ) {
         goto('/lineup')
       } else {
@@ -39,9 +39,11 @@
 <div id='export'>
   <div>
     <ShowCheckboxesContainer />
-    <ButtonsAndImagesContainer dimensionIndex={$dimensionIndex} />
+    <!-- <ButtonsAndImagesContainer dimensionIndex={$dimensionIndex} /> -->
   </div>
   <div>
-    <ActiveLineupContainer />
+    {#key [$showFirstName, $showTeamHcp, $showLocalNumbers]}
+      <ActiveLineupContainer />
+    {/key}
   </div>
 </div>

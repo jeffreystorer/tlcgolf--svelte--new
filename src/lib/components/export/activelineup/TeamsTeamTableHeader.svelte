@@ -1,19 +1,7 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-
-const TeamsTeamTableHeader = ({ teamTables, teamNumber, times }) => {
-  let cols = [''];
-  const getHeader = () => {
-    cols.shift();
-    var items = cols;
-    return items.map((item, index) => {
-      return (
-        <th scope='col' key={uuidv4()}>
-          {item}
-        </th>
-      );
-    });
-  };
+<script>
+  export let teamTables;
+  export let teamNumber;
+  export let times;
   let teeTime;
   try {
     teeTime = times[teamNumber];
@@ -21,15 +9,8 @@ const TeamsTeamTableHeader = ({ teamTables, teamNumber, times }) => {
       teeTime = teeTime + ' (' + teamTables.teeAssignments[teamNumber] + ')';
     }
   } catch (error) {}
+</script>
 
-  return (
-    <>
-      <tr>
-        <th scope='col'>{teeTime}</th>
-        {getHeader()}
-      </tr>
-    </>
-  );
-};
-
-export default TeamsTeamTableHeader;
+<tr>
+  <th scope='col'>{teeTime}</th>
+</tr>

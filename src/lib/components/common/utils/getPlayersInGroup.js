@@ -104,19 +104,19 @@ export default function getPlayersInGroup(playersArrayType) {
 		}
 
 		if (playersArrayType === 'createExportLineupTable') {
-			if (showFirstName) {
+			if (get(showFirstName)) {
 				playerName = firstName + ' ' + lastName + ' (' + strHcpIndex + ')';
 			} else {
 				playerName = lastName + ' (' + strHcpIndex + ')';
 			}
 			let prefix = '';
-			if ((showLocalNumbers === true) | (showLocalNumbers === 'true')) {
+			if ((get(showLocalNumbers) === true) | (get(showLocalNumbers) === 'true')) {
 				prefix = local + ' ';
 			}
 			playerName = prefix + playerName;
 		}
 		if (playersArrayType === 'createExportTeamsTable') {
-			if (showFirstName) {
+			if (get(showFirstName)) {
 				playerName = aPlayer[3] + ' ' + aPlayer[1];
 			} else {
 				playerName = aPlayer[1];

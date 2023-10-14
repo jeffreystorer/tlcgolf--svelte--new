@@ -1,6 +1,6 @@
 <script>
   import {progs069, showFirstName, showTeamHcp, showIndividualHandicaps, showLocalNumbers, dimensionIndex} from '$lib/store';
-
+  
   function handleChange() {
     $dimensionIndex = 0;
   }
@@ -13,18 +13,17 @@
       name='showFirstName'
       type='checkbox'
       on:change={handleChange}
-      bind:value={$showFirstName}
+      bind:checked={$showFirstName}
     />
     Show First Name
   </label>
-  {#if (progs069 < 1 && $showIndividualHandicaps)}
+  {#if ($progs069 < 1 && $showIndividualHandicaps)}
     <label>
       <input
         name='showTeamHcp'
         type='checkbox'
-        id='showTeamHcp'
         on:change={handleChange}
-        bind:value={$showTeamHcp}
+        bind:checked={$showTeamHcp}
       />
       Show Team Hcp
     </label>
@@ -33,9 +32,8 @@
     <input
       name='showIndividualHandicaps'
       type='checkbox'
-      id='showIndividualHandicaps'
       on:change={handleChange}
-      bind:value={$showIndividualHandicaps}
+      bind:checked={$showIndividualHandicaps}
     />
     Show Individual Handicaps
   </label>
@@ -43,9 +41,8 @@
     <input
       name='showLocalNumbers'
       type='checkbox'
-      id='showLocalNumbers'
       on:change={handleChange}
-      bind:value={$showLocalNumbers}
+      bind:checked={$showLocalNumbers}
     />
     Show Local Numbers
   </label>
