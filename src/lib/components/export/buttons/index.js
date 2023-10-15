@@ -1,1 +1,1 @@
-export { default as DownloadPDFButton } from "$lib/components/export/buttons/DownloadPDFButton";
+export { default as DownloadPDFButton } from "$lib/components/export/buttons/DownloadPDFButton.svelte";

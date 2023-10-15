@@ -1,31 +1,24 @@
-import React, { forwardRef } from 'react';
+<script>
+  export let pdfLoading, pcSetting, styleDims;
+  import { ref } from '$lib/store';
+  import { PCCollage } from '$lib/components/export/images';
+</script>
 
-const Collages = forwardRef(({ pdfLoading, PCCollage, styleDims }, ref) => {
-  return (
-    <>
-      {pdfLoading ? (
-        <p> Loading . . .</p>
-      ) : (
-        <>
-          <div class='background-white center'>
-            <h1>PLEASE IGNORE THE COLLAGE BELOW.</h1>
-            <h1>IT IS USED FOR CREATING THE PDF.</h1>
-          </div>
-          <div
-            ref={ref}
-            id='div_collage'
-            class='center'
-            style={{
-              width: styleDims[0],
-              height: styleDims[1],
-            }}>
-            <PCCollage />
-          </div>
-        </>
-      )}
-    </>
-  );
-});
-Collages.displayName = 'Collages';
-
-export default Collages;
+{#if pdfLoading}
+  <p> Loading . . .</p>
+{:else}
+  <div class='background-white center'>
+    <h1>PLEASE IGNORE THE COLLAGE BELOW.</h1>
+    <h1>IT IS USED FOR CREATING THE PDF.</h1>
+  </div>
+  <div
+    bind:this={$ref}
+    id='div_collage'
+    class='center'
+    style={{
+      width: styleDims[0],
+      height: styleDims[1],
+    }}>
+    <PCCollage {pcSetting} />
+  </div>
+{/if}

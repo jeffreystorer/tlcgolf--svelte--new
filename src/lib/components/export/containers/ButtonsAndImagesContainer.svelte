@@ -1,31 +1,27 @@
-<script>>
-  import { BlankLines } from '$lib/components/common';
+<script>
+  import { onMount} from 'svelte';
+  export let dimensionIndex;
+  import { screenshotUrl} from '$lib/store';
   import {
     CopyAndDownloadButtonsContainer,
     PDFButtonsContainer,
   } from '$lib/components/export/containers';
   import { LineupImage, Collage } from '$lib/components/export/images';
+  import { dimensionArray } from '$lib/components/export/optionitems';
+  import { get, set } from '$lib/components/common/utils';
+  import { returnCollageSetting } from '$lib/components/export/utils';
 
-
-
-</script
-import { dimensionArray } from '$lib/components/export/optionitems';
-import * as state from '$lib/store';
-import { get, set } from '$lib/components/common/utils';
-import { returnCollageSetting } from '$lib/components/export/utils';
-
-const ButtonsAndImagesContainer = ({ dimensionIndex }) => {
-  const dataUrl = useRecoilValue(state.screenshotUrl);
-  const ref = useRef();
   let index = dimensionIndex;
   if (index === 0) index = index + 1;
-
+  let dataUrl = $screenshotUrl;
+  
   //PDF Creation
 
   const rowCount = dimensionArray[index][0];
   const colCount = dimensionArray[index][1];
-  const [pdfLoading, setPDFLoading] = useState(true);
-  const [pcSetting, setPCSetting] = useState();
+  let pdfLoading = true;
+  let pcSetting;
+ 
   const img = new Image();
   img.src = dataUrl;
   let factor = 2.0;
@@ -46,32 +42,23 @@ const ButtonsAndImagesContainer = ({ dimensionIndex }) => {
   set('styleDims', [pcStyleWidth, pcStyleHeight]);
   const styleDims = get('styleDims');
 
-  const PCCollage = () => <ReactPhotoCollage {...pcSetting} />;
+  onMount(() => {
+    pcSetting = returnCollageSetting(dataUrl, rowCount, colCount, pcWidthPx, pcHeightPx)
+    pdfLoading = false;
+  });
+</script>
 
-  useEffect(() => {
-    setPCSetting(
-      returnCollageSetting(dataUrl, rowCount, colCount, pcWidthPx, pcHeightPx)
-    );
 
-    setPDFLoading(false);
-  }, [colCount, dataUrl, pcHeightPx, pcWidthPx, rowCount]);
 
-  return (
-    <>
-      <CopyAndDownloadButtonsContainer />
-      <PDFButtonsContainer pdfLoading={pdfLoading} currentRef={ref} />
-      <div id='lineup-images'>
-        <BlankLines lines={35} />
-        <LineupImage />
-        <BlankLines lines={5} />
-        <Collage
-          ref={ref}
-          pdfLoading={pdfLoading}
-          PCCollage={PCCollage}
-          styleDims={styleDims}
-        />
-      </div>
-    </>
-  );
-};
-export default ButtonsAndImagesContainer;
+<CopyAndDownloadButtonsContainer />
+<PDFButtonsContainer pdfLoading={pdfLoading} />
+<div id='lineup-images'>
+  <br/>
+  <LineupImage />
+  <br />
+  <Collage
+    {pdfLoading}
+    {pcSetting}
+    {styleDims}
+  />
+</div>

@@ -1,30 +1,20 @@
-import React from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { get } from '$lib/components/common/utils';
-import {
-  copyImageToClipboard,
-  showCopyLineupToClipboard,
-} from '$lib/components/export/utils';
-import * as state from '$lib/store';
-
-export default function CopyAndDownLoadButtonsContainer() {
-  const [showDownloadPDF, setShowDownloadPDF] = useRecoilState(
-    state.showDownloadPDF
-  );
-  const [showDownloadPDFButton, setShowDownloadPDFButton] = useRecoilState(
-    state.showDownloadPDFButton
-  );
-
-  const jpgImage = useRecoilValue(state.jpgImage);
-  const dataUrl = useRecoilValue(state.screenshotUrl);
-
-  const lineup = get('lineup');
-  const title = get('title');
+<script>
+  import {snapshots, currentLineupIndex, showDownloadPDF, showDownloadPDFButton, jpgImage, screenshotUrl} from '$lib/store';
+  import {
+    copyImageToClipboard,
+    showCopyLineupToClipboard,
+  } from '$lib/components/export/utils';
+  const dataUrl = $screenshotUrl;
+  console.log("😊😊 $screenshotUrl", $screenshotUrl)
+  let aLineup = $snapshots[$currentLineupIndex];
+  let title = aLineup.title;
+  let lineup = aLineup.lineup;
 
   function handleCopyLineup() {
-    copyImageToClipboard(jpgImage);
-  }
-
+    console.log("😊😊 $jpgImage", $jpgImage)
+    copyImageToClipboard($jpgImage);
+  }  
+  
   //copy players
   let players = lineup.players;
   players.sort((a, b) =>
@@ -67,28 +57,26 @@ export default function CopyAndDownLoadButtonsContainer() {
   }
 
   function handleShowDownloadPDF() {
-    setShowDownloadPDF(true);
-    setShowDownloadPDFButton(false);
+    $showDownloadPDF = true;
+    $showDownloadPDFButton = false;
   }
+</script>
 
-  return (
-    <div id='copy-and-download-buttons-container'>
-      {showCopyLineupToClipboard() && (
-        <button on:click={handleCopyLineup} class='stacked'>
-          Copy Lineup to Clipboard
-        </button>
-      )}
-      <button on:click={handleCopyPlayers} class='stacked'>
-        Copy Players to Clipboard
-      </button>
-      <button on:click={handleDownloadScreenshot} class='stacked'>
-        Download Screenshot
-      </button>
-      {showDownloadPDFButton && (
-        <button on:click={handleShowDownloadPDF} class='stacked'>
-          Download PDF
-        </button>
-      )}
-    </div>
-  );
-}
+<div id='copy-and-download-buttons-container'>
+  {#if (showCopyLineupToClipboard())}
+    <button on:click={handleCopyLineup} class='stacked'>
+      Copy Lineup to Clipboard
+    </button>
+  {/if}
+  <button on:click={handleCopyPlayers} class='stacked'>
+    Copy Players to Clipboard
+  </button>
+  <button on:click={handleDownloadScreenshot} class='stacked'>
+    Download Screenshot
+  </button>
+  {#if $showDownloadPDFButton}
+    <button on:click={handleShowDownloadPDF} class='stacked'>
+      Download PDF
+    </button>
+  {/if}
+</div>

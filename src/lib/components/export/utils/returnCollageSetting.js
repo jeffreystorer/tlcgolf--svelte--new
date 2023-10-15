@@ -13,11 +13,11 @@ export default function returnCollageSetting(
   for (let i = 0; i < rows * columns; i++) photoArray.push({ src: dataUrl });
 
   const setting = {
+    columns: columns,
     width: widthPx,
     height: heightArray,
     layout: layoutArray,
-    photos: photoArray,
-    showNumOfRemainingPhotos: false,
+    images: photoArray,
   };
   return setting;
 }

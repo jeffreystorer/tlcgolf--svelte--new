@@ -2,6 +2,7 @@ import { derived, readable, writable } from 'svelte/store';
 import { get, returnDisplayNumber } from '$lib/components/common/utils';
 import { getPlayersNotInTeeTime } from "$lib/components/lineup/utils";
 
+export const ref = writable(null);
 export const snapshots = writable([]);
 export const course = writable(get('course'));
 export const group = writable(get('group'));

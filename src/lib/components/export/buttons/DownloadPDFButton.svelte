@@ -1,16 +1,10 @@
-import React from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { dimensionArray } from '$lib/components/export/optionitems';
-import * as state from '$lib/store';
-import { createPDF } from '$lib/components/export/utils';
-export default function DownLoadPDFButton({ type, element }) {
-  const setShowDownloadPDF = useSetRecoilState(state.showDownloadPDF);
-  const setShowDownloadPDFButton = useSetRecoilState(
-    state.showDownloadPDFButton
-  );
-  const dimensionIndex = useRecoilValue(state.dimensionIndex);
-  const rowCount = dimensionArray[dimensionIndex][0];
-  const colCount = dimensionArray[dimensionIndex][1];
+<script>
+  export let type, element;
+  import { showDownloadPDF, showDownloadPDFButton, dimensionIndex} from '$lib/store';
+  import { dimensionArray } from '$lib/components/export/optionitems';
+  import { createPDF } from '$lib/components/export/utils';
+  const rowCount = dimensionArray[$dimensionIndex][0];
+  const colCount = dimensionArray[$dimensionIndex][1];
   const dims = rowCount + ' X ' + colCount;
   let buttonText;
   switch (type) {
@@ -25,10 +19,13 @@ export default function DownLoadPDFButton({ type, element }) {
   }
 
   function handleClick() {
-    setShowDownloadPDF(false);
-    setShowDownloadPDFButton(true);
+    $showDownloadPDF = false;
+    $showDownloadPDFButton = true;
     createPDF(type, element, dims);
   }
+</script>
 
-  return <button on:click={handleClick}>{buttonText}</button>;
-}
+  
+  
+
+<button on:click={handleClick}>{buttonText}</button>;

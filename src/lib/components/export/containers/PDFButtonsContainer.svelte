@@ -1,46 +1,44 @@
-import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { DownloadPDFButton } from '$lib/components/export/buttons';
-import { DimensionsDropdown } from '$lib/components/export/dropdowns';
-import { dimensionsOptionItems } from '$lib/components/export/optionitems';
-import * as state from '$lib/store';
-
-const PDFButtonsContainer = ({ pdfLoading, currentRef }) => {
-  const [dimensionIndex, setDimensionIndex] = useRecoilState(
-    state.dimensionIndex
-  );
-  const showDownloadPDF = useRecoilValue(state.showDownloadPDF);
-
+<script>
+  export let pdfLoading;
+  import { ref } from '$lib/store';
+  import { dimensionIndex, showDownloadPDF} from '$lib/store';
+  import { DownloadPDFButton } from '$lib/components/export/buttons';
+  import { dimensionArray } from '$lib/components/export/optionitems';  
   const handleDimensionIndexChange = (event) => {
-    setDimensionIndex(event.target.value);
+    $dimensionIndex = event.target.value;
   };
-  if (pdfLoading) return <p> Loading PDF...</p>;
+</script>
 
-  return (
-    <>
-      {showDownloadPDF && (
-        <div id='download-pdf' class='titled_outer'>
-          <h2>Download PDF</h2>
-          <div class='select-dropdown-container'>
-            <label>
-              Select PDF Format
-              <select
-                value={dimensionIndex}
-                on:change={handleDimensionIndexChange}>
-                {dimensionsOptionItems}
-              </select>
-            </label>
-          </div>
-          <br />
-          {dimensionIndex > 0 && (
-            <div id='pdfbuttons'>
-              <DownloadPDFButton type={'portrait'} element={currentRef} />
-              <DownloadPDFButton type={'landscape'} element={currentRef} />
-            </div>
-          )}
+{#if (pdfLoading)}
+  <p> Loading PDF...</p>
+{:else }
+  {#if $showDownloadPDF}
+      <div id='download-pdf' class='titled_outer'>
+        <h2>Download PDF</h2>
+        <div class='select-dropdown-container'>
+          <label>
+            Select PDF Format
+            <select
+              value={dimensionIndex}
+              on:change={handleDimensionIndexChange}>
+              {#each dimensionArray as dimension, index}
+                <option value={index}>
+                  {dimension[0] + ' X ' + dimension[1]}
+                </option>
+              {/each}
+            </select>
+          </label>
         </div>
-      )}
-    </>
-  );
-};
-export default PDFButtonsContainer;
+        <br />
+        {#if dimensionIndex > 0}
+          <div id='pdfbuttons'>
+            <DownloadPDFButton type={'portrait'} element={$ref} />
+            <DownloadPDFButton type={'landscape'} element={$ref} />
+          </div>
+        {/if}
+      </div>
+  {/if}
+{/if}
+
+
+    
