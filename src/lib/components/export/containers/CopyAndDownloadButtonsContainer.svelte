@@ -1,18 +1,15 @@
 <script>
-  import {snapshots, currentLineupIndex, showDownloadPDF, showDownloadPDFButton, jpgImage, screenshotUrl} from '$lib/store';
+  import {snapshots, currentLineupIndex, showDownloadPDF, showDownloadPDFButton, refLineup, screenshotUrl} from '$lib/store';
   import {
     copyImageToClipboard,
     showCopyLineupToClipboard,
   } from '$lib/components/export/utils';
-  const dataUrl = $screenshotUrl;
-  console.log("😊😊 $screenshotUrl", $screenshotUrl)
   let aLineup = $snapshots[$currentLineupIndex];
   let title = aLineup.title;
   let lineup = aLineup.lineup;
 
   function handleCopyLineup() {
-    console.log("😊😊 $jpgImage", $jpgImage)
-    copyImageToClipboard($jpgImage);
+    copyImageToClipboard($refLineup);
   }  
   
   //copy players
@@ -52,7 +49,7 @@
   function handleDownloadScreenshot() {
     var link = document.createElement('a');
     link.download = title + '.jpeg';
-    link.href = dataUrl;
+    link.href = $screenshotUrl;
     link.click();
   }
 

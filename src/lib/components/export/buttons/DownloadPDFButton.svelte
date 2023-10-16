@@ -1,5 +1,7 @@
 <script>
-  export let type, element;
+  export let type;
+  export let element;
+  console.log("🚀 ~ file: DownloadPDFButton.svelte:4 ~ element:", element)
   import { showDownloadPDF, showDownloadPDFButton, dimensionIndex} from '$lib/store';
   import { dimensionArray } from '$lib/components/export/optionitems';
   import { createPDF } from '$lib/components/export/utils';

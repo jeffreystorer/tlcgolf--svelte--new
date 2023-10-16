@@ -10,14 +10,6 @@
   function handleClearGame() {
     $textareaValue = '';
   }
-
-  const arrayTeeTimeIndexes = (start, stop, step) =>
-    Array.from(
-    { length: (stop - start) / step + 1 },
-    (value, index) => start + index * step
-    );
-  const teeTimeIndexes = arrayTeeTimeIndexes(0,$teeTimeCount - 1,1);
-  
 </script>
 
 <div class='titled_outer'>
@@ -25,8 +17,8 @@
   {#key $sortOrder}
     <AutoButtons />
   {/key}
-  {#each teeTimeIndexes as item }
-    <TeamTable teamNumber={item} teamMembers={$teamTables['team' + item]} />
+  {#each Array($teeTimeCount) as _, index }
+    <TeamTable teamNumber={index} teamMembers={$teamTables['team' + index]} />
   {/each}
   {#if (progs069 > 0 && okToAddPlayers)}
     <p>{progAdjMessage}</p>

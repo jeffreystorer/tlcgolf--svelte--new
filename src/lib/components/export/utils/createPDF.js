@@ -1,12 +1,12 @@
+import {lineupTitle, pdfDim} from '$lib/store';
+import { get } from 'svelte/store';
 import { jsPDF } from "jspdf";
 import domtoimage from "dom-to-image";
-import { get } from "$lib/components/common/utils";
 
 export default function createPDF(type, element, dims) {
-  const title = get("title");
-  const dimensions = get("pdfDim");
+  const dimensions = get(pdfDim);
   const orientation = type;
-  const fileName = title + " (" + type + " " + dims + ").pdf";
+  const fileName = get(lineupTitle) + " (" + type + " " + dims + ").pdf";
   let PAPER_DIMENSIONS = {};
   let format = [];
   switch (type) {
@@ -58,6 +58,7 @@ export default function createPDF(type, element, dims) {
     format: format,
   });
 
+  // eslint-disable-next-line no-unused-vars
   domtoimage.toJpeg(element.current, { quality: 1.0 }).then((dataUrl) => {
     domtoimage
       .toJpeg(element.current, { quality: 1.0 })
@@ -68,7 +69,7 @@ export default function createPDF(type, element, dims) {
         w = imageDimensions(dimensions).width;
         h = imageDimensions(dimensions).height;
         doc.addImage(dataUrl, "JPEG", x, y, w, h);
-        doc.setProperties({ title: title });
+        doc.setProperties({ title: get(lineupTitle) });
         doc.save(fileName);
       });
   });

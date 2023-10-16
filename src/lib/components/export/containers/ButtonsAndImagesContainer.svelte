@@ -1,19 +1,15 @@
 <script>
   import { onMount} from 'svelte';
-  export let dimensionIndex;
-  import { screenshotUrl} from '$lib/store';
+  import { screenshotUrl, dimensionIndex, pdfDim, styleDims} from '$lib/store';
   import {
     CopyAndDownloadButtonsContainer,
     PDFButtonsContainer,
   } from '$lib/components/export/containers';
   import { LineupImage, Collage } from '$lib/components/export/images';
   import { dimensionArray } from '$lib/components/export/optionitems';
-  import { get, set } from '$lib/components/common/utils';
-  import { returnCollageSetting } from '$lib/components/export/utils';
 
-  let index = dimensionIndex;
+  let index = $dimensionIndex;
   if (index === 0) index = index + 1;
-  let dataUrl = $screenshotUrl;
   
   //PDF Creation
 
@@ -23,13 +19,11 @@
   let pcSetting;
  
   const img = new Image();
-  img.src = dataUrl;
+  img.src = $screenshotUrl;
   let factor = 2.0;
 
   let pcWidth = img.width * colCount * factor;
-  let pcWidthPx = pcWidth.toString() + 'px';
   let pcHeight = img.height * factor;
-  let pcHeightPx = pcHeight.toString() + 'px';
   let pcDim = {
     width: pcWidth,
     height: pcHeight * rowCount,
@@ -37,13 +31,18 @@
   let pcStyleWidth = pcDim.width + 'px';
   let pcStyleHeight = pcDim.height + 'px';
 
-  set('pdfDim', pcDim);
+  $pdfDim = pcDim;
 
-  set('styleDims', [pcStyleWidth, pcStyleHeight]);
-  const styleDims = get('styleDims');
+  $styleDims =  [pcStyleWidth, pcStyleHeight];
 
   onMount(() => {
-    pcSetting = returnCollageSetting(dataUrl, rowCount, colCount, pcWidthPx, pcHeightPx)
+    pcSetting = {
+      rows: rowCount, 
+      columns: colCount,
+      factor: factor,
+      width: img.width,
+      height: img.height,
+    }
     pdfLoading = false;
   });
 </script>
@@ -51,14 +50,19 @@
 
 
 <CopyAndDownloadButtonsContainer />
-<PDFButtonsContainer pdfLoading={pdfLoading} />
-<div id='lineup-images'>
-  <br/>
+<PDFButtonsContainer {pdfLoading} />
+<section>
   <LineupImage />
-  <br />
   <Collage
     {pdfLoading}
     {pcSetting}
-    {styleDims}
   />
-</div>
+</section>
+
+<style>
+  section {
+    top: 0;
+    left: -1000%;
+    position: fixed;
+  }
+</style>

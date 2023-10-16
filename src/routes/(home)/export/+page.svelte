@@ -7,7 +7,7 @@
     ButtonsAndImagesContainer,
     ShowCheckboxesContainer,
   } from '$lib/components/export/containers';
-  import { screenshotUrl, dimensionIndex, course, group, groups, currentLineupIndex, showFirstName, showTeamHcp, showLocalNumbers} from '$lib/store';
+  import { screenshotUrl, course, group, groups, currentLineupIndex, showFirstName, showTeamHcp, showLocalNumbers} from '$lib/store';
   import * as courseData from '$lib/components/common/data';
   import { sget } from '$lib/components/common/utils';
   const isLoggedIn = sget('isLoggedIn');
@@ -39,7 +39,7 @@
 <div id='export'>
   <div>
     <ShowCheckboxesContainer />
-    <ButtonsAndImagesContainer dimensionIndex={$dimensionIndex} />
+    <ButtonsAndImagesContainer />
   </div>
   <div>
     {#key [$showFirstName, $showTeamHcp, $showLocalNumbers]}

@@ -508,12 +508,6 @@ svg {
 	font-size: var(--step-0);
 }
 
-#lineup-images {
-	top: 0;
-	left: -1000%;
-	position: fixed;
-}
-
 #download-pdf {
 	margin: 1em auto;
 	padding: 0 0.5em;

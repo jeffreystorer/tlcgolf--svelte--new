@@ -62,15 +62,6 @@
     }
     return _teamTables;
   }
-
-  
-  
-  const arrayTeeTimeIndexes = (start, stop, step) =>
-    Array.from(
-    { length: (stop - start) / step + 1 },
-    (value, index) => start + index * step
-    );
-  const teeTimeIndexes = arrayTeeTimeIndexes(0,$teeTimeCount - 1,1);
 </script>
 
 <div id='lineup-table-export'>
@@ -80,21 +71,21 @@
       
     
       {#if $showIndividualHandicaps}
-        {#each teeTimeIndexes as item}
+        {#each Array($teeTimeCount) as _, index}
           <LineupTeamTable
-            teamNumber={item}
+            teamNumber={index}
             times={times}
             teamTables={lineupTeamTables}
-            teamMembers={lineupTeamTables['team' + item]}
+            teamMembers={lineupTeamTables['team' + index]}
           />
         {/each}
       {:else}
-      {#each teeTimeIndexes as item}
+      {#each Array($teeTimeCount) as _, index}
         <TeamsTeamTable
-          teamNumber={item}
+          teamNumber={index}
           times={times}
           teamTables={teamsTeamTables}
-          teamMembers={teamsTeamTables['team' + item]}
+          teamMembers={teamsTeamTables['team' + index]}
         />
       {/each}
       {/if}

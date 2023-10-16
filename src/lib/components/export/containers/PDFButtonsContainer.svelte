@@ -1,12 +1,10 @@
 <script>
   export let pdfLoading;
-  import { ref } from '$lib/store';
+  import { refCollage } from '$lib/store';
+  console.log("🚀 ~ file: PDFButtonsContainer.svelte:4 ~ $refCollage:", $refCollage)
   import { dimensionIndex, showDownloadPDF} from '$lib/store';
   import { DownloadPDFButton } from '$lib/components/export/buttons';
-  import { dimensionArray } from '$lib/components/export/optionitems';  
-  const handleDimensionIndexChange = (event) => {
-    $dimensionIndex = event.target.value;
-  };
+  import { dimensionArray } from '$lib/components/export/optionitems'; 
 </script>
 
 {#if (pdfLoading)}
@@ -19,8 +17,7 @@
           <label>
             Select PDF Format
             <select
-              value={dimensionIndex}
-              on:change={handleDimensionIndexChange}>
+              bind:value={$dimensionIndex}>
               {#each dimensionArray as dimension, index}
                 <option value={index}>
                   {dimension[0] + ' X ' + dimension[1]}
@@ -30,10 +27,10 @@
           </label>
         </div>
         <br />
-        {#if dimensionIndex > 0}
+        {#if $dimensionIndex > 0}
           <div id='pdfbuttons'>
-            <DownloadPDFButton type={'portrait'} element={$ref} />
-            <DownloadPDFButton type={'landscape'} element={$ref} />
+            <DownloadPDFButton type={'portrait'} element={$refCollage} />
+            <DownloadPDFButton type={'landscape'} element={$refCollage} />
           </div>
         {/if}
       </div>
