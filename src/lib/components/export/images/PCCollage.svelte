@@ -8,12 +8,12 @@
     let cellHeight = (factor*height - 2).toString() + 'px';
 </script>
   
-  <div id="collage">
+  <div id="collage" style="--width: {rowWidth}">
     {#each Array(rows) as _}
       <div class="row" style="--rowWidth: {rowWidth}; --rowHeight: {rowHeight}">
         {#each Array(columns) as _}
           <div class="cell" style="--cellWidth: {cellWidth}; --cellHeight: {cellHeight}">
-            <div class="thumb" style="--url: {$screenshotUrl}"/>
+            <div class="thumb" style="--bg-image: url({$screenshotUrl})"/>
           </div>
         {/each}
       </div>
@@ -44,7 +44,7 @@
 
   .thumb {
     flex: 1 1 0%;
-    background-image: var(--url);
+    background-image: var(--bg-image);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

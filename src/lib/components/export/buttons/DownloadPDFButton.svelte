@@ -1,13 +1,13 @@
 <script>
   export let type;
   export let element;
-  console.log("🚀 ~ file: DownloadPDFButton.svelte:4 ~ element:", element)
-  import { showDownloadPDF, showDownloadPDFButton, dimensionIndex} from '$lib/store';
-  import { dimensionArray } from '$lib/components/export/optionitems';
+  export let dimensionIndex;
+  import { showDownloadPDF, showDownloadPDFButton } from '$lib/store';
   import { createPDF } from '$lib/components/export/utils';
-  const rowCount = dimensionArray[$dimensionIndex][0];
-  const colCount = dimensionArray[$dimensionIndex][1];
-  const dims = rowCount + ' X ' + colCount;
+  import { dimensionArray } from '$lib/components/export/optionitems';
+  let rowCount = dimensionArray[dimensionIndex][0];
+  let colCount = dimensionArray[dimensionIndex][1];
+  let dims = rowCount + ' X ' + colCount; 
   let buttonText;
   switch (type) {
     case 'portrait':
@@ -25,9 +25,6 @@
     $showDownloadPDFButton = true;
     createPDF(type, element, dims);
   }
-</script>
-
+</script> 
   
-  
-
-<button on:click={handleClick}>{buttonText}</button>;
+<button on:click={handleClick}>{buttonText}</button>

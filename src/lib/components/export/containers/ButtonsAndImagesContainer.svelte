@@ -16,7 +16,6 @@
   const rowCount = dimensionArray[index][0];
   const colCount = dimensionArray[index][1];
   let pdfLoading = true;
-  let pcSetting;
  
   const img = new Image();
   img.src = $screenshotUrl;
@@ -34,6 +33,7 @@
   $pdfDim = pcDim;
 
   $styleDims =  [pcStyleWidth, pcStyleHeight];
+  let pcSetting;
 
   onMount(() => {
     pcSetting = {
@@ -50,19 +50,19 @@
 
 
 <CopyAndDownloadButtonsContainer />
-<PDFButtonsContainer {pdfLoading} />
-<section>
-  <LineupImage />
-  <Collage
-    {pdfLoading}
-    {pcSetting}
-  />
-</section>
+  <PDFButtonsContainer {pdfLoading} />
+  <section>
+    <LineupImage />
+    <Collage
+      {pdfLoading}
+      {pcSetting}
+    />
+  </section>
 
 <style>
-  section {
+ /*  section {
     top: 0;
     left: -1000%;
     position: fixed;
-  }
+  } */
 </style>

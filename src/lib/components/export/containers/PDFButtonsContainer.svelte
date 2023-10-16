@@ -1,10 +1,9 @@
 <script>
   export let pdfLoading;
   import { refCollage } from '$lib/store';
-  console.log("🚀 ~ file: PDFButtonsContainer.svelte:4 ~ $refCollage:", $refCollage)
   import { dimensionIndex, showDownloadPDF} from '$lib/store';
+  import { dimensionArray } from '$lib/components/export/optionitems';
   import { DownloadPDFButton } from '$lib/components/export/buttons';
-  import { dimensionArray } from '$lib/components/export/optionitems'; 
 </script>
 
 {#if (pdfLoading)}
@@ -28,10 +27,12 @@
         </div>
         <br />
         {#if $dimensionIndex > 0}
-          <div id='pdfbuttons'>
-            <DownloadPDFButton type={'portrait'} element={$refCollage} />
-            <DownloadPDFButton type={'landscape'} element={$refCollage} />
-          </div>
+          {#key $dimensionIndex}
+            <div id='pdfbuttons'>
+              <DownloadPDFButton type={'portrait'} element={$refCollage} dimensionIndex = {$dimensionIndex}/>
+              <DownloadPDFButton type={'landscape'} element={$refCollage} dimensionIndex = {$dimensionIndex}/>
+            </div>
+          {/key}
         {/if}
       </div>
   {/if}
