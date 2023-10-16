@@ -3,9 +3,9 @@ import { get, returnDisplayNumber } from '$lib/components/common/utils';
 import { getPlayersNotInTeeTime } from "$lib/components/lineup/utils";
 
 export const pcSetting = writable({});
+export const refClipboard = writable(null);
 export const refCollage = writable(null);
 export const refLineup = writable(null);
-export const screenshotUrl = writable('');
 export const styleDims = writable([]);
 export const pdfDim = writable({});
 export const snapshots = writable([]);

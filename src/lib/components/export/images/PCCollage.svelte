@@ -1,6 +1,6 @@
 <script>
     export let pcSetting;
-    import { screenshotUrl } from '$lib/store';
+    import { getScreenshotUrl } from '$lib/components/export/utils';
     const {rows, columns, factor, width, height} = pcSetting;
     let rowWidth = (factor*columns*width).toString() + 'px';
     let rowHeight = (factor*height).toString() + 'px';
@@ -13,7 +13,7 @@
       <div class="row" style="--rowWidth: {rowWidth}; --rowHeight: {rowHeight}">
         {#each Array(columns) as _}
           <div class="cell" style="--cellWidth: {cellWidth}; --cellHeight: {cellHeight}">
-            <div class="thumb" style="--bg-image: url({$screenshotUrl})"/>
+            <div class="thumb" style="--bg-image: url({getScreenshotUrl()})"/>
           </div>
         {/each}
       </div>

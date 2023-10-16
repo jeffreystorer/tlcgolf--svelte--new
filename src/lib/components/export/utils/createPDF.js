@@ -5,8 +5,10 @@ import domtoimage from "dom-to-image";
 
 export default function createPDF(type, element, dims) {
   const dimensions = get(pdfDim);
+  console.log("🚀 ~ file: createPDF.js:11 ~ createPDF ~ dimensions:", dimensions)
   const orientation = type;
   const fileName = get(lineupTitle) + " (" + type + " " + dims + ").pdf";
+  console.log("🚀 ~ file: createPDF.js:14 ~ createPDF ~ fileName:", fileName)
   let PAPER_DIMENSIONS = {};
   let format = [];
   switch (type) {
@@ -59,18 +61,17 @@ export default function createPDF(type, element, dims) {
   });
 
   // eslint-disable-next-line no-unused-vars
-  domtoimage.toJpeg(element.current, { quality: 1.0 }).then((dataUrl) => {
-    domtoimage
-      .toJpeg(element.current, { quality: 1.0 })
-      .then(function (dataUrl) {
-        let x, y, w, h;
-        x = (PAPER_DIMENSIONS.width - imageDimensions(dimensions).width) / 2;
-        y = (PAPER_DIMENSIONS.height - imageDimensions(dimensions).height) / 2;
-        w = imageDimensions(dimensions).width;
-        h = imageDimensions(dimensions).height;
-        doc.addImage(dataUrl, "JPEG", x, y, w, h);
-        doc.setProperties({ title: get(lineupTitle) });
-        doc.save(fileName);
-      });
-  });
+  domtoimage
+    .toJpeg(element, { quality: 1.0 })
+    .then(function (dataUrl) {
+      let x, y, w, h;
+      x = (PAPER_DIMENSIONS.width - imageDimensions(dimensions).width) / 2;
+      y = (PAPER_DIMENSIONS.height - imageDimensions(dimensions).height) / 2;
+      w = imageDimensions(dimensions).width;
+      h = imageDimensions(dimensions).height;
+      doc.addImage(dataUrl, "JPEG", x, y, w, h);
+      doc.setProperties({ title: get(lineupTitle) });
+      doc.save(fileName);
+    });
+ 
 }

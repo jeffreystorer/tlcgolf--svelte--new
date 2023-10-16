@@ -1,8 +1,9 @@
 <script>
-  import {snapshots, currentLineupIndex, showDownloadPDF, showDownloadPDFButton, refLineup, screenshotUrl} from '$lib/store';
+  import {snapshots, currentLineupIndex, showDownloadPDF, showDownloadPDFButton, refLineup} from '$lib/store';
   import {
     copyImageToClipboard,
     showCopyLineupToClipboard,
+    getScreenshotUrl,
   } from '$lib/components/export/utils';
   let aLineup = $snapshots[$currentLineupIndex];
   let title = aLineup.title;
@@ -47,9 +48,10 @@
   }
 
   function handleDownloadScreenshot() {
+    const screenshotUrl = getScreenshotUrl();
     var link = document.createElement('a');
     link.download = title + '.jpeg';
-    link.href = $screenshotUrl;
+    link.href = screenshotUrl;
     link.click();
   }
 

@@ -1,5 +1,5 @@
 <script>
-  import {teesSelected, course, progs069, progAdj, linkTime, teeTimeCount, teamTables, playingDate, showFirstName, showIndividualHandicaps, showLocalNumbers, showTeamHcp, textareaValue} from '$lib/store';
+  import {course, progs069, progAdj, linkTime, teeTimeCount, teamTables, playingDate, showIndividualHandicaps} from '$lib/store';
   import * as _ from 'lodash';
   import {
     ExportTextarea,
@@ -20,8 +20,6 @@
 
   let lineupTeamTables = updateLineupTeamTables();
   let teamsTeamTables = updateTeamsTeamTables();
-  let lineupTeamMembers = [];
-  let teamsTeamMembers = [];
 
   function updateLineupTeamTables() {
     let _teamTables = _.cloneDeep($teamTables);

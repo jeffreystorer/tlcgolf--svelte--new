@@ -1,11 +1,12 @@
 <script>
-  import { refLineup, screenshotUrl} from '$lib/store';
+  import { refLineup} from '$lib/store';
+  import { getScreenshotUrl} from '$lib/components/export/utils';
 </script>
 
 
 <div bind:this={$refLineup} id='lineupToCopy'>
   <img
-    src={$screenshotUrl}
+    src={getScreenshotUrl()}
     class='img'
     alt='Loading Lineup to Copy . . . '
   />
