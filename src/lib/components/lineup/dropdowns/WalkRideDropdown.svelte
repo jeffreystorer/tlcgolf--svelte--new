@@ -12,7 +12,7 @@
     const walkRide = event.target.value;
     const anId = Number(event.target.name);
     const aTeamNumber = event.target.id;
-    teamName = 'team' + aTeamNumber;
+    teamName = 'team' + teamNumber;
     playerIndex = $teamTables[teamName].findIndex(
       (player) => player.id === Number(anId)
     );
@@ -23,7 +23,6 @@
 
 <td>
   <select
-    id={teamNumber}
     name={playerId}
     bind:offsetWidth={walk}
     on:change={handleWalkRideChange}>

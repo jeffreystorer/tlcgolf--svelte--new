@@ -12,8 +12,7 @@
     let _teamTables = _.cloneDeep($teamTables);
     const aManualCH = event.target.value;
     const anId = Number(event.target.name);
-    const aTeamNumber = event.target.id;
-    teamName = 'team' + aTeamNumber;
+    teamName = 'team' + teamNumber;
     playerIndex = _teamTables[teamName].findIndex(
       (player) => player.id === Number(anId)
     );
@@ -25,7 +24,6 @@
 
 <td>
   <select
-    id={teamNumber}
     name={playerId}
     bind:value={manualCH}
     on:change={handleManualCHChange}>
