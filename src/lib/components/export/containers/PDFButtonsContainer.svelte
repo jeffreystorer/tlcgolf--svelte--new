@@ -1,10 +1,9 @@
 <script>
   import { refCollage } from '$lib/store';
-  import { dimensionIndex, showDownloadPDF, pdfDim, styleDims} from '$lib/store';
+  import { screenshotUrl, dimensionIndex, showDownloadPDF, pdfDim, styleDims} from '$lib/store';
   import { dimensionArray } from '$lib/components/export/optionitems';
   import { DownloadPDFButton } from '$lib/components/export/buttons';
   import { LineupImage, Collage } from '$lib/components/export/images';
-  import { getScreenshotUrl} from '$lib/components/export/utils';
   let pcSetting = {
       rows: 0, 
       columns: 0,
@@ -26,7 +25,7 @@
   const colCount = dimensionArray[index][1];
  
   const img = new Image();
-  img.src = getscreenshotUrl();
+  img.src = $screenshotUrl;
   let factor = 2.0;
 
   let pcWidth = img.width * colCount * factor;
@@ -53,7 +52,7 @@
 </script>
 
 {#if $showDownloadPDF}
-    <div id='download-pdf' class='titled_outer'>
+    <div class='titled_outer'>
       <h2>Download PDF</h2>
       <div class='select-dropdown-container'>
         <label>
@@ -89,10 +88,24 @@
 
 
 <style>
+  div:first-of-type {
+	margin: 1em auto;
+	padding: 0 0.5em;
+	width: fit-content;
+}
   section {
     top: 0;
     left: -1000%;
     position: fixed;
-  }
+  }  
+
+#pdfbuttons {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5em;
+	justify-content: space-around;
+	margin: 0 auto 0.5em auto;
+	width: fit-content;
+}
 </style>
     

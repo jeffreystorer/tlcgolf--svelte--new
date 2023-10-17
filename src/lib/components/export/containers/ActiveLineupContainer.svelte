@@ -1,4 +1,5 @@
 <script>
+  import {afterUpdate} from 'svelte';
   import {course, progs069, progAdj, linkTime, teeTimeCount, teamTables, playingDate, showIndividualHandicaps} from '$lib/store';
   import * as _ from 'lodash';
   import {
@@ -6,12 +7,13 @@
     LineupTeamTable,
     TeamsTeamTable,
   } from '$lib/components/export/activelineup';
-  import { getPlayersInGroup } from '$lib/components/common/utils';
   import {
+    getPlayersInGroup,
     createProgAdjMessage,
     getCourseName,
     getTeeTimes,
   } from '$lib/components/common/utils';
+  import { updateScreenshotUrl } from '$lib/components/export/utils';
   let courseName = getCourseName($course);
   const progAdjMessage = createProgAdjMessage($progAdj, $progs069);
   const times = getTeeTimes($linkTime, $teeTimeCount);
@@ -20,6 +22,10 @@
 
   let lineupTeamTables = updateLineupTeamTables();
   let teamsTeamTables = updateTeamsTeamTables();
+
+  afterUpdate(() => {
+    updateScreenshotUrl();
+  });
 
   function updateLineupTeamTables() {
     let _teamTables = _.cloneDeep($teamTables);
@@ -65,9 +71,7 @@
 <div id='lineup-table-export'>
   <div id='lineup-image'>
     <h2>{$playingDate + ' at ' + courseName}</h2>
-    <div>
-      
-    
+    <div>    
       {#if $showIndividualHandicaps}
         {#each Array($teeTimeCount) as _, index}
           <LineupTeamTable
@@ -94,3 +98,26 @@
     <ExportTextarea/>
   </div>
 </div>
+
+<style>
+
+  #lineup-table-export {
+    margin: 0 auto 1em auto;
+    width: fit-content;
+  }
+  #lineup-image {
+    background-color: var(--background-white);
+    padding: 1em;
+
+    & > div {
+      background-color: var(--background-white);
+      margin: 0 auto;
+      width: fit-content;
+    }
+
+    & > h2 {
+      font-size: var(--step-0);
+      font-weight: 700;
+  }
+  }
+</style>

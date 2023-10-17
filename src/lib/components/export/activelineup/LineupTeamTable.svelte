@@ -5,8 +5,7 @@
   export let times;
   export let teamTables;
   import {showTeamHcp, progs069, progAdj, course, teesSelected} from '$lib/store';
-  import { LineupTeamTableHeader } from '$lib/components/export/activelineup';
-  import { setTeamHcpAndProgs } from '$lib/components/common/utils';
+  import { returnHeaderRow, setTeamHcpAndProgs } from '$lib/components/common/utils';
 
   let teamName = 'team' + teamNumber;
   let teamHcp, teamProgs;
@@ -14,6 +13,16 @@
   let _teesSelected = $teesSelected[$course]
   let _teamMembers = _.cloneDeep(teamMembers)
   setManualCHCourseHandicaps(_teamMembers)
+  let cols = returnHeaderRow($teesSelected[$course]);
+  cols.shift();
+  let teeTime;
+  try {
+    teeTime = times[teamNumber];
+    if (times[teamNumber].includes('Shotgun')) {
+      teeTime = teeTime + ' (' + teamTables.teeAssignments[teamNumber] + ')';
+    }
+  } catch (error) {}
+
   
   function setManualCHCourseHandicaps() {
     //iterate through teamMembers
@@ -62,12 +71,14 @@
 
 <table>
   <thead>
-    <LineupTeamTableHeader
-      teesSelected={_teesSelected}
-      teamTables={teamTables}
-      times={times}
-      teamNumber={teamNumber}
-    />
+    <tr>
+      <th scope='col'>{teeTime}</th>
+        {#each cols as col}
+            <th scope='col'>
+              {col}
+            </th>
+        {/each}
+    </tr>
   </thead>
   <tbody>
     {#each rows as row}
@@ -103,56 +114,36 @@
 </table>
 
 <style>
-  table {
-	  display: block;
+  thead > tr > th {
+    font-size: var(--step-0);
+    font-weight: 700;
+  }
 
-    & thead th {
-      font-size: var(--step-0);
-      width: fit-content;
-    }
+  thead > tr > th[scope='col']:first-of-type {
+    text-align: left;
+  }
 
-    & thead th:nth-of-type(1),
-    & thead th:nth-of-type(2) {
-      text-align: left;
-    }
+  tbody > tr > th[scope='row'] {
+    font-size: var(--step-0);
+    font-weight: normal;
+    padding: 0 0.125em;
+    text-align: left;
+    width: 15em;
+  }
 
-    & thead > tr > th:nth-of-type(2) {
-      display: inline-flex;
-      float: left;
-    }
+  tbody > tr > td {
+    font-size: var(--step-0);
+    text-align: center;
+  }
+  tfoot {
+    width: 100%;
 
-    & tbody > tr > td {
-      height: fit-content;
-    }
 
-    & tbody > tr > td:last-of-type > select {
-      appearance: none;
-      border: none;
-      font-weight: 700;
-      margin-left: 0.25em;
-      width: 2em;
-    }
-
-    & tbody > tr > th {
-      font-size: var(--step-0);
-      font-weight: normal;
-      padding: 0 0.125em;
-      text-align: left;
-      width: 15em;
-    }
-
-    & tfoot th {
+    & th {
       font-size: var(--step-0);
       font-style: italic;
       font-weight: normal;
       text-align: center;
     }
   }
-
-  .ch-chosen {
-    text-decoration: underline;
-  }
-
 </style>
-
-

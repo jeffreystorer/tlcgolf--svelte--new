@@ -271,7 +271,7 @@
     clicking the player&apos;s name. To remove one or more players from a
     team and also from the list of players selected for the lineup, you can
     click <button>Add/Delete Players</button> and click the player(s) to be
-    removed.
+    removed.  You can remove all players by clicking <button>Clear Lineup</button>.
   </p>
   <h4 id='autopop'>Automatically Populating Teams in the Sort Order</h4>
   <p>

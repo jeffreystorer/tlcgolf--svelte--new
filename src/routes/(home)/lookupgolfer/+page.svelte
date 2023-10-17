@@ -12,12 +12,6 @@
         ? 1
         : -1;
     })
-
-  function on:click(e) {
-    let golfer_id = e.target.innerText;
-    navigator.clipboard.writeText(golfer_id);
-    goto (`/scores/${golfer_id}`);
-  }
   </script>
 
   <h2>GHIN Information for {searchedName}</h2>

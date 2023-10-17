@@ -1,4 +1,5 @@
-<script> 
+<script>
+  import '$lib/styles/modal.css';
   import { missingPlayerMessage, currentLineupKey, currentLineupIndex, currentLineup, playersInLineup, lineupTitle, sortOrder} from '$lib/store';
   import { deleteLineup } from '$lib/components/lineup/utils/lineupService';
 
@@ -45,3 +46,9 @@
     </footer>
   </section>
 </div>
+
+<style>
+  section {
+    max-width: fit-content;
+  }
+</style>

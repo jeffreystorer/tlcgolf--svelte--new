@@ -34,9 +34,9 @@
           Clear Game
         </button>
       </div>
-      <GameOptionsModal />
       <SaveLineup />
     </div>
+    <GameOptionsModal />
   {/if}
 </div>
 

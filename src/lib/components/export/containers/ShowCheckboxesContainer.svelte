@@ -7,7 +7,7 @@
   
 </script>
 
-<div id='showcheckboxes-container'>
+<div>
   <label>
     <input
       name='showFirstName'
@@ -47,3 +47,11 @@
     Show Local Numbers
   </label>
 </div>
+
+<style>
+  div {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--step-0);
+  }
+</style>

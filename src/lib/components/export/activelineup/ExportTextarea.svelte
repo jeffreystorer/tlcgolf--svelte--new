@@ -13,13 +13,13 @@
 
  <style>
   textarea {
-    border-width: 0.125em;
+    border-width: 0.05em;
     outline: none;
     display: block;
     font-size: var(--step-0);
     font-style: normal;
     margin: 0 auto 0.25em auto;
-    padding: 0.5em;
+    padding: 0 0.5em;
     resize: none;
   }
 </style>

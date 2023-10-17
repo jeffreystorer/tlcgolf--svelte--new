@@ -55,20 +55,43 @@
   };
 </script>
 
-    <div class='players'>
-      <h4>{deletePlayerCount} In Lineup</h4>
-      <ul>
-        {#each $playersInLineup as player}
-          <!-- svelte-ignore a11y-click-events-have-key-events -->
-          <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-          <li on:click={handleClick(player.id)}>
-            {player.playerName}
-          </li>
-        {/each}
-      </ul>
-      <div class='divider'></div>
-      <SortOrderDropdown />
-      <button class='stacked' on:click={handleClear}>
-        Clear
-      </button>
-    </div>
+<div>
+  <h4>{deletePlayerCount} In Lineup</h4>
+  <ul>
+    {#each $playersInLineup as player}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+      <li on:click={handleClick(player.id)}>
+        {player.playerName}
+      </li>
+    {/each}
+  </ul>
+  <br />
+  <div class='titled_inner'>
+    <h3>Sort Order</h3>
+  <SortOrderDropdown />
+  </div>
+  <button class='stacked' on:click={handleClear}>
+    Clear Lineup
+  </button>
+</div>
+
+  <style>    
+    div {
+      padding: 0 0.25em;
+      width: 50%;
+
+      & > h4 {
+        font-size: var(--step-0);
+        text-decoration: underline;
+      }
+      & > ul {
+        list-style: none;
+      }
+
+      & > ul > li {
+        font-size: var(--step-0);
+        text-align: center;
+      }
+    }
+  </style>

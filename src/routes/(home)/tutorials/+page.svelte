@@ -23,7 +23,7 @@
   }
 </script>
 
-    <div id='tutorials'>
+    <div>
       <h2>Tutorials</h2>
       <details id='details'>
         <summary>Table of Contents</summary>
@@ -61,25 +61,34 @@
     </div>
 
     <style>
-			#tutorials h2 {
+			h2 {
 				font-size: var(--step-1);
 				font-weight: 700;
 				text-align: center;
 			}
 
-			#tutorials h3 {
+			h3 {
 				font-size: var(--step-1);
 				font-weight: 700;
 				text-align: center;
 			}
-			#tutorials details summary {
+			summary {
 				font-size: var(--step-0);
+				font-style: italic;
 			}
-			#tutorials details ul {
+			ul {
 				margin-left: 1em;
 				text-align: left;
 			}
-			#tutorials summary {
-				font-style: italic;
-			}
-    </style>
+      
+
+  .iframe {
+    margin: 0 auto;
+    width: 95%;
+
+    & iframe {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+  }}
+</style>

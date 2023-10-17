@@ -2,6 +2,7 @@ import { derived, readable, writable } from 'svelte/store';
 import { get, returnDisplayNumber } from '$lib/components/common/utils';
 import { getPlayersNotInTeeTime } from "$lib/components/lineup/utils";
 
+export const screenshotUrl = writable('');
 export const pcSetting = writable({});
 export const refClipboard = writable(null);
 export const refCollage = writable(null);

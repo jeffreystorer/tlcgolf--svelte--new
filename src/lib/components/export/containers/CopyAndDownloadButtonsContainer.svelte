@@ -1,20 +1,16 @@
 <script>
-  import {snapshots, currentLineupIndex, showDownloadPDF, showDownloadPDFButton, refLineup} from '$lib/store';
+  import {screenshotUrl, lineupTitle, playersInLineup, showDownloadPDF, showDownloadPDFButton, refLineup} from '$lib/store';
   import {
     copyImageToClipboard,
     showCopyLineupToClipboard,
-    getScreenshotUrl,
   } from '$lib/components/export/utils';
-  let aLineup = $snapshots[$currentLineupIndex];
-  let title = aLineup.title;
-  let lineup = aLineup.lineup;
 
   function handleCopyLineup() {
     copyImageToClipboard($refLineup);
   }  
   
   //copy players
-  let players = lineup.players;
+  let players = $playersInLineup;
   players.sort((a, b) =>
     a.lastName > b.lastName
       ? 1
@@ -48,10 +44,9 @@
   }
 
   function handleDownloadScreenshot() {
-    const screenshotUrl = getScreenshotUrl();
     var link = document.createElement('a');
-    link.download = title + '.jpeg';
-    link.href = screenshotUrl;
+    link.download = $lineupTitle + '.jpeg';
+    link.href = $screenshotUrl;
     link.click();
   }
 
@@ -61,7 +56,7 @@
   }
 </script>
 
-<div id='copy-and-download-buttons-container'>
+<div>
   {#if (showCopyLineupToClipboard())}
     <button on:click={handleCopyLineup} class='stacked'>
       Copy Lineup to Clipboard
@@ -79,3 +74,10 @@
     </button>
   {/if}
 </div>
+
+<style>
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

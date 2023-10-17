@@ -5,10 +5,8 @@ import domtoimage from "dom-to-image";
 
 export default function createPDF(type, element, dims) {
   const dimensions = get(pdfDim);
-  console.log("🚀 ~ file: createPDF.js:11 ~ createPDF ~ dimensions:", dimensions)
   const orientation = type;
   const fileName = get(lineupTitle) + " (" + type + " " + dims + ").pdf";
-  console.log("🚀 ~ file: createPDF.js:14 ~ createPDF ~ fileName:", fileName)
   let PAPER_DIMENSIONS = {};
   let format = [];
   switch (type) {

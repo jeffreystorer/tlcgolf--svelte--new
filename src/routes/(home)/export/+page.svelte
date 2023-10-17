@@ -39,3 +39,36 @@
     {/key}
   </div>
 </div>
+
+<style>
+  
+  #export {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 96em;
+    padding: 0 0.5em;
+    margin: 0 auto;
+
+
+    & > div:first-of-type {
+      display: flex;
+      flex-direction: column;
+      flex: 1 0 20em;
+      height: fit-content;
+      justify-content: center;
+      max-width: 48em;
+      padding: 1em;
+    }
+
+    & > div:last-of-type {
+      display: flex;
+      flex-direction: column;
+      flex: 1 0 20em;
+      height: fit-content;
+      justify-content: center;
+      max-width: 48em;
+    }
+  }
+</style>

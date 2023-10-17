@@ -37,7 +37,7 @@
  
 </script>
 
-<div class='players'>
+<div>
   <h4>{addPlayerCount} Not In Lineup</h4>
   <ul>
     {#each playersNotInLineup() as player}
@@ -49,3 +49,22 @@
     {/each}
   </ul>
 </div>
+<style>
+  div {
+    padding: 0 0.25em;
+    width: 50%;
+
+    & > h4 {
+      font-size: var(--step-0);
+      text-decoration: underline;
+    }
+    & > ul {
+      list-style: none;
+    }
+
+    & > ul > li {
+      font-size: var(--step-0);
+      text-align: center;
+    }
+  }
+</style>

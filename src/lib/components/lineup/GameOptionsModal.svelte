@@ -1,4 +1,5 @@
 <script>
+  import '$lib/styles/modal.css';
   import {textareaValue, teeTimeCount, playerCount, bets} from '$lib/store';
   import {holesArray, grossupArray, entryPerArray, rulesArray, puttsArray} from '$lib/components/lineup/optionitems';
   const excessPayoutMessage =
@@ -204,3 +205,10 @@
     </form>
   </section>
 </div>
+
+<style>
+  section {
+    height: fit-content;
+    max-width: 100%;
+  }
+</style>
