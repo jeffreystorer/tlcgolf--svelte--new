@@ -1,5 +1,5 @@
 
-import {BaseApi} from '$lib/components/fetchdata/apis/base-api.js';
+import { BaseApi } from '$lib/components/fetchdata/apis';
 
 class ScoresApi extends BaseApi {
 	scores = (token, golfer_id) => {
