@@ -146,4 +146,8 @@
       text-align: center;
     }
   }
+
+  .ch-chosen {
+    text-decoration: underline;
+  }
 </style>

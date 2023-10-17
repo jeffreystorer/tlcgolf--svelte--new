@@ -14,8 +14,7 @@
     let _teamTables = _.cloneDeep($teamTables);
     const aTeeChoice = event.target.value;
     const anId = Number(event.target.name);
-    const aTeamNumber = event.target.id;
-    teamName = 'team' + aTeamNumber;
+    teamName = 'team' + teamNumber;
     playerIndex = _teamTables[teamName].findIndex(
       (player) => player.id === Number(anId)
     );
