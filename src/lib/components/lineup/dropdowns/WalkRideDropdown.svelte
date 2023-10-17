@@ -3,7 +3,6 @@
   export let playerId;
   export let teamNumber;
   import { teamTables } from '$lib/store';
-  import { v4 as uuidv4 } from 'uuid';
   import * as _ from 'lodash';
   let walkRideArray = ['W', 'R'];
   let newTeamTables = _.cloneDeep($teamTables);
@@ -28,7 +27,7 @@
     name={playerId}
     bind:offsetWidth={walk}
     on:change={handleWalkRideChange}>
-      {#each walkRideArray as wr (uuidv4())}
+      {#each walkRideArray as wr}
         <option value={wr}>
           {wr}
         </option>

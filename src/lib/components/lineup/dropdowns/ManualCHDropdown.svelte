@@ -1,7 +1,6 @@
 <script>
   export let playerId;
   export let teamNumber;
-  import { v4 as uuidv4 } from 'uuid';
   import { teamTables } from '$lib/store';
   import * as _ from 'lodash';
   import { recomputeTeamTables } from '$lib/components/lineup/utils';
@@ -30,7 +29,7 @@
     name={playerId}
     bind:value={manualCH}
     on:change={handleManualCHChange}>
-    {#each manualCHList() as ch (uuidv4())}
+    {#each manualCHList() as ch}
       <option value={ch.value}>
         {ch.text}
       </option>

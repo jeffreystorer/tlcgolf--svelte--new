@@ -1,4 +1,5 @@
-import { GolferApi, LookupGolferApi } from '$lib/components/fetchdata/apis';
+import GolferApi from '$lib/components/fetchdata/apis/golfer-api.js';
+import LookupGolferApi from '$lib/components/fetchdata/apis/lookup-golfer-api.js';
 
 export async function load({ url }) {
 	let last_name = url.searchParams.get("last_name");

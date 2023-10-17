@@ -1,5 +1,5 @@
-//import { getSnapshots } from '$lib/components/lineup/utils';
-import { GolferApi, CourseApi } from '$lib/components/fetchdata/apis';
+import GolferApi from '$lib/components/fetchdata/apis/golfer-api.js';
+import CourseApi from '$lib/components/fetchdata/apis/course-api.js';
 import { COURSE_IDS } from '$lib/components/common/data';
 import { aGender } from '$lib/components/common/utils/getRosterFields';
 import {

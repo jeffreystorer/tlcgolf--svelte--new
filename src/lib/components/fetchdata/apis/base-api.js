@@ -4,6 +4,7 @@ import { getUserToken, updateUrl } from '$lib/components/fetchdata/apis/ghin/uti
 
 export const SOURCE = 'GHINcom';
 class BaseApi {
+	
 	baseUrl = appConfig.api.host;
 
 	getBearerToken = (token = undefined) => {

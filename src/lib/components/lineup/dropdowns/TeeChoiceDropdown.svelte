@@ -3,7 +3,6 @@
   export let teamNumber;
   export let baseTee;
   import { course, teesSelected, teamTables } from '$lib/store';
-  import { v4 as uuidv4 } from 'uuid';
   import * as _ from 'lodash';
   import { recomputeTeamTables } from '$lib/components/lineup/utils';
   import { buildTeeArray } from '$lib/components/common/utils';
@@ -30,7 +29,7 @@
     name={playerId}
     bind:value={baseTee}
     on:change={handleTeeChoiceChange}>
-    {#each teesSelectedArray as tee (uuidv4())}
+    {#each teesSelectedArray as tee}
     <option value={tee}>
       {tee}
     </option>

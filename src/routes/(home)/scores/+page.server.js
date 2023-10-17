@@ -1,4 +1,5 @@
-import { GolferApi, ScoresApi } from '$lib/components/fetchdata/apis';
+import GolferApi from '$lib/components/fetchdata/apis/golfer-api.js';
+import ScoresApi from '$lib/components/fetchdata/apis/scores-api.js';
 
 export async function load({ url }) {
   const ghinNumber = url.searchParams.get("ghinNumber")
