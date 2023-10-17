@@ -5,6 +5,7 @@
 </script>
 
 <textarea
+  name='lineupTextarea'
   bind:value={$textareaValue}
   rows={rows}
   cols='36'

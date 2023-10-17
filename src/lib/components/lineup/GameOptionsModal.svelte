@@ -155,11 +155,7 @@
             <br />
             <input type='number' name='entry' min='1' max='100' />
           </label>
-          <!-- svelte-ignore a11y-label-has-associated-control -->
-          <label>
-            <br />
-            Payouts:
-          </label>
+          <p><br/>Payouts:</p>
           <label>
             First:
             <br />
@@ -210,5 +206,8 @@
   section {
     height: fit-content;
     max-width: 100%;
+  }
+  article > p {
+    font-style:normal;
   }
 </style>

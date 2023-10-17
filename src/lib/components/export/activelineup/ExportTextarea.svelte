@@ -5,6 +5,7 @@
 </script>
 
 <textarea
+  name='exportTextarea'
   value={$textareaValue}
   rows={rows}
   cols='36'

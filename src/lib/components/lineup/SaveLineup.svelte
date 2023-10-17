@@ -35,6 +35,7 @@
       <label>
         Save Lineup as:
         <input
+          name='saveLineup'
           type='text'
           bind:value={$lineupTitle}
           size='36'

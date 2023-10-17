@@ -28,7 +28,6 @@
 <td>
   <select
     class='embedded_tee'
-    id={teamNumber}
     name={playerId}
     bind:value={baseTee}
     on:change={handleTeeChoiceChange}>

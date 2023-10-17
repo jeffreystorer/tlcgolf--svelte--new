@@ -67,7 +67,6 @@
     margin: 0 auto;
     text-align: left;
     text-decoration: none;
-    width: fit-content;
   }
 
   .active_li,
