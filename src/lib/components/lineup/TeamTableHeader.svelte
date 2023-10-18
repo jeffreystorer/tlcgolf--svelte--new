@@ -142,4 +142,8 @@
     font-size: var(--step-0);
     font-weight: normal;
   }
+  img {
+    height: 24px;
+    width: 24px;
+  }
 </style>

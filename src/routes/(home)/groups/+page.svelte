@@ -22,6 +22,7 @@
     <GroupAndCourseDropdowns />
     <label>
       <input
+        name='showLocalNumbers'
         type='checkbox'
         bind:checked={$showLocalNumbers}
       />

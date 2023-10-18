@@ -153,24 +153,56 @@
           <label>
             Entry:
             <br />
-            <input type='number' name='entry' min='1' max='100' />
+            <input type='number' name='entry' min='1' max='100' list='entryAmounts'/>
           </label>
+          <datalist id='entryAmounts'>
+            <option value='10'></option>
+            <option value='15'></option>
+            <option value='20'></option>
+            <option value='24'></option>
+            <option value='36'></option>
+            <option value='48'></option>
+            <option value='60'></option>
+            <option value='72'></option>
+          </datalist>
           <p><br/>Payouts:</p>
           <label>
-            First:
+            1st:
             <br />
-            <input type='number' name='firstPayout' min='1' max='100' />
+            <input type='number' name='firstPayout' min='1' max='100' list='firstAmounts'/>
           </label>
+          <datalist id='firstAmounts'>
+            <option value='30'></option>
+            <option value='35'></option>
+            <option value='40'></option>
+            <option value='45'></option>
+            <option value='50'></option>
+            <option value='55'></option>
+            <option value='60'></option>
+          </datalist>
           <label>
-            Second:
+            2nd:
             <br />
-            <input type='number' name='secondPayout' min='1' max='100' />
+            <input type='number' name='secondPayout' min='1' max='100' list='secondAmounts'/>
           </label>
+          <datalist id='secondAmounts'>
+            <option value='5'></option>
+            <option value='10'></option>
+            <option value='15'></option>
+            <option value='20'></option>
+            <option value='25'></option>
+            <option value='30'></option>
+          </datalist>
           <label>
-            Third:
+            3rd:
             <br />
-            <input type='number' name='thirdPayout' min='1' max='100' />
+            <input type='number' name='thirdPayout' min='1' max='100' list='thirdAmounts'/>
           </label>
+          <datalist id='thirdAmounts'>
+            <option value='5'></option>
+            <option value='10'></option>
+            <option value='15'></option>
+          </datalist>
         </article>
         <select name='rules'>
           <option value=''>Winter or Summer Rules?</option>                   
