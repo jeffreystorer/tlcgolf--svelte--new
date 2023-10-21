@@ -66,17 +66,16 @@
       </li>
     {/each}
   </ul>
+  <div class='divider'></div>
   <br />
-  <div class='titled_inner'>
     <h3>Sort Order</h3>
   <SortOrderDropdown />
-  </div>
   <button class='stacked' on:click={handleClear}>
     Clear Lineup
   </button>
 </div>
 
-  <style>    
+  <style>
     div {
       padding: 0 0.25em;
       width: 50%;

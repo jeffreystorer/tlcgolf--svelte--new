@@ -43,7 +43,7 @@
           </button>
           <p>Click on a lineup to edit, export, or delete</p>
           <div class='divider'></div>
-          <ul id='ul'>
+          <ul>
             {#each $snapshots as snapshot, index}
               <li>
                 <a href='#ul' class={index === $currentLineupIndex ? 'active_li' : 'li'}
@@ -78,6 +78,16 @@
   .active_li {
     font-weight: 700;
   }
+
+  
+
+li:first-of-type {
+  padding: 0.5em 0;
+}
+
+li:not(first-of-type) {
+  padding: 0 0 0.5em 0;
+}
 </style>
 
       
