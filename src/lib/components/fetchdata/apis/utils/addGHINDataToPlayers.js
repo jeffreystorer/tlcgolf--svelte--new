@@ -1,31 +1,63 @@
-import {aLocalNumber} from '$lib/components/common/utils/getRosterFields';
-import capitalize from '$lib/components/common/utils/capitalize';
-export default function addGHINDataToPlayers(roster, allPlayersInTable, canadianData, data) {
+
+import capitalize from '$lib/components/common/utils/capitalize.js'
+import {
+	aFirstName,
+	anIndex,
+	aGender,
+	aLocalNumber
+} from '$lib/components/common/utils/getRosterFields.js';
+export default function addGHINDataToPlayers(
+	dataMode,
+	roster,
+	allPlayersInTable,
+	canadianData,
+	data
+) {
 	//data[x] will be null if player doesn't have a GHIN number
 	let canadianIndex = 0;
 
 	allPlayersInTable.forEach(addData);
 
 	function addData(item, index) {
-		if (data[index]) {
-			let firstName = data[index].first_name;
-			let rawName = firstName.toLowerCase();
-			firstName = capitalize(rawName);
-			if (firstName.indexOf('.') > 0) firstName = firstName.toUpperCase();
-			item[3] = firstName;
-			item[4] = data[index].handicap_index;
-			item[5] = data[index].gender;
-			try {
-				const ghinNumber = data[index].ghin;
-				item[6] = aLocalNumber(roster, ghinNumber);
-			} catch (error) {
+		if (dataMode === 'ghin') {
+			if (data[index]) {
+				let firstName = data[index].first_name;
+				let rawName = firstName.toLowerCase();
+				firstName = capitalize(rawName);
+				if (firstName.indexOf('.') > 0) firstName = firstName.toUpperCase();
+				item[3] = firstName;
+				item[4] = data[index].handicap_index;
+				item[5] = data[index].gender;
+				try {
+					const ghinNumber = data[index].ghin;
+					item[6] = aLocalNumber(roster, ghinNumber);
+				} catch (error) {
+					item[6] = '00000';
+				}
+			} else {
+				//set the default
+				item[3] = '';
+				item[4] = 'no index';
 				item[6] = '00000';
 			}
 		} else {
-			//set the default
-			item[3] = '';
-			item[4] = 'no index';
-			item[6] = '00000';
+			let ghinNumber = item[0];
+			let firstName;
+			try {
+				firstName = aFirstName(roster, ghinNumber);
+				//deal with J.d. Turner
+				if (firstName.indexOf('.') > 0) firstName = firstName.toUpperCase();
+				item[3] = firstName;
+				item[4] = anIndex(roster, ghinNumber);
+				item[5] = aGender(roster, ghinNumber);
+				item[6] = aLocalNumber(roster, ghinNumber);
+			} catch (error) {
+				//set the default
+				item[3] = '';
+				item[4] = 'no index';
+				item[6] = '00000';
+			}
+
 			//now see if we have a parenthetical after the player's name
 			const parenIndex = item[1].indexOf('(');
 			//if we have a parenthetical, is it (M5.2) or (CM4725547)
@@ -34,16 +66,16 @@ export default function addGHINDataToPlayers(roster, allPlayersInTable, canadian
 			if (parenIndex > -1) {
 				const paren = item[1].substr(parenIndex);
 				parenType = paren.substr(1, 1);
+				let lastPart = paren.substring(2);
+				let hcpIndex = lastPart.replace(')', '');
+				//strip the parenthetical from the name
+				let newItem1 = item[1].substring(0, parenIndex - 1);
 				switch (parenType) {
 					case 'M':
 					case 'W':
 						//set the gender
 						item[5] = parenType;
-						const lastPart = paren.substring(2);
-						const hcpIndex = lastPart.replace(')', '');
 						item[4] = hcpIndex.toString();
-						//strip the parenthetical from the name
-						const newItem1 = item[1].substring(0, parenIndex - 1);
 						item[1] = newItem1;
 						break;
 					case 'C':

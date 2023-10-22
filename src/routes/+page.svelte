@@ -26,12 +26,9 @@
 
   function handleSubmit(e) {
     e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const formJson = Object.fromEntries(formData.entries());
     let dataMode = 'ghin';
-    if (!formJson.dataMode === 'on') dataMode = 'roster';
-    const captain = getCaptainObject(capitalize(formJson.lastName));
+    if (!checked) dataMode = 'roster';
+    const captain = getCaptainObject(capitalize(lastName));
     if (captain !== undefined) {
       set('ghinNumber', captain.ghinNumber);
       lastName = capitalize(captain.lastName);

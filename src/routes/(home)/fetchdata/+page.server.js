@@ -171,8 +171,9 @@ export async function load({ url }) {
 	let gender;
 	dataMode === 'ghin' ? (gender = foundGolfer.gender) : (gender = aGender(roster, ghinNumber));
 	const defaultTeesSelected = getDefaultTeesSelected(gender);
-
+	
 	const allPlayersInTable = addGHINDataToPlayers(
+		dataMode,
 		roster,
 		rawAllPlayersInTable,
 		canadianData,

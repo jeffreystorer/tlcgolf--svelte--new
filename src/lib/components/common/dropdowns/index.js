@@ -1,3 +1,3 @@
-export { default as CourseDropdown } from "@/components/common/dropdowns/CourseDropdown"
-export { default as GroupAndCourseDropdowns } from "@/components/common/dropdowns/GroupAndCourseDropdowns"
-export { default as GroupDropdown } from "@/components/common/dropdowns/GroupDropdown"
+export { default as CourseDropdown } from '$lib/components/common/dropdowns/CourseDropdown';
+export { default as GroupAndCourseDropdowns } from '$lib/components/common/dropdowns/GroupAndCourseDropdowns';
+export { default as GroupDropdown } from '$lib/components/common/dropdowns/GroupDropdown';
