@@ -92,8 +92,8 @@
           {/if}
           {#if $progs069 > 0}
             <p>
-              &nbsp;&nbsp;Team Progs per {$progs069}: {teamProgs}
-            </sp>
+              Team Progs per {$progs069}: {teamProgs}
+            </p>
           {/if}
         </th>
       </tr>
