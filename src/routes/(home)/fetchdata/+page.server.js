@@ -197,7 +197,6 @@ export async function load({ url }) {
 			allPlayersInTable: allPlayersInTable,
 			courseData: courseData,
 			roster: roster,
-			rawAllPlayersInTable: rawAllPlayersInTable,
 			token: token
 		},
 	};

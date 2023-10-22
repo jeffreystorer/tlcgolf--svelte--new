@@ -9,13 +9,13 @@ import {
 export default function addGHINDataToPlayers(
 	dataMode,
 	roster,
-	allPlayersInTable,
+	rawAllPlayersInTable,
 	canadianData,
 	data
 ) {
 	//data[x] will be null if player doesn't have a GHIN number
 	let canadianIndex = 0;
-
+	let allPlayersInTable= structuredClone(rawAllPlayersInTable)
 	allPlayersInTable.forEach(addData);
 
 	function addData(item, index) {

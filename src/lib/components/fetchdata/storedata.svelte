@@ -18,7 +18,6 @@
 		allPlayersInTable: allPlayersInTable,
 		courseData: courseData,
 		roster: roster,
-		rawAllPlayersInTable: rawAllPlayersInTable,
 		token: token,
 		},
 	};
@@ -27,7 +26,9 @@
     import { goto } from '$app/navigation';
     import { get, remove, set } from '$lib/components/common/utils/localStorage.js';
     import { sset } from '$lib/components/common/utils/sessionStorage.js';
+	import { allPlayersInTable } from '$lib/store';
     import { onMount } from 'svelte';
+	$allPlayersInTable = data.items.local.allPlayersInTable;
 
     const keys = Object.keys(data.items.local);
     const values = Object.values(data.items.local);
