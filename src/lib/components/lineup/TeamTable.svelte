@@ -88,12 +88,12 @@
       <tr>
         <th scope='row' colSpan={teeCount + 2}>
           {#if (showTeamHcp || $progs069 > 0)}
-            <span>Team Hcp: {teamHcp}</span>
+            <p>Team Hcp: {teamHcp}</p>
           {/if}
           {#if $progs069 > 0}
-            <span>
+            <p>
               &nbsp;&nbsp;Team Progs per {$progs069}: {teamProgs}
-            </span>
+            </sp>
           {/if}
         </th>
       </tr>
