@@ -92,7 +92,7 @@
       {/each}
       {/if}
     </div>
-    {#if ($showIndividualHandicaps && $progs069 > 0)}
+    {#if ($showIndividualHandicaps && Number($progs069) > 0)}
       <p>{progAdjMessage}</p>
     {/if}
     <ExportTextarea/>

@@ -40,11 +40,13 @@
 
   </script>
 
-  <select
+<label>
+  No. of Tee Times:
+<select
     name='teeTimeCount'
     bind:value={$teeTimeCount}
     on:change={handleChange}>
-    <option value=''># of Tee Times</option>
+    <option value=''></option>
     {#each teeTimeCounts() as tCount}
        <option value={tCount}>
         {#if tCount === 1}
@@ -55,3 +57,4 @@
       </option>
     {/each}
   </select>
+</label>  

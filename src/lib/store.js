@@ -19,7 +19,7 @@ export const hasSchedule = readable(get('hasSchedule'));
 export const schedules = readable(get('schedules'));
 export const foundGolfer = readable(get('foundGolfer'));
 export const wednesdaySchedules = readable(get('wednesdaySchedules'));
-export const groups = readable(get('groups'));
+export const groups = writable(get('groups'));
 export const allPlayersInTable = writable(get('allPlayersInTable'));
 export const courseData = readable(get('courseData'));
 export const sortOrder = writable('alphabetical');
@@ -124,6 +124,7 @@ export const okToAddPlayers = derived(
 		return ok;
 	}
 );
+
 export const displayNumber = derived([course, group, groups], ($items) => {
 	return returnDisplayNumber($items[0], $items[1], $items[2]);
 });

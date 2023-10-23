@@ -181,8 +181,6 @@ export async function load({ url }) {
 	);
 
 	const items = {
-		//snapshots: snapshots,
-		local: {
 			ghinNumber: ghinNumber,
 			lastName: lastName,
 			dataMode: dataMode,
@@ -197,8 +195,6 @@ export async function load({ url }) {
 			allPlayersInTable: allPlayersInTable,
 			courseData: courseData,
 			roster: roster,
-			token: token
-		},
 	};
 
 	return  { items };

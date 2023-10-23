@@ -4,11 +4,11 @@
 </script>
 
 <label>
-  Link Time
+  Link Time:
   <select 
     name='linkTime'
     bind:value={$linkTime}>
-    <option value='Set Link Time Above'>Link Time</option>
+    <option value='Set Link Time Above'></option>
     {#each linkTimes() as lTime}
       <option value={lTime}>
         {lTime}
@@ -16,13 +16,4 @@
     {/each}
   </select>
 </label>
-
-<style>  
-  label {
-    font-size: var(--step-0);
-  }
-  label > select {
-    margin-left: 0.5em;
-  }
-</style>
   

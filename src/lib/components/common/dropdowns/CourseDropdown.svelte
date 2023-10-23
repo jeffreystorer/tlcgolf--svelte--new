@@ -22,9 +22,10 @@
   }
 </script>
 
-    <select name='course' bind:value={$course} on:change={handleChange}>
+<label>
+Course:  
+<select name='course' bind:value={$course} on:change={handleChange}>
       <option key={'0'} value=''>
-        Select Course
       </option>
       <option key={'1'} value='dc'>
         Deer Creek
@@ -45,3 +46,13 @@
         Terrapin Point
       </option>
     </select>
+  </label> 
+
+  
+
+<style>
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

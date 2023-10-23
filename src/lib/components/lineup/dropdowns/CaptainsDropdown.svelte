@@ -38,6 +38,8 @@
   }
 </script>
 
+<label>
+  Captains:
 <select name='captain' bind:value={$captainGHINNumber} on:change={handleChange}>
   {#each $captains as captain}
     <option key={captain.ghinNumber} value={captain.ghinNumber}>
@@ -45,8 +47,16 @@
     </option>
   {/each} 
 </select>
-
+</label>
 <style>
+  
+
+
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
   select {  
     display: flex;
     flex-direction: row;

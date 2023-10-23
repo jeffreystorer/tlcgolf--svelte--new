@@ -15,10 +15,10 @@
   if ($groups.length === 2) $groups.shift();
   
 </script>
-
+<label>
+  Group:
 <select name='group' bind:value={$group} on:change={handleChange}>
   <option key={'0'} value=''>
-    Select Group
   </option>
   {#each $groups as group, index (index)}
     <option key={group} value={group}>
@@ -26,3 +26,11 @@
     </option>
   {/each}
 </select>
+</label>
+
+<style>
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

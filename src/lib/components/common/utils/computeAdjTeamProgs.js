@@ -4,8 +4,8 @@ export default function computeAdjTeamProgs(
   playerCount,
   aTeamProgs
 ) {
-  let adjTeamProgs = aTeamProgs;
-  switch (Number(progAdj)) {
+  let adjTeamProgs = structuredClone(aTeamProgs);
+  switch (Number(progAdj)) {    
     case 0:
       switch (Number(progs069)) {
         case 6:
@@ -72,5 +72,6 @@ export default function computeAdjTeamProgs(
       break;
     default:
   }
+  console.log("😊😊 adjTeamProgs", adjTeamProgs)
   return adjTeamProgs;
 }

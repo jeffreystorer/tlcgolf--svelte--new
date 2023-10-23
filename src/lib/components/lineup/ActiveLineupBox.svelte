@@ -4,12 +4,16 @@
   import { AutoButtons } from '$lib/components/lineup/buttons';
   import { createProgAdjMessage, getCourseName } from '$lib/components/common/utils';
   import { GameOptionsModal } from '$lib/components/lineup';
-  const progAdjMessage = createProgAdjMessage($progAdj, $progs069);
+  $: progAdjMessage = createProgAdjMessage($progAdj, $progs069);
   $: header = $playingDate + ' at ' + getCourseName($course);
 
   function handleClearGame() {
     $textareaValue = '';
   }
+
+console.log("😊😊 $progs069", $progs069);
+console.log("😊😊 $progAdj", $progAdj);
+console.log("😊😊 progAdjMessage", progAdjMessage)
 </script>
 
 <div class='titled_outer'>
@@ -20,7 +24,7 @@
   {#each Array($teeTimeCount) as _, index }
     <TeamTable teamNumber={index} teamMembers={$teamTables['team' + index]} />
   {/each}
-  {#if (progs069 > 0 && okToAddPlayers)}
+  {#if (Number($progs069) > 0 && okToAddPlayers)}
     <p>{progAdjMessage}</p>
   {/if}
   {#if okToSave}

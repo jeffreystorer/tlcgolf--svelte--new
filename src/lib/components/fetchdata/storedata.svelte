@@ -2,8 +2,6 @@
     export let data;
     /**
         	const items = {
-		//snapshots: snapshots,
-		local: {
 		ghinNumber: ghinNumber,
 		lastName: lastName,
 		dataMode: dataMode,
@@ -18,28 +16,30 @@
 		allPlayersInTable: allPlayersInTable,
 		courseData: courseData,
 		roster: roster,
-		token: token,
-		},
 	};
         };
     */
     import { goto } from '$app/navigation';
+	import { course, group, groups} from '$lib/store';
     import { get, remove, set } from '$lib/components/common/utils/localStorage.js';
     import { sset } from '$lib/components/common/utils/sessionStorage.js';
 	import { allPlayersInTable } from '$lib/store';
     import { onMount } from 'svelte';
-	$allPlayersInTable = data.items.local.allPlayersInTable;
+	$allPlayersInTable = data.items.allPlayersInTable;
 
-    const keys = Object.keys(data.items.local);
-    const values = Object.values(data.items.local);
+    const keys = Object.keys(data.items);
+    const values = Object.values(data.items);
     onMount(() => {
     keys.map((key, index) => set(key, values[index]));
     if (!get('teesSelected')) {
-        set('teesSelected', data.items.local.defaultTeesSelected);
+        set('teesSelected', data.items.defaultTeesSelected);
     }
-    set('teesSelectedSaturday', data.items.local.defaultTeesSelected);
+    set('teesSelectedSaturday', data.items.defaultTeesSelected);
     remove('defaultTeesSelected');
     sset('isLoggedIn', true);
+	$course = get('course');
+	$group = get('group');
+	$groups = data.items.groups;
     goto('/lineup');
     });
 </script>

@@ -55,11 +55,37 @@ body *,
 	box-sizing: border-box;
 }
 
-html,body,div,p,h1,h2,h3,h4,h5,h6,pre,figure,
-ul,ol,li,dl,dt,dd,form,fieldset,caption,legend,
-table,tr,td,th,address,blockquote,img {
-  margin:0;
-  padding:0;
+html,
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+figure,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+form,
+fieldset,
+caption,
+legend,
+table,
+tr,
+td,
+th,
+address,
+blockquote,
+img {
+	margin: 0;
+	padding: 0;
 }
 
 img,
@@ -68,15 +94,16 @@ object {
 	border: none;
 }
 
-blockquote, q {
-	quotes:none;
+blockquote,
+q {
+	quotes: none;
 }
 
 legend {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-	display:block;
+	display: block;
 }
 
 img,
@@ -111,7 +138,12 @@ body {
 	height: 100%;
 }
 
-body, button, input, table, textarea, select {
+body,
+button,
+input,
+table,
+textarea,
+select {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	font-size: 1rem;
@@ -263,12 +295,19 @@ select {
 	width: fit-content;
 }
 
-.select-dropdown-container > label {
+.select-dropdown-container > label,
+label {
 	font-size: var(--step-0);
+	font-weight: 500;
 }
-.select-dropdown-container label > select {
+/* .select-dropdown-container label > select {
 	margin-left: 0.5em;
-}
+} */
+
+label {
+    display: flex;
+    flex-direction: column;
+  }
 
 .titled_outer,
 .titled_inner {
@@ -298,4 +337,3 @@ select {
 	text-align: center;
 	width: fit-content;
 }
-
