@@ -23,8 +23,8 @@
 </script>
 
 <label>
-Course:  
-<select name='course' bind:value={$course} on:change={handleChange}>
+  Course:  
+  <select name='course' bind:value={$course} on:change={handleChange}>
       <option key={'0'} value=''>
       </option>
       <option key={'1'} value='dc'>
@@ -45,14 +45,5 @@ Course:
       <option key={'6'} value='tp'>
         Terrapin Point
       </option>
-    </select>
-  </label> 
-
-  
-
-<style>
-  label {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
+  </select>
+</label>

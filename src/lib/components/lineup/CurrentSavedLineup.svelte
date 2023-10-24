@@ -14,6 +14,7 @@
       let savedLineup = aLineup.lineup;
       savedLineup.title = title;
       loadSavedLineup(savedLineup);
+
     } catch (error) {
       console.log('error loading lineup from firebase', error);
     }

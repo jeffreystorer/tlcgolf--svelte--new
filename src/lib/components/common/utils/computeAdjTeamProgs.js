@@ -72,6 +72,5 @@ export default function computeAdjTeamProgs(
       break;
     default:
   }
-  console.log("😊😊 adjTeamProgs", adjTeamProgs)
   return adjTeamProgs;
 }

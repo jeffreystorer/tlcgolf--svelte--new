@@ -20,7 +20,7 @@
         };
     */
     import { goto } from '$app/navigation';
-	import { course, group, groups} from '$lib/store';
+	import { course, group, groups, captains} from '$lib/store';
     import { get, remove, set } from '$lib/components/common/utils/localStorage.js';
     import { sset } from '$lib/components/common/utils/sessionStorage.js';
 	import { allPlayersInTable } from '$lib/store';
@@ -40,6 +40,7 @@
 	$course = get('course');
 	$group = get('group');
 	$groups = data.items.groups;
+	$captains = data.items.captains;
     goto('/lineup');
     });
 </script>

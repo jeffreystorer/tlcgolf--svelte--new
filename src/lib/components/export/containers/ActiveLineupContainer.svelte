@@ -118,6 +118,11 @@
     & > h2 {
       font-size: var(--step-0);
       font-weight: 700;
-  }
+    }
+
+    & p {
+      font-style: italic;
+    }
+
   }
 </style>

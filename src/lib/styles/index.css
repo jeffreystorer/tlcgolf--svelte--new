@@ -146,7 +146,7 @@ textarea,
 select {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
-	font-size: 1rem;
+	font-size: 1em;
 	isolation: isolate;
 	line-height: 1.5;
 	font-family: sans-serif;
@@ -304,10 +304,10 @@ label {
 	margin-left: 0.5em;
 } */
 
-label {
-    display: flex;
-    flex-direction: column;
-  }
+label:has(> :not(input[type='checkbox'])) {
+	display: flex;
+	flex-direction: column;
+}
 
 .titled_outer,
 .titled_inner {

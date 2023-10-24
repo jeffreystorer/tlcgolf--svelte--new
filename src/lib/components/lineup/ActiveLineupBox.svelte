@@ -10,10 +10,6 @@
   function handleClearGame() {
     $textareaValue = '';
   }
-
-console.log("😊😊 $progs069", $progs069);
-console.log("😊😊 $progAdj", $progAdj);
-console.log("😊😊 progAdjMessage", progAdjMessage)
 </script>
 
 <div class='titled_outer'>
@@ -21,9 +17,11 @@ console.log("😊😊 progAdjMessage", progAdjMessage)
   {#key $sortOrder}
     <AutoButtons />
   {/key}
-  {#each Array($teeTimeCount) as _, index }
-    <TeamTable teamNumber={index} teamMembers={$teamTables['team' + index]} />
-  {/each}
+  {#key [$progs069, $progAdj]}
+    {#each Array($teeTimeCount) as _, index }
+      <TeamTable teamNumber={index} teamMembers={$teamTables['team' + index]} />
+    {/each}
+  {/key}
   {#if (Number($progs069) > 0 && okToAddPlayers)}
     <p>{progAdjMessage}</p>
   {/if}

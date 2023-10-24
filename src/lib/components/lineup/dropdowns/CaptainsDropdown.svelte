@@ -49,13 +49,6 @@
 </select>
 </label>
 <style>
-  
-
-
-  label {
-    display: flex;
-    flex-direction: column;
-  }
 
   select {  
     display: flex;

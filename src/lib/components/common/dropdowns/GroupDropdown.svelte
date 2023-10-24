@@ -27,10 +27,3 @@
   {/each}
 </select>
 </label>
-
-<style>
-  label {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
