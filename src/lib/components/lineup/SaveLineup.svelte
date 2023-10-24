@@ -22,7 +22,7 @@
     );
     //increment the lineup index
     if ($realGHINNumber !== $captainGHINNumber) {
-      $currentLineupIndex = nextLineupIndex;
+      $currentLineupIndex = $nextLineupIndex;
     } else {
       $currentLineupIndex = $snapshots.length;
     }

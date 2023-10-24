@@ -2,8 +2,8 @@
   import {snapshots, captainGHINNumber, realGHINNumber, captains, nextLineupIndex, playersInLineup, currentLineupIndex, currentLineupKey, lineupTitle, currentLineup, sortOrder, playingDate,  teeTimeCount, linkTime, progs069,  progAdj} from '$lib/store';
   import { getSnapshots } from '$lib/components/lineup/utils';
   
-  async function loadSnapshots(ghinNumber){
-    await getSnapshots(ghinNumber).then((data) => {
+  function loadSnapshots(ghinNumber){
+    getSnapshots(ghinNumber).then((data) => {
       let items = [];
       for (const [key, value] of Object.entries(data)) {      
         items.push({
