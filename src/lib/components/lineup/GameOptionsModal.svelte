@@ -123,8 +123,8 @@
         <select name='bet'>
           <option value=''>Select Bet</option>
           {#each $bets as item}
-            <option value={item}>
-              {item}
+            <option value={item[0]}>
+              {item[0]}
             </option>
           {/each}
         </select>
@@ -238,6 +238,10 @@
   section {
     height: fit-content;
     max-width: 100%;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
   }
   article > p {
     font-style:normal;
