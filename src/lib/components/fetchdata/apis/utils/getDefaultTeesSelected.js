@@ -67,11 +67,9 @@ export default function getDefaultTeesSelected(gender) {
     case 'Male':
     case 'M':
       return defaultMensTeesSelected;
-      break;
     case 'Female':
     case 'F':
       return defaultWomensTeesSelected;
-      break;
     default:
   }
 }

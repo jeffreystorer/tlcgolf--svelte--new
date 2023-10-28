@@ -1,6 +1,7 @@
 <script>
   import { page } from '$app/stores';
-  import { get } from '$lib/components/common/utils/localStorage.js'
+  import { hasSchedule, schedules } from '$lib/store';
+  import { get } from '$lib/components/common/utils'
   let path;
   $: path = $page.url.pathname;
 
@@ -16,8 +17,6 @@
   ];
   
   const ghinNumber = get('ghinNumber');
-  const hasSchedule = get('hasSchedule');
-  const schedules = get('schedules');
 </script>
 
 <header>
@@ -42,8 +41,8 @@
             {/if}
             <li><a href='/lookup'>Lookup GHIN Information</a></li>
             <div class='divider'></div>
-            {#if (hasSchedule)}
-              {#each schedules as schedule (schedule.name)}
+            {#if ($hasSchedule)}
+              {#each $schedules as schedule (schedule.name)}
                 <li>
                   <a href={`/viewschedule?id=${schedule.url.split('/')[5]}&gid=${schedule.url.split('/')[6].substring(9)}`}>{schedule.name} Schedule</a>
                 </li>

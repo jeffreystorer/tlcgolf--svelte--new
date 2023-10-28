@@ -1,11 +1,22 @@
 <script>
-  //import { beforeUpdate} from 'svelte';
+  /* const items = {
+    local: {
+      ghinNumber: ghinNumber,
+      dataMode: dataMode,
+    },
+    groups: groups,
+    allPlayersInTable: allPlayersInTable,
+    courseData: courseData,      
+		defaultTeesSelected: defaultTeesSelected
+  }; */
   export let data;
+  import { defaultTeesSelected, teesSelectedSaturday} from '$lib/store';
   import { set, sset } from '$lib/components/common/utils';
   const keys = Object.keys(data.items.local);
   const values = Object.values(data.items.local);
   keys.map((key, index) => set(key, values[index]));
-  set('teesSelectedSaturday', data.items.defaultTeesSelected);
+  $teesSelectedSaturday = data.items.defaultTeesSelected;
+  $defaultTeesSelected = data.items.defaultTeesSelected;
   sset('isLoggedIn', false);
   let today = new Date();
   const days = [

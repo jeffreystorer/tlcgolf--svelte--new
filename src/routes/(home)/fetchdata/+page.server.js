@@ -181,9 +181,11 @@ export async function load({ url }) {
 	);
 
 	const items = {
+			local: {
 			ghinNumber: ghinNumber,
 			lastName: lastName,
 			dataMode: dataMode,
+			},
 			captains: captains,
 			bets: bets,
 			hasSchedule: hasSchedule,

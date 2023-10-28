@@ -1,20 +1,16 @@
 <script>
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
-  import { get  } from '$lib/components/common/utils/localStorage.js';
-  import { sget } from '$lib/components/common/utils/sessionStorage.js';
+  import { courseData, foundGolfer, roster, teesSelected } from '$lib/store';
+  import { get, sget  } from '$lib/components/common/utils';
   import { getIndividualGHIN,  returnAllTeesSelected, returnBodyRows} from './utils';
-  const courseData = get('courseData');
-  const foundGolfer = get('foundGolfer');
-  const roster = get('roster');
-  const teesSelected = get('teesSelected');
   const golfer_id = get('ghinNumber');
   const isLoggedIn = sget('isLoggedIn');  
   const dataMode = get('dataMode');
-  const [index, gender, golfer] = getIndividualGHIN(foundGolfer, roster);
-  const [teeLabels, teeValues, ratings, slopes, pars] = courseData;
+  const [index, gender, golfer] = getIndividualGHIN($foundGolfer, $roster);
+  const [teeLabels, teeValues, ratings, slopes, pars] = $courseData;
   const path = `/scores?ghinNumber=${golfer_id}`;
-  let allTeesSelected = returnAllTeesSelected(teesSelected);
+  let allTeesSelected = returnAllTeesSelected($teesSelected);
   let courses = ['DC', 'MG', 'MW', 'OR', 'PA', 'TP'];
   const chRows = returnBodyRows('CH',index,gender,allTeesSelected,teeValues,ratings,slopes,pars);
   const tsRows = returnBodyRows('TS',index,gender,allTeesSelected,teeValues,ratings,slopes,pars);

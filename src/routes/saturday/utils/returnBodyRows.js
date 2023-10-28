@@ -1,12 +1,10 @@
+import { get } from 'svelte/store'
 import { courses } from '$lib/components/common/data';
-import { get, returnCourseHandicapArray } from '$lib/components/common/utils';
+import { courseData, teesSelectedSaturday, allPlayersInTable, groups } from '$lib/store';
+import { returnCourseHandicapArray } from '$lib/components/common/utils';
 
 export default function returnBodyRows() {
-  const courseData = get('courseData');
-  const teesSelected = get('teesSelectedSaturday');
-  const players = get('allPlayersInTable');
-  const groups = get('groups');
-  const groupIndex = groups.indexOf('Saturday') + 6;
+  const groupIndex = get(groups).indexOf('Saturday') + 6;
 
   //declare some variables
   let rows = [];
@@ -39,11 +37,11 @@ export default function returnBodyRows() {
       let course = item;
 
       const courseHandicaps = returnCourseHandicapArray(
-        courseData,
+        get(courseData),
         gender,
         strHcpIndex,
-        course,
-        teesSelected[course]
+        get(course),
+        get(teesSelectedSaturday)[get(course)]
       );
       courseHandicaps.forEach(pushCH);
       function pushCH(item) {
@@ -60,6 +58,6 @@ export default function returnBodyRows() {
     rows.push(newRow);
   }
 
-  players.forEach(addRow);
+  get(allPlayersInTable).forEach(addRow);
   return rows;
 }

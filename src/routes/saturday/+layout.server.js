@@ -145,10 +145,10 @@ export async function load() {
     local: {
       ghinNumber: ghinNumber,
       dataMode: dataMode,
-      groups: groups,
-      allPlayersInTable: allPlayersInTable,
-      courseData: courseData,
-    },      
+    },
+    groups: groups,
+    allPlayersInTable: allPlayersInTable,
+    courseData: courseData,      
 		defaultTeesSelected: defaultTeesSelected
   };
 
