@@ -1,12 +1,15 @@
+import { get } from 'svelte/store';
+import { teesSelected } from '$lib/store';
 import { courses, teeValues } from '$lib/components/common/data';
 
-export default function returnAllTeesSelected(teesSelected) {
+export default function returnAllTeesSelected() {
+	let _teesSelected = get(teesSelected);
 	let allTees = [];
 	courses.forEach(pushTees);
 
 	function pushTees(item) {
 		const course = item;
-		allTees.push(teesSelected[course]);
+		allTees.push(_teesSelected[course]);
 	}
 	let allTeesCombined = [];
 	allTees.forEach(combine);

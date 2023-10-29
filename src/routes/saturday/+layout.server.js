@@ -135,6 +135,7 @@ export async function load() {
 	const defaultTeesSelected = getDefaultTeesSelected('M');
 
   const allPlayersInTable = addGHINDataToPlayers(
+    dataMode,
     roster,
     rawAllPlayersInTable,
     canadianData,
@@ -144,8 +145,8 @@ export async function load() {
   const items = {
     local: {
       ghinNumber: ghinNumber,
-      dataMode: dataMode,
     },
+    dataMode: dataMode,
     groups: groups,
     allPlayersInTable: allPlayersInTable,
     courseData: courseData,      

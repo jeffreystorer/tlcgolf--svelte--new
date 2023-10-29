@@ -4,6 +4,7 @@
   let currentSnapshot = [];
   onMount(() => {
     if ($currentLineupIndex > -1) {
+      console.log("🚀 ~ file: SavedLineupsBox.svelte:7 ~ onMount ~ $currentLineupIndex:", $currentLineupIndex)
       currentSnapshot = $snapshots[$currentLineupIndex];
       $currentLineupKey = currentSnapshot.key;
       $currentLineup = {

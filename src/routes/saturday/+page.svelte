@@ -2,19 +2,23 @@
   /* const items = {
     local: {
       ghinNumber: ghinNumber,
-      dataMode: dataMode,
     },
+    dataMode: dataMode,
     groups: groups,
     allPlayersInTable: allPlayersInTable,
     courseData: courseData,      
 		defaultTeesSelected: defaultTeesSelected
   }; */
   export let data;
-  import { defaultTeesSelected, teesSelectedSaturday} from '$lib/store';
+  import { dataMode, groups, allPlayersInTable, courseData, defaultTeesSelected, teesSelectedSaturday} from '$lib/store';
   import { set, sset } from '$lib/components/common/utils';
   const keys = Object.keys(data.items.local);
   const values = Object.values(data.items.local);
   keys.map((key, index) => set(key, values[index]));
+  $dataMode = data.items.dataMode;
+  $groups = data.items.groups;
+  $allPlayersInTable = data.items.allPlayersInTable;
+  $courseData = data.items.courseData;
   $teesSelectedSaturday = data.items.defaultTeesSelected;
   $defaultTeesSelected = data.items.defaultTeesSelected;
   sset('isLoggedIn', false);

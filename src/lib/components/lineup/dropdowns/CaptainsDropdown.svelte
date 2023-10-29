@@ -3,6 +3,7 @@
   import { getSnapshots } from '$lib/components/lineup/utils';
   
   function loadSnapshots(ghinNumber){
+    console.log("🚀 ~ file: CaptainsDropdown.svelte:6 ~ loadSnapshots ~ ghinNumber:", ghinNumber)
     getSnapshots(ghinNumber).then((data) => {
       let items = [];
       for (const [key, value] of Object.entries(data)) {      
@@ -15,26 +16,26 @@
       $snapshots = items;
       $captainGHINNumber = ghinNumber
     });
-  }
- 
+  } 
   
-    function handleChange(e) {
-    e.preventDefault();
-    $playersInLineup = [];
-    $currentLineupIndex = -1;
-    $currentLineupKey ='';
-    $currentLineup = null;
-    $lineupTitle = 'New Lineup';
-    $sortOrder = ('alphabetical');
-    $playingDate = 'Date';
-    $teeTimeCount = '';
-    $linkTime = 'Set Link Time Above';
-    $progs069 = '';
-    $progAdj = '';
+  function handleChange(e) {
+  e.preventDefault();
+  $playersInLineup = [];
+  $currentLineupIndex = -1;
+  $currentLineupKey ='';
+  $currentLineup = null;
+  $lineupTitle = 'New Lineup';
+  $sortOrder = ('alphabetical');
+  $playingDate = 'Date';
+  $teeTimeCount = '';
+  $linkTime = 'Set Link Time Above';
+  $progs069 = '';
+  $progAdj = '';
 
-    //if we are on the Storer page, save the next lineup index
-    if ($captainGHINNumber === $realGHINNumber) {$nextLineupIndex = $snapshots.length};
-    loadSnapshots(e.target.value);
+  //if we are on the Storer page, save the next lineup index
+  if ($captainGHINNumber !== $realGHINNumber) {$nextLineupIndex = $snapshots.length};
+  $captainGHINNumber = e.target.value;
+  loadSnapshots(e.target.value);
   }
 </script>
 

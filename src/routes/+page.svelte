@@ -1,5 +1,6 @@
 <script>
   export let data;
+  import { dataMode } from '$lib/store';
   import {getCaptains} from '$lib/components/fetchdata/apis/utils';
   let captains = getCaptains(data.captains.values);
   import { goto } from '$app/navigation';
@@ -26,15 +27,14 @@
 
   function handleSubmit(e) {
     e.preventDefault();
-    let dataMode = 'ghin';
-    if (!checked) dataMode = 'roster';
+    $dataMode = 'ghin';
+    if (!checked) $dataMode = 'roster';
     const captain = getCaptainObject(capitalize(lastName));
     if (captain !== undefined) {
       set('ghinNumber', captain.ghinNumber);
       lastName = capitalize(captain.lastName);
       set('lastName', lastName);
-      set('dataMode', dataMode);
-      goto(`/fetchdata?ghinNumber=${captain.ghinNumber}&dataMode=${dataMode}`);
+      goto(`/fetchdata?ghinNumber=${captain.ghinNumber}&dataMode=${$dataMode}`);
     } else {
       lastName = 'Invalid Last Name';
       set('lastName', 'Invalid Last Name');

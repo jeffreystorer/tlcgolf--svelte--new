@@ -1,4 +1,5 @@
-import { get } from '$lib/components/common/utils/localStorage.js'
+import { get } from 'svelte/store';
+import { dataMode, foundGolfer, roster } from '$lib/store';
 import capitalize from '$lib/components/common/utils/capitalize.js'
 
 import {
@@ -8,27 +9,29 @@ import {
 	aGender,
 } from '$lib/components/common/utils/getRosterFields.js';
 
-export default function getIndividualGHIN(foundGolfer, roster) {
-	const ghinNumber = get('ghinNumber');
-	const dataMode = get('dataMode');
-	if (dataMode === 'ghin') {
+export default function getIndividualGHIN() {
+	const ghinNumber = JSON.parse(localStorage.getItem('ghinNumber'));
+	let _dataMode = get(dataMode);
+	let _foundGolfer = get(foundGolfer);
+	let _roster = get(roster)
+	if (_dataMode === 'ghin') {
 		try {
-			let index = foundGolfer.handicap_index;
-			let gender = foundGolfer.gender;
-			let firstName = foundGolfer.first_name;
+			let index = _foundGolfer.handicap_index;
+			let gender = _foundGolfer.gender;
+			let firstName = _foundGolfer.first_name;
 			let rawName = firstName.toLowerCase();
 			firstName = capitalize(rawName);
 			if (firstName.indexOf('.') > 0) firstName = firstName.toUpperCase();
 			let golfer =
-				firstName + ' ' + foundGolfer.last_name + ' (' + foundGolfer.handicap_index + ')';
+				firstName + ' ' + _foundGolfer.last_name + ' (' + _foundGolfer.handicap_index + ')';
 			return [index, gender, golfer];
 		} catch (error) {console.log('error getting individual GHIN')}
 	} else {
 		try {
-			let index = anIndex(roster, ghinNumber);
-			let gender = aGender(roster, ghinNumber);
-			let firstName = aFirstName(roster, ghinNumber);
-			let lastName = aLastName(roster, ghinNumber);
+			let index = anIndex(_roster, ghinNumber);
+			let gender = aGender(_roster, ghinNumber);
+			let firstName = aFirstName(_roster, ghinNumber);
+			let lastName = aLastName(_roster, ghinNumber);
 			let rawName = firstName.toLowerCase();
 			firstName = capitalize(rawName);
 			if (firstName.indexOf('.') > 0) firstName = firstName.toUpperCase();

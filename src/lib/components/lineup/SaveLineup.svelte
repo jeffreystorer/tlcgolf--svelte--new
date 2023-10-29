@@ -21,7 +21,10 @@
       $teesSelected[$course]
     );
     //increment the lineup index
-    if ($realGHINNumber !== $captainGHINNumber) {
+    console.log("😊😊 $realGHINNumber", $realGHINNumber);
+    console.log("😊😊 $captainGHINNumber", $captainGHINNumber);
+    console.log("😊😊 $nextLineupIndex", $nextLineupIndex)
+    if ($realGHINNumber === $captainGHINNumber) {
       $currentLineupIndex = $nextLineupIndex;
     } else {
       $currentLineupIndex = $snapshots.length;

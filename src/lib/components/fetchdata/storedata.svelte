@@ -5,8 +5,8 @@
 			local: {
 			ghinNumber: ghinNumber,
 			lastName: lastName,
-			dataMode: dataMode,
 			},
+			dataMode: dataMode,
 			captains: captains,
 			bets: bets,
 			hasSchedule: hasSchedule,
@@ -21,7 +21,7 @@
 	};
     */
     import { goto } from '$app/navigation';
-	import { course, group, captains, bets, hasSchedule, schedules, foundGolfer,wednesdaySchedules, defaultTeesSelected, groups, allPlayersInTable, courseData, roster} from '$lib/store';
+	import { teesSelected, teesSelectedSaturday, dataMode, course, group, captains, bets, hasSchedule, schedules, foundGolfer,wednesdaySchedules, defaultTeesSelected, groups, allPlayersInTable, courseData, roster, captainGHINNumber, realGHINNumber} from '$lib/store';
     import { get, set } from '$lib/components/common/utils/localStorage.js';
     import { sset } from '$lib/components/common/utils/sessionStorage.js';
     import { onMount } from 'svelte';
@@ -36,6 +36,9 @@
     }
     set('teesSelectedSaturday', data.items.defaultTeesSelected);
     sset('isLoggedIn', true);
+	$teesSelected = get('teesSelected');
+	$teesSelectedSaturday = get('teesSelectedSaturday');
+	$dataMode = data.items.dataMode;
 	$course = get('course');
 	$group = get('group');
 	$captains = data.items.captains;
@@ -48,7 +51,10 @@
 	$groups = data.items.groups;
 	$allPlayersInTable = data.items.allPlayersInTable;
 	$courseData = data.items.courseData;
-	$roster = roster;
+	$roster = data.items.roster;
+	$captainGHINNumber = data.items.local.ghinNumber;
+	$realGHINNumber = data.items.local.ghinNumber;
+
     goto('/lineup');
     });
 </script>

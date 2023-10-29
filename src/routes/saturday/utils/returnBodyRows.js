@@ -40,8 +40,8 @@ export default function returnBodyRows() {
         get(courseData),
         gender,
         strHcpIndex,
-        get(course),
-        get(teesSelectedSaturday)[get(course)]
+        course,
+        get(teesSelectedSaturday)[course]
       );
       courseHandicaps.forEach(pushCH);
       function pushCH(item) {

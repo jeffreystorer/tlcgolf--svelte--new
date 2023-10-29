@@ -1,7 +1,8 @@
 import { derived, readable, writable } from 'svelte/store';
-import { get, returnDisplayNumber } from '$lib/components/common/utils';
-import { getPlayersNotInTeeTime } from "$lib/components/lineup/utils";
+import { returnDisplayNumber } from '$lib/components/common/utils';
+import { getPlayersNotInTeeTime } from '$lib/components/lineup/utils';
 
+export const dataMode = writable('ghin');
 export const screenshotUrl = writable('');
 export const pcSetting = writable({});
 export const refClipboard = writable(null);
@@ -20,7 +21,7 @@ export const bets = writable([]);
 export const hasSchedule = writable('');
 export const schedules = writable('');
 export const foundGolfer = writable({});
-export const wednesdaySchedules = writable([]);;
+export const wednesdaySchedules = writable([]);
 export const groups = writable('');
 export const allPlayersInTable = writable([]);
 export const roster = writable([]);
@@ -78,14 +79,14 @@ export const currentLineupKey = writable('');
 export const missingPlayerMessage = writable('');
 export const jpgImage = writable(null);
 export const dimensionIndex = writable(0);
-export const captainGHINNumber = writable(get('ghinNumber'));
-export const realGHINNumber = readable(get('ghinNumber'));
+export const captainGHINNumber = writable('');
+export const realGHINNumber = writable('');
 export const deleteAll = writable(true);
 export const nextLineupIndex = writable('');
 export const playersInLineup = writable([]);
-export const idsInLineup = derived(playersInLineup, ($playersInLineup) => {	
-	if ($playersInLineup[0]){
-	return $playersInLineup.map((player) => player.id.toString());
+export const idsInLineup = derived(playersInLineup, ($playersInLineup) => {
+	if ($playersInLineup[0]) {
+		return $playersInLineup.map((player) => player.id.toString());
 	} else {
 		return [];
 	}
@@ -99,8 +100,9 @@ export const playerCount = derived(teamTables, ($teamTables) => {
 	}
 	return playerCount;
 });
-export const playersNotInTeeTime = derived([playersInLineup, teamTables], ($items) => 
-  {return getPlayersNotInTeeTime($items[0], $items[1])});
+export const playersNotInTeeTime = derived([playersInLineup, teamTables], ($items) => {
+	return getPlayersNotInTeeTime($items[0], $items[1]);
+});
 export const okToSave = derived(
 	[playingDate, teeTimeCount, linkTime, playersInLineup, teamTables],
 	($items) => {
