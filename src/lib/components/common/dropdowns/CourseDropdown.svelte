@@ -11,6 +11,7 @@
   function handleChange(e) {
     e.preventDefault();
     set('course', e.target.value);
+    $course = e.target.value;
     $showChangeTees = false;
     if (!hasMultipleGroups) {
       $group=groups[1];

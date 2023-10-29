@@ -1,9 +1,16 @@
 <script>
   import {snapshots, captainGHINNumber, realGHINNumber, captains, nextLineupIndex, playersInLineup, currentLineupIndex, currentLineupKey, lineupTitle, currentLineup, sortOrder, playingDate,  teeTimeCount, linkTime, progs069,  progAdj} from '$lib/store';
+  console.log("🚀 ~ file: CaptainsDropdown.svelte:3 ~ $captainGHINNumber:", $captainGHINNumber)
   import { getSnapshots } from '$lib/components/lineup/utils';
   
   function loadSnapshots(ghinNumber){
     console.log("🚀 ~ file: CaptainsDropdown.svelte:6 ~ loadSnapshots ~ ghinNumber:", ghinNumber)
+
+  //if we are on the Storer page, save the next lineup index
+    if ($captainGHINNumber !== $realGHINNumber) {
+    console.log("🚀 ~ file: CaptainsDropdown.svelte:11 ~ loadSnapshots ~ $realGHINNumber:", $realGHINNumber)
+    console.log("🚀 ~ file: CaptainsDropdown.svelte:11 ~ loadSnapshots ~ $captainGHINNumber:", $captainGHINNumber)
+    }
     getSnapshots(ghinNumber).then((data) => {
       let items = [];
       for (const [key, value] of Object.entries(data)) {      
@@ -14,8 +21,9 @@
         });
       }; 
       $snapshots = items;
-      $captainGHINNumber = ghinNumber
     });
+    $captainGHINNumber = ghinNumber; 
+    console.log("🚀 ~ file: CaptainsDropdown.svelte:26 ~ loadSnapshots ~ $captainGHINNumber:", $captainGHINNumber)
   } 
   
   function handleChange(e) {
@@ -31,10 +39,7 @@
   $linkTime = 'Set Link Time Above';
   $progs069 = '';
   $progAdj = '';
-
-  //if we are on the Storer page, save the next lineup index
-  if ($captainGHINNumber !== $realGHINNumber) {$nextLineupIndex = $snapshots.length};
-  $captainGHINNumber = e.target.value;
+ 
   loadSnapshots(e.target.value);
   }
 </script>

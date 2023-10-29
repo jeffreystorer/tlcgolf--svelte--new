@@ -53,6 +53,8 @@
 	$courseData = data.items.courseData;
 	$roster = data.items.roster;
 	$captainGHINNumber = data.items.local.ghinNumber;
+	console.log("🚀 ~ file: storedata.svelte:56 ~ onMount ~ $captainGHINNumber:", $captainGHINNumber)
+	
 	$realGHINNumber = data.items.local.ghinNumber;
 
     goto('/lineup');

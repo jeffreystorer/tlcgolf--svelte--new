@@ -1,4 +1,4 @@
-import { derived, readable, writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 import { returnDisplayNumber } from '$lib/components/common/utils';
 import { getPlayersNotInTeeTime } from '$lib/components/lineup/utils';
 
