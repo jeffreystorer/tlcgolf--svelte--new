@@ -1,6 +1,6 @@
 <script>
-  import { groups, displayNumber, linkTime, captainGHINNumber, realGHINNumber, playersInLineup, teamTables } from '$lib/store';
-  import  { beforeUpdate, onMount } from 'svelte';
+  import { snapshots, groups, displayNumber, linkTime, captainGHINNumber, realGHINNumber, playersInLineup, teamTables } from '$lib/store';
+  import  { onMount } from 'svelte';
   import {
     ActiveLineupBox,
     LineupBeingEditedBox,
@@ -15,26 +15,19 @@
     sget,
     returnHasMultipleGroups,
   } from '$lib/components/common/utils';
-  let snapshots = []; 
   
   let hasMultipleGroups = returnHasMultipleGroups($groups);
   import { goto } from '$app/navigation';
 
-  async function loadSnapshots() {
-    let _snapshots = await fetchSnapshots($captainGHINNumber)
+  function loadSnapshots() {
+    let _snapshots = fetchSnapshots($captainGHINNumber)
     return _snapshots
   }
-
-  beforeUpdate(() => {
-    console.log('beforeUpdate')    
-    snapshots = loadSnapshots();
-    console.log("🚀 ~ file: +page.svelte:29 ~ beforeUpdate~ snapshots:", snapshots)
-    console.log("🚀 ~ file: +page.svelte:36 ~ beforeUpdate ~ $captainGHINNumber:", $captainGHINNumber)
-  })
-
   const isLoggedIn = sget('isLoggedIn');
   onMount(() => {
-    console.log('onMount')
+    console.log('%c onMount','background: green')      
+    loadSnapshots().then(data => {$snapshots = data});
+    console.log("🚀 ~ file: +page.svelte:30 ~ onMount ~ $snapshots:", $snapshots)
     if (!isLoggedIn) {
       goto('/');
     }
@@ -45,20 +38,20 @@
   {#if $displayNumber === 2}
       <section>
         <article>
-          {#key snapshots}
+          {#key $snapshots}
             {#if $realGHINNumber === '585871'}
-            <CaptainsDropdown {snapshots}/>
+            <CaptainsDropdown snapshots={$snapshots}/>
             {/if}
             {#if snapshots.length > 0}
-              <SavedLineupsBox {snapshots}/>
+              <SavedLineupsBox snapshots={$snapshots}/>
             {/if}
-            <LineupBeingEditedBox {snapshots}/>
+            <LineupBeingEditedBox snapshots={$snapshots}/>
           {/key}
         </article>
         {#key $teamTables}
           {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}
             <article>
-              <ActiveLineupBox {snapshots}/>
+              <ActiveLineupBox snapshots={$snapshots}/>
             </article>
           {/if}
         {/key}
