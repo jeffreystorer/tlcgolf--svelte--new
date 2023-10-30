@@ -1,5 +1,6 @@
 <script>
-  import { course, snapshots, playersInLineup, linkTime, currentLineupIndex, currentLineup, lineupTitle, sortOrder, playingDate, teeTimeCount, progs069, progAdj, currentLineupKey, teamTables, showAddTeamMember, showAddDeletePlayersButton, showAddDeletePlayers, showChangeTees, okToSave, okToAddPlayers, group} from '$lib/store';
+  export let snapshots;
+  import { playersInLineup, linkTime, currentLineupIndex, currentLineup, lineupTitle, sortOrder, playingDate, teeTimeCount, progs069, progAdj, currentLineupKey, teamTables, showAddTeamMember, showAddDeletePlayersButton, showAddDeletePlayers, showChangeTees, okToSave, okToAddPlayers, group} from '$lib/store';
   import { GroupAndCourseDropdowns } from '$lib/components/common';
   import {
     AddDeletePlayersInLineup,
@@ -61,7 +62,7 @@
   {#key $currentLineupIndex}
     <h2>{$lineupTitle}</h2>
     {#if $currentLineup}
-      <CurrentSavedLineup lineupSnapshot={$snapshots[$currentLineupIndex]} />
+      <CurrentSavedLineup lineupSnapshot={snapshots[$currentLineupIndex]} />
     {/if}
     {#if (!$currentLineup && $playersInLineup.length > 0 && $linkTime !== 'Set Link Time Above')}
         <button class='stacked' on:click={clearLineup}>

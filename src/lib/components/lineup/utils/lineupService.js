@@ -14,9 +14,7 @@ export function createLineup(data) {
 
 export function deleteLineup(key) {
 	let _realGHINNumber = get(realGHINNumber);
-	console.log("🚀 ~ file: lineupService.js:17 ~ deleteLineup ~ _realGHINNumbe:", _realGHINNumbe)
 	let _captainGHINNumber = get(captainGHINNumber);
-	console.log("🚀 ~ file: lineupService.js:19 ~ deleteLineup ~ _captainGHINNumber:", _captainGHINNumber)
 	const firebaseRef = '"' + _realGHINNumber.toString() + '"';
 	const path = '/' + firebaseRef;
 	const dbRef = ref(getDatabase(firebaseApp), path);

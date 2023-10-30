@@ -1,4 +1,5 @@
 <script>
+  import { goto  } from '$app/navigation';
   import '$lib/styles/modal.css';
   import { deleteAll, currentLineupKey, currentLineupIndex, currentLineup, playersInLineup, lineupTitle, sortOrder} from '$lib/store';
   import { deleteLineup, deleteAllLineups } from '$lib/components/lineup/utils/lineupService';
@@ -20,7 +21,7 @@
     $currentLineup = null;
     $lineupTitle =  'New Lineup';
     $sortOrder = 'alphabetical';
-    window.location.href = '/lineup';
+    goto('/lineup');
   };
   </script>
 

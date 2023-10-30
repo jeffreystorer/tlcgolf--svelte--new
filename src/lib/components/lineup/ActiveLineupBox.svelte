@@ -1,4 +1,5 @@
 <script>
+  export let snapshots;
   import { teeTimeCount, teamTables, textareaValue, course, playingDate,progAdj,progs069,okToSave, okToAddPlayers, sortOrder} from '$lib/store';
   import { LineupTextarea, SaveLineup, TeamTable } from '$lib/components/lineup';
   import { AutoButtons } from '$lib/components/lineup/buttons';
@@ -36,7 +37,7 @@
           Clear Game
         </button>
       </div>
-      <SaveLineup />
+      <SaveLineup {snapshots}/>
     </div>
     <GameOptionsModal />
   {/if}

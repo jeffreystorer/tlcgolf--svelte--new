@@ -1,7 +1,7 @@
 <script>
+  export let snapshots;
   import { goto } from '$app/navigation';
-  import {snapshots, realGHINNumber, captainGHINNumber,course, group,teesSelected, idsInLineup, lineupTitle, playingDate,teamTables,linkTime,teeTimeCount,textareaValue,progs069, progAdj, playersInLineup,currentLineupIndex,nextLineupIndex} from '$lib/store';
-  console.log("🚀 ~ file: SaveLineup.svelte:4 ~ $captainGHINNumber:", $captainGHINNumber)
+  import {realGHINNumber, captainGHINNumber,course, group,teesSelected, idsInLineup, lineupTitle, playingDate,teamTables,linkTime,teeTimeCount,textareaValue,progs069, progAdj, playersInLineup,currentLineupIndex,nextLineupIndex} from '$lib/store';
   import { saveLineupToFirebase } from '$lib/components/lineup/utils';
 
   function handleSubmit(event) {
@@ -22,15 +22,11 @@
       $teesSelected[$course]
     );
     //increment the lineup index
-    if ($realGHINNumber === $captainGHINNumber) {
-      console.log("🚀 ~ file: SaveLineup.svelte:29 ~ handleSubmit ~ $captainGHINNumber:", $captainGHINNumber)
-      console.log("🚀 ~ file: SaveLineup.svelte:29 ~ handleSubmit ~ $realGHINNumber:", $realGHINNumber)
+    if ($realGHINNumber !== $captainGHINNumber) {
       $currentLineupIndex = $nextLineupIndex;
-      console.log("🚀 ~ file: SaveLineup.svelte:30 ~ handleSubmit ~ $nextLineupIndex:", $nextLineupIndex)
     } else {
-      $currentLineupIndex = $snapshots.length;
+      $currentLineupIndex = snapshots.length;
     }
-      console.log("🚀 ~ file: SaveLineup.svelte:31 ~ handleSubmit ~ $currentLineupIndex:", $currentLineupIndex)
     
     goto('/export');
   }

@@ -1,8 +1,6 @@
 <script>
-  export let data;
-  import { snapshots, groups, displayNumber, linkTime, realGHINNumber, playersInLineup, teamTables } from '$lib/store';
-  $snapshots = data.snapshots;
-  import  {onMount} from 'svelte';
+  import { groups, displayNumber, linkTime, captainGHINNumber, realGHINNumber, playersInLineup, teamTables } from '$lib/store';
+  import  { beforeUpdate, onMount } from 'svelte';
   import {
     ActiveLineupBox,
     LineupBeingEditedBox,
@@ -11,44 +9,62 @@
     SavedLineupsBox, 
   } from '$lib/components/lineup';
   import { CaptainsDropdown } from '$lib/components/lineup/dropdowns';
+  import { fetchSnapshots } from '$lib/components/lineup/utils';
   import { GroupAndCourseDropdowns } from '$lib/components/common';  
   import {
     sget,
     returnHasMultipleGroups,
   } from '$lib/components/common/utils';
+  let snapshots = []; 
   
   let hasMultipleGroups = returnHasMultipleGroups($groups);
   import { goto } from '$app/navigation';
 
+  async function loadSnapshots() {
+    let _snapshots = await fetchSnapshots($captainGHINNumber)
+    return _snapshots
+  }
+
+  beforeUpdate(() => {
+    console.log('beforeUpdate')    
+    snapshots = loadSnapshots();
+    console.log("🚀 ~ file: +page.svelte:29 ~ beforeUpdate~ snapshots:", snapshots)
+    console.log("🚀 ~ file: +page.svelte:36 ~ beforeUpdate ~ $captainGHINNumber:", $captainGHINNumber)
+  })
+
   const isLoggedIn = sget('isLoggedIn');
   onMount(() => {
+    console.log('onMount')
     if (!isLoggedIn) {
       goto('/');
     }
   });
 </script>
  
+
   {#if $displayNumber === 2}
-    <section>
-      <article>
-        {#if $realGHINNumber === '585871'}
-        <CaptainsDropdown/>
-        {/if}
-        {#if $snapshots.length > 0}
-          <SavedLineupsBox/>
-        {/if}
-        <LineupBeingEditedBox />
-      </article>
-      {#key $teamTables}
-        {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}
-          <article>
-            <ActiveLineupBox />
-          </article>
-        {/if}
-      {/key}
-      </section>
-      <ConfirmDeleteModal />
-      <MissingPlayerModal />
+      <section>
+        <article>
+          {#key snapshots}
+            {#if $realGHINNumber === '585871'}
+            <CaptainsDropdown {snapshots}/>
+            {/if}
+            {#if snapshots.length > 0}
+              <SavedLineupsBox {snapshots}/>
+            {/if}
+            <LineupBeingEditedBox {snapshots}/>
+          {/key}
+        </article>
+        {#key $teamTables}
+          {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}
+            <article>
+              <ActiveLineupBox {snapshots}/>
+            </article>
+          {/if}
+        {/key}
+        </section>
+        <ConfirmDeleteModal />
+        <MissingPlayerModal />
   {:else}
     {#if hasMultipleGroups}
       <p>

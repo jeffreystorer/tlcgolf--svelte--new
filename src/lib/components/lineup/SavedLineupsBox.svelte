@@ -1,11 +1,11 @@
 <script>
+  export let snapshots;
   import { onMount } from 'svelte'
-  import { snapshots, currentLineup, currentLineupKey, currentLineupIndex, deleteAll, lineupTitle} from '$lib/store';
+  import { currentLineup, currentLineupKey, currentLineupIndex, deleteAll, lineupTitle} from '$lib/store';
   let currentSnapshot = [];
   onMount(() => {
     if ($currentLineupIndex > -1) {
-      console.log("🚀 ~ file: SavedLineupsBox.svelte:7 ~ onMount ~ $currentLineupIndex:", $currentLineupIndex)
-      currentSnapshot = $snapshots[$currentLineupIndex];
+      currentSnapshot = snapshots[$currentLineupIndex];
       $currentLineupKey = currentSnapshot.key;
       $currentLineup = {
         key: currentSnapshot.key,
@@ -38,14 +38,14 @@
 
 <div class='titled_outer'>
   <h2>Saved Lineups</h2>
-  {#if $snapshots.length > 0}
+  {#if snapshots.length > 0}
           <button type='button' class='stacked' on:click={handleDeleteAll}>
             Delete All
           </button>
           <p>Click on a lineup to edit, export, or delete</p>
           <div class='divider'></div>
           <ul>
-            {#each $snapshots as snapshot, index}
+            {#each snapshots as snapshot, index}
               <li>
                 <a href='#ul' class={index === $currentLineupIndex ? 'active_li' : 'li'}
                 on:click={() => handleClick(snapshot, index)}>

@@ -10,3 +10,4 @@ export { default as saveLineupToFirebase } from "$lib/components/lineup/utils/sa
 export { default as setAutoABCD } from "$lib/components/lineup/utils/setAutoABCD";
 export { default as setAutoPop } from "$lib/components/lineup/utils/setAutoPop";
 export { default as teamTablesEmpty } from "$lib/components/lineup/utils/teamTablesEmpty";
+export { default as fetchSnapshots } from '$lib/components/lineup/utils/fetchSnapshots';

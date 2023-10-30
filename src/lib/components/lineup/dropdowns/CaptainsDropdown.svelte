@@ -1,47 +1,30 @@
 <script>
-  import {snapshots, captainGHINNumber, realGHINNumber, captains, nextLineupIndex, playersInLineup, currentLineupIndex, currentLineupKey, lineupTitle, currentLineup, sortOrder, playingDate,  teeTimeCount, linkTime, progs069,  progAdj} from '$lib/store';
-  console.log("🚀 ~ file: CaptainsDropdown.svelte:3 ~ $captainGHINNumber:", $captainGHINNumber)
-  import { getSnapshots } from '$lib/components/lineup/utils';
-  
-  function loadSnapshots(ghinNumber){
-    console.log("🚀 ~ file: CaptainsDropdown.svelte:6 ~ loadSnapshots ~ ghinNumber:", ghinNumber)
-
-  //if we are on the Storer page, save the next lineup index
-    if ($captainGHINNumber !== $realGHINNumber) {
-    console.log("🚀 ~ file: CaptainsDropdown.svelte:11 ~ loadSnapshots ~ $realGHINNumber:", $realGHINNumber)
-    console.log("🚀 ~ file: CaptainsDropdown.svelte:11 ~ loadSnapshots ~ $captainGHINNumber:", $captainGHINNumber)
-    }
-    getSnapshots(ghinNumber).then((data) => {
-      let items = [];
-      for (const [key, value] of Object.entries(data)) {      
-        items.push({
-          key: key,
-          lineup: value.lineup,
-          title: value.title,
-        });
-      }; 
-      $snapshots = items;
-    });
-    $captainGHINNumber = ghinNumber; 
-    console.log("🚀 ~ file: CaptainsDropdown.svelte:26 ~ loadSnapshots ~ $captainGHINNumber:", $captainGHINNumber)
-  } 
+  export let snapshots;
+  import {captainGHINNumber, realGHINNumber, captains, nextLineupIndex, playersInLineup, currentLineupIndex, currentLineupKey, lineupTitle, currentLineup, sortOrder, playingDate,  teeTimeCount, linkTime, progs069,  progAdj} from '$lib/store';
   
   function handleChange(e) {
-  e.preventDefault();
-  $playersInLineup = [];
-  $currentLineupIndex = -1;
-  $currentLineupKey ='';
-  $currentLineup = null;
-  $lineupTitle = 'New Lineup';
-  $sortOrder = ('alphabetical');
-  $playingDate = 'Date';
-  $teeTimeCount = '';
-  $linkTime = 'Set Link Time Above';
-  $progs069 = '';
-  $progAdj = '';
- 
-  loadSnapshots(e.target.value);
+    e.preventDefault();
+    $playersInLineup = [];
+    $currentLineupIndex = -1;
+    $currentLineupKey ='';
+    $currentLineup = null;
+    $lineupTitle = 'New Lineup';
+    $sortOrder = ('alphabetical');
+    $playingDate = 'Date';
+    $teeTimeCount = '';
+    $linkTime = 'Set Link Time Above';
+    $progs069 = '';
+    $progAdj = '';
+  
+  //if we are on the Storer page, save the next lineup index
+  if ($captainGHINNumber === $realGHINNumber) {
+      $nextLineupIndex = snapshots.length;
   }
+    $captainGHINNumber = e.target.value;
+    
+    console.log("🚀 ~ file: CaptainsDropdown.svelte:22 ~ handleChange ~ $nextLineupIndex:", $nextLineupIndex)
+    console.log("🚀 ~ file: CaptainsDropdown.svelte:24 ~ handleChange ~ $captainGHINNumber:", $captainGHINNumber)
+}
 </script>
 
 <label>
