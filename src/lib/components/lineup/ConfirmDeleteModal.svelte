@@ -21,7 +21,7 @@
     $currentLineup = null;
     $lineupTitle =  'New Lineup';
     $sortOrder = 'alphabetical';
-    goto('/lineup');
+    goto('/export');
   };
   </script>
 

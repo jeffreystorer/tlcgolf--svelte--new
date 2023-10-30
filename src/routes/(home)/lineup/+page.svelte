@@ -1,5 +1,7 @@
 <script>
+  export let data;
   import { snapshots, groups, displayNumber, linkTime, captainGHINNumber, realGHINNumber, playersInLineup, teamTables } from '$lib/store';
+  $snapshots = data.snapshots;
   import  { onMount } from 'svelte';
   import {
     ActiveLineupBox,
@@ -9,7 +11,6 @@
     SavedLineupsBox, 
   } from '$lib/components/lineup';
   import { CaptainsDropdown } from '$lib/components/lineup/dropdowns';
-  import { fetchSnapshots } from '$lib/components/lineup/utils';
   import { GroupAndCourseDropdowns } from '$lib/components/common';  
   import {
     sget,
@@ -18,16 +19,13 @@
   
   let hasMultipleGroups = returnHasMultipleGroups($groups);
   import { goto } from '$app/navigation';
-
-  function loadSnapshots() {
-    let _snapshots = fetchSnapshots($captainGHINNumber)
-    return _snapshots
-  }
+  
+ 
+  
   const isLoggedIn = sget('isLoggedIn');
   onMount(() => {
-    console.log('%c onMount','background: green')      
-    loadSnapshots().then(data => {$snapshots = data});
-    console.log("🚀 ~ file: +page.svelte:30 ~ onMount ~ $snapshots:", $snapshots)
+    console.log('%c onMount','background: green');
+    console.log("🚀 ~ file: +page.svelte:27 ~ onMount ~$snapshots:", $snapshots)
     if (!isLoggedIn) {
       goto('/');
     }
@@ -38,15 +36,13 @@
   {#if $displayNumber === 2}
       <section>
         <article>
-          {#key $snapshots}
             {#if $realGHINNumber === '585871'}
             <CaptainsDropdown snapshots={$snapshots}/>
             {/if}
-            {#if snapshots.length > 0}
+            {#if $snapshots.length > 0}
               <SavedLineupsBox snapshots={$snapshots}/>
             {/if}
             <LineupBeingEditedBox snapshots={$snapshots}/>
-          {/key}
         </article>
         {#key $teamTables}
           {#if ($playersInLineup.length > 0) && ($linkTime !== 'Set Link Time Above')}

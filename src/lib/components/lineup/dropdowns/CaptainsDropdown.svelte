@@ -1,5 +1,6 @@
 <script>
   export let snapshots;
+  import { goto } from '$app/navigation';
   import {captainGHINNumber, realGHINNumber, captains, nextLineupIndex, playersInLineup, currentLineupIndex, currentLineupKey, lineupTitle, currentLineup, sortOrder, playingDate,  teeTimeCount, linkTime, progs069,  progAdj} from '$lib/store';
   
   function handleChange(e) {
@@ -24,6 +25,7 @@
     
     console.log("🚀 ~ file: CaptainsDropdown.svelte:22 ~ handleChange ~ $nextLineupIndex:", $nextLineupIndex)
     console.log("🚀 ~ file: CaptainsDropdown.svelte:24 ~ handleChange ~ $captainGHINNumber:", $captainGHINNumber)
+    goto('/export')
 }
 </script>
 
