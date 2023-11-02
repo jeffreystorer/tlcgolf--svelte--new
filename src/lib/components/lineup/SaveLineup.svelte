@@ -2,6 +2,7 @@
   export let snapshots;
   import { goto } from '$app/navigation';
   import {realGHINNumber, captainGHINNumber,course, group,teesSelected, idsInLineup, lineupTitle, playingDate,teamTables,linkTime,teeTimeCount,textareaValue,progs069, progAdj, playersInLineup,currentLineupIndex,nextLineupIndex} from '$lib/store';
+  let _captainGHINNumber = $captainGHINNumber;
   import { saveLineupToFirebase } from '$lib/components/lineup/utils';
 
   function handleSubmit(event) {
@@ -21,14 +22,15 @@
       $textareaValue,
       $teesSelected[$course]
     );
+
     //increment the lineup index
-    if ($realGHINNumber !== $captainGHINNumber) {
+  /*  if ($realGHINNumber !== _captainGHINNumber) {
       $currentLineupIndex = $nextLineupIndex;
-    } else {
+    } else { */
       $currentLineupIndex = snapshots.length;
-    }
+   /*  } */
     
-    goto('/export');
+      goto('/export');
   }
   </script>
   

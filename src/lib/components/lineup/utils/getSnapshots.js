@@ -2,7 +2,6 @@ import firebaseApp from '$lib/firebase';
 import { child, getDatabase, get, ref } from 'firebase/database';
 
 export default async function getSnapshots(ghinNumber) {
-	console.log("🚀 ~ file: getSnapshots.js:5 ~ getSnapshots ~ ghinNumber:", ghinNumber)
 	const path = '"' + ghinNumber.toString() + '"';
 	const dbRef = ref(getDatabase(firebaseApp));
 	let snapshots = await get(child(dbRef, path))
@@ -10,7 +9,7 @@ export default async function getSnapshots(ghinNumber) {
       if (snapshot.exists()) {
         return snapshot.val();
       } else {
-        console.log('No data available');
+        //console.log('No data available');
         return {};
       }
     })

@@ -18,13 +18,10 @@
     $progAdj = '';
   
   //if we are on the Storer page, save the next lineup index
-  if ($captainGHINNumber === $realGHINNumber) {
+      if ($captainGHINNumber !== $realGHINNumber) {
       $nextLineupIndex = snapshots.length;
   }
     $captainGHINNumber = e.target.value;
-    
-    console.log("🚀 ~ file: CaptainsDropdown.svelte:22 ~ handleChange ~ $nextLineupIndex:", $nextLineupIndex)
-    console.log("🚀 ~ file: CaptainsDropdown.svelte:24 ~ handleChange ~ $captainGHINNumber:", $captainGHINNumber)
     goto('/export')
 }
 </script>

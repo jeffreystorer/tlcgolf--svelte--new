@@ -129,7 +129,6 @@ export const okToAddPlayers = derived(
 		return ok;
 	}
 );
-
 export const displayNumber = derived([course, group, groups], ($items) => {
 	return returnDisplayNumber($items[0], $items[1], $items[2]);
 });

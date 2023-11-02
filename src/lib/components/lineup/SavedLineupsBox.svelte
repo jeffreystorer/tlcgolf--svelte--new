@@ -1,10 +1,14 @@
 <script>
   export let snapshots;
   import { onMount } from 'svelte'
-  import { currentLineup, currentLineupKey, currentLineupIndex, deleteAll, lineupTitle} from '$lib/store';
+  import { currentLineup, currentLineupKey, currentLineupIndex, nextLineupIndex, deleteAll, lineupTitle, captainGHINNumber, realGHINNumber} from '$lib/store';
   let currentSnapshot = [];
   onMount(() => {
+    $currentLineupIndex = snapshots.length -1;
     if ($currentLineupIndex > -1) {
+      if (captainGHINNumber === realGHINNumber) {
+        $currentLineupIndex = $nextLineupIndex
+      }
       currentSnapshot = snapshots[$currentLineupIndex];
       $currentLineupKey = currentSnapshot.key;
       $currentLineup = {

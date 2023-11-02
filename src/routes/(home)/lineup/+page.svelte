@@ -24,8 +24,6 @@
   
   const isLoggedIn = sget('isLoggedIn');
   onMount(() => {
-    console.log('%c onMount','background: green');
-    console.log("🚀 ~ file: +page.svelte:27 ~ onMount ~$snapshots:", $snapshots)
     if (!isLoggedIn) {
       goto('/');
     }
