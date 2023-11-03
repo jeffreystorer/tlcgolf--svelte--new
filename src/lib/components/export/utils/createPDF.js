@@ -59,6 +59,7 @@ export default function createPDF(type, element, dims) {
   });
 
   // eslint-disable-next-line no-unused-vars
+  domtoimage.toJpeg(element.current, { quality: 1.0 }).then((dataUrl) => {
   domtoimage
     .toJpeg(element, { quality: 1.0 })
     .then(function (dataUrl) {
@@ -71,5 +72,6 @@ export default function createPDF(type, element, dims) {
       doc.setProperties({ title: get(lineupTitle) });
       doc.save(fileName);
     });
+  });
  
 }
