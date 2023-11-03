@@ -1,8 +1,8 @@
 import {lineupTitle, pdfDim} from '$lib/store';
 import { get } from 'svelte/store';
 import { jsPDF } from "jspdf";
-//import domtoimage from "dom-to-image";
-import html2canvas from 'html2canvas';
+import domtoimage from "dom-to-image";
+//import html2canvas from 'html2canvas';
 export default function createPDF(type, element, dims) {
   const dimensions = get(pdfDim);
   const orientation = type;
@@ -58,7 +58,7 @@ export default function createPDF(type, element, dims) {
     format: format,
   });
 
-  html2canvas(element).then(function(canvas)  {
+/*   html2canvas(element).then(function(canvas)  {
       let x, y, w, h;
       x = (PAPER_DIMENSIONS.width - imageDimensions(dimensions).width) / 2;
       y = (PAPER_DIMENSIONS.height - imageDimensions(dimensions).height) / 2;
@@ -67,9 +67,9 @@ export default function createPDF(type, element, dims) {
       doc.addImage(canvas, "JPEG", x, y, w, h);
       doc.setProperties({ title: get(lineupTitle) });
       doc.save(fileName);
-  });
+  }); */
  
-  /* domtoimage
+  domtoimage
     .toJpeg(element, { quality: 1.0 })
     .then(function (dataUrl) {
       let x, y, w, h;
@@ -80,6 +80,6 @@ export default function createPDF(type, element, dims) {
       doc.addImage(dataUrl, "JPEG", x, y, w, h);
       doc.setProperties({ title: get(lineupTitle) });
       doc.save(fileName);
-    }); */
+    });
  
 }
