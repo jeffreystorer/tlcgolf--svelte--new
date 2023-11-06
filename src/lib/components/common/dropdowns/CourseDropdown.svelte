@@ -1,5 +1,5 @@
 <script>
-  import { courses } from '$lib/common/data'
+  import { courses } from '$lib/components/common/data'
   import {
     returnHasMultipleGroups,
     set, 
