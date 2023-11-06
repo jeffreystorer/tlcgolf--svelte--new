@@ -1,5 +1,5 @@
 <script>
-  import { courses } from '$lib/components/common/data'
+  import { courses, courseNames } from '$lib/components/common/data'
   import {
     returnHasMultipleGroups,
     set, 
@@ -29,9 +29,9 @@
   <select name='course' bind:value={$course} on:change={handleChange}>
       <option key={'0'} value=''>
       </option>
-      {#each courses as course}
+      {#each courses as course, index}
       <option key={course} value={course}>
-        {course}
+        {courseNames[index]}
       </option>
       {/each}
   </select>

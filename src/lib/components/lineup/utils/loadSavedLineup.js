@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { get } from 'svelte/store';
+import { set } from '$lib/components/common/utils';
 import {
 	courseData,
 	groups,
@@ -22,7 +23,9 @@ import { getPlayersInGroup, updateTeamTables } from '$lib/components/common/util
 
 export default function loadSavedLineup(savedLineup) {
 	group.set(savedLineup.game);
+	set('group', savedLineup.game);
 	course.set(savedLineup.course);
+	set('course', savedLineup.course);
 	let missingPlayer = false;
 	let _teesSelected = _.cloneDeep(get(teesSelected))
 	_teesSelected[savedLineup.course] = savedLineup.teesSelected;
