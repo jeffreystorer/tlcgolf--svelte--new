@@ -21,7 +21,7 @@
 <select name='group' bind:value={$group} on:change={handleChange}>
   <option key={'0'} value=''>
   </option>
-  {#each $groups as group, index (index)}
+  {#each $groups as group}
     <option key={group} value={group}>
       {group}
     </option>

@@ -1,4 +1,5 @@
 <script>
+  import { courses } from '$lib/common/data'
   import {
     returnHasMultipleGroups,
     set, 
@@ -28,23 +29,10 @@
   <select name='course' bind:value={$course} on:change={handleChange}>
       <option key={'0'} value=''>
       </option>
-      <option key={'1'} value='dc'>
-        Deer Creek
+      {#each courses as course}
+      <option key={course} value={course}>
+        {course}
       </option>
-      <option key={'2'} value='mg'>
-        Magnolia
-      </option>
-      <option key={'3'} value='mw'>
-        Marshwood
-      </option>
-      <option key={'4'} value='or'>
-        Oakridge
-      </option>
-      <option key={'5'} value='pa'>
-        Palmetto
-      </option>
-      <option key={'6'} value='tp'>
-        Terrapin Point
-      </option>
+      {/each}
   </select>
 </label>

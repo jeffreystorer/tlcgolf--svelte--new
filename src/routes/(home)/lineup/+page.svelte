@@ -1,6 +1,6 @@
 <script>
   export let data;
-  import { snapshots, groups, displayNumber, linkTime, captainGHINNumber, realGHINNumber, playersInLineup, teamTables } from '$lib/store';
+  import { snapshots, groups, displayNumber, linkTime, realGHINNumber, playersInLineup, teamTables } from '$lib/store';
   $snapshots = data.snapshots;
   import  { onMount } from 'svelte';
   import {
