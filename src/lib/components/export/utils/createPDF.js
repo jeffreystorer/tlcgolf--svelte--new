@@ -1,10 +1,10 @@
 import {lineupTitle, pdfDim} from '$lib/store';
 import { get } from 'svelte/store';
 import { jsPDF } from "jspdf";
-//import domtoimage from "dom-to-image";
+import domtoimage from "dom-to-image";
 //import html2canvas from 'html2canvas';
-import * as htmlToImage from 'html-to-image';
-import { toJpeg } from 'html-to-image'
+//import * as htmlToImage from 'html-to-image';
+//import { toJpeg } from 'html-to-image'
 export default function createPDF(type, element, dims) {
   const dimensions = get(pdfDim);
   const orientation = type;
@@ -59,7 +59,7 @@ export default function createPDF(type, element, dims) {
     unit: "in",
     format: format,
   });
-  htmlToImage
+/*   htmlToImage
     .toJpeg(element, { quality: 1.0 })
     .then(function (dataUrl) {
       let x, y, w, h;
@@ -70,7 +70,7 @@ export default function createPDF(type, element, dims) {
       doc.addImage(dataUrl, "JPEG", x, y, w, h);
       doc.setProperties({ title: get(lineupTitle) });
       doc.save(fileName);
-    });
+    }); */
 
 /*   html2canvas(element).then(function(canvas)  {
       let x, y, w, h;
@@ -83,7 +83,7 @@ export default function createPDF(type, element, dims) {
       doc.save(fileName);
   }); */
  
-/*   domtoimage
+  domtoimage
     .toJpeg(element, { quality: 1.0 })
     .then(function (dataUrl) {
       let x, y, w, h;
@@ -94,6 +94,6 @@ export default function createPDF(type, element, dims) {
       doc.addImage(dataUrl, "JPEG", x, y, w, h);
       doc.setProperties({ title: get(lineupTitle) });
       doc.save(fileName);
-    }); */
+    });
  
 }
