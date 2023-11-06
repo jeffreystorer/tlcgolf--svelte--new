@@ -85,15 +85,21 @@ export default function createPDF(type, element, dims) {
  
   domtoimage
     .toJpeg(element, { quality: 1.0 })
-    .then(function (dataUrl) {
-      let x, y, w, h;
-      x = (PAPER_DIMENSIONS.width - imageDimensions(dimensions).width) / 2;
-      y = (PAPER_DIMENSIONS.height - imageDimensions(dimensions).height) / 2;
-      w = imageDimensions(dimensions).width;
-      h = imageDimensions(dimensions).height;
-      doc.addImage(dataUrl, "JPEG", x, y, w, h);
-      doc.setProperties({ title: get(lineupTitle) });
-      doc.save(fileName);
-    });
+    // eslint-disable-next-line no-unused-vars
+    .then(dataUrl => {
+      domtoimage
+        .toJpeg(element, { quality: 1.0 })
+        .then(dataUrl2 =>
+           {
+          let x, y, w, h;
+          x = (PAPER_DIMENSIONS.width - imageDimensions(dimensions).width) / 2;
+          y = (PAPER_DIMENSIONS.height - imageDimensions(dimensions).height) / 2;
+          w = imageDimensions(dimensions).width;
+          h = imageDimensions(dimensions).height;
+          doc.addImage(dataUrl2, "JPEG", x, y, w, h);
+          doc.setProperties({ title: get(lineupTitle) });
+          doc.save(fileName);
+        })
+  });
  
 }
