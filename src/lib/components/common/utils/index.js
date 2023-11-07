@@ -18,7 +18,7 @@ export { default as createTeeArrays } from '$lib/components/common/utils/createT
 export { default as getPlayersInGroup } from '$lib/components/common/utils/getPlayersInGroup';
 export { default as updateTeamTables } from '$lib/components/common/utils/updateTeamTables';
 export { default as updatePlayersInLineup } from '$lib/components/common/utils/updatePlayersInLineup';
-export { clear, get, remove, set } from '$lib/components/common/utils/localStorage';
+export { clear, get, lget, remove, set } from '$lib/components/common/utils/localStorage';
 export { sclear, sget, sremove, sset } from '$lib/components/common/utils/sessionStorage';
 export {
 	indexOfGolfer,

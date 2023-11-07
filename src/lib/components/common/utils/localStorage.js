@@ -12,6 +12,18 @@ export const get = (item) => {
 		return undefined;
 	}
 };
+export const lget = (item) => {
+	if (!browser) return;
+	try {
+		const storedItem = localStorage.getItem(item);
+		if (storedItem === null) {
+			return undefined;
+		}
+		return JSON.parse(storedItem);
+	} catch (err) {
+		return undefined;
+	}
+};
 
 export const set = (item, value) => {
 	if (!browser) return;

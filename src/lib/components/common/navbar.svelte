@@ -33,7 +33,7 @@
       {/each}
       <li>
         <p>More...</p> 
-          <ul>
+          <ul id='moreMenu'>
             <li><a href='/individual'>Individual</a></li>
             <li><a href='/groups'>Groups</a></li>
             {#if (ghinNumber === '585871')}

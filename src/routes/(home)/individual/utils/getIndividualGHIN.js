@@ -1,6 +1,7 @@
 import { get } from 'svelte/store';
 import { dataMode, foundGolfer, roster } from '$lib/store';
-import capitalize from '$lib/components/common/utils/capitalize.js'
+import { capitalize, lget } from '$lib/components/common/utils';
+
 
 import {
 	aFirstName,
@@ -10,7 +11,7 @@ import {
 } from '$lib/components/common/utils/getRosterFields.js';
 
 export default function getIndividualGHIN() {
-	const ghinNumber = JSON.parse(localStorage.getItem('ghinNumber'));
+	let ghinNumber = lget('ghinNumber');
 	let _dataMode = get(dataMode);
 	let _foundGolfer = get(foundGolfer);
 	let _roster = get(roster)
