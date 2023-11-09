@@ -33,7 +33,7 @@
       {/each}
       <li>
           <div class="dropdown">
-            <button class="dropdown-btn" aria-haspopup="menu">More ...
+            <button tabindex='0' class="dropdown-btn" aria-haspopup="menu">More ...
             </button>
             <ul class='dropdown-content' role='menu'>
               <li><a href='/individual'>Individual</a></li>
