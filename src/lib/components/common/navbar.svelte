@@ -196,7 +196,7 @@ nav {
   background-color: var(--background-button);
   position: relative;
   left: 100%;
-  transition: 1s;
+  transition: .5s;
 }
 
 .dropdown-btn:focus + .dropdown-content li {
