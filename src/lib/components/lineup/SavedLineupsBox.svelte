@@ -6,9 +6,9 @@
   onMount(() => {
     $currentLineupIndex = snapshots.length -1;
     if ($currentLineupIndex > -1) {
-      if (captainGHINNumber === realGHINNumber) {
+      /* if (captainGHINNumber === realGHINNumber) {
         $currentLineupIndex = $nextLineupIndex
-      }
+      } */
       currentSnapshot = snapshots[$currentLineupIndex];
       $currentLineupKey = currentSnapshot.key;
       $currentLineup = {
