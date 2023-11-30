@@ -118,7 +118,7 @@
         <div class='select-dropdown-container'>
           <select
             name='teeAssignmentDropdown'
-            value={teamTables.teeAssignments[teamNumber]}
+            bind:value={$teamTables.teeAssignments[teamNumber]}
             on:change={handleTeeAssignmentChange}>
             {#each teeAssignments as teeAssignment}
               <option value={teeAssignment}>
