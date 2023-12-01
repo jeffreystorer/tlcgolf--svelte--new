@@ -99,7 +99,7 @@
       </th>
     </tr>
   {/if}
-  <tr>
+  <tr class='teetime'>
     <th scope='col' on:click={(e) => handleMoveTeamUp(e, teamNumber)}>
       {#if teamNumber > 0}
         <img src={ChevronUpBlack} alt='Chevron Up Black'/>
@@ -115,8 +115,9 @@
         </span>
       {/if}
       {#if times[teamNumber].includes('Shotgun')}
-        <div class='select-dropdown-container'>
+        <!-- <div class='select-dropdown-container'> -->
           <select
+            class='teeassignment'
             name='teeAssignmentDropdown'
             bind:value={$teamTables.teeAssignments[teamNumber]}
             on:change={handleTeeAssignmentChange}>
@@ -126,7 +127,7 @@
               </option>
             {/each}
           </select>
-        </div>
+        <!-- </div> -->
       {/if}
     </th>
     {#each keys as key}
@@ -145,5 +146,17 @@
   img {
     height: 24px;
     width: 24px;
+  }
+  .teetime th  {
+    align-items: center;
+    margin:0;
+
+  }
+  .teetime th:first-of-type {
+    width: 24px;
+  }
+  .teeassignment {
+    align-items: center;
+    font-size: var(--step-0);
   }
 </style>
