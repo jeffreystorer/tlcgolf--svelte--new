@@ -2,7 +2,7 @@
   export let lineupSnapshot;
   import { goto } from '$app/navigation';
   import {onMount}  from 'svelte';
-  import {playersInLineup,currentLineupIndex,currentLineup,lineupTitle,sortOrder,playingDate,teeTimeCount,linkTime,progs069,progAdj,currentLineupKey,deleteAll, teamTables, showAddTeamMember} from '$lib/store';
+  import {textareaValue, playersInLineup,currentLineupIndex,currentLineup,lineupTitle,sortOrder,playingDate,teeTimeCount,linkTime,progs069,progAdj,currentLineupKey,deleteAll, teamTables, showAddTeamMember} from '$lib/store';
   import { ConfirmDeleteModal } from '$lib/components/lineup';
   import { loadSavedLineup } from '$lib/components/lineup/utils';
 
@@ -30,6 +30,7 @@
   };
 
   const clearLineup = () => {
+    $textareaValue = '';
     $playersInLineup = [];
     $currentLineupIndex = -1;
     $currentLineupKey = '';
@@ -70,6 +71,7 @@
 
   function handleDelete(e) {
     e.preventDefault;
+    clearLineup;
     $deleteAll = false;
     window.location.href = '#confirmdeletemodal';
   }

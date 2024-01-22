@@ -1,6 +1,6 @@
 <script>
   export let snapshots;
-  import { playersInLineup, linkTime, currentLineupIndex, currentLineup, lineupTitle, sortOrder, playingDate, teeTimeCount, progs069, progAdj, currentLineupKey, teamTables, showAddTeamMember, showAddDeletePlayersButton, showAddDeletePlayers, showChangeTees, okToSave, okToAddPlayers, group} from '$lib/store';
+  import { textareaValue, playersInLineup, linkTime, currentLineupIndex, currentLineup, lineupTitle, sortOrder, playingDate, teeTimeCount, progs069, progAdj, currentLineupKey, teamTables, showAddTeamMember, showAddDeletePlayersButton, showAddDeletePlayers, showChangeTees, okToSave, okToAddPlayers, group} from '$lib/store';
   import { GroupAndCourseDropdowns } from '$lib/components/common';
   import {
     AddDeletePlayersInLineup,
@@ -18,6 +18,7 @@
   const ghinNumber = get('ghinNumber');
 
   const clearLineup = () => {
+    $textareaValue = '';
     $playersInLineup = [];
     $currentLineupIndex = -1;
     $currentLineupKey = '';

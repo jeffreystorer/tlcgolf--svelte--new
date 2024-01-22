@@ -1,16 +1,47 @@
 <script>
   import '$lib/styles/modal.css';
-  import { missingPlayerMessage, currentLineupKey, currentLineupIndex, currentLineup, playersInLineup, lineupTitle, sortOrder} from '$lib/store';
+  import { textareaValue, playingDate, teeTimeCount, linkTime, progs069, progAdj, teamTables, showAddTeamMember, missingPlayerMessage, currentLineupKey, currentLineupIndex, currentLineup, playersInLineup, lineupTitle, sortOrder} from '$lib/store';
   import { deleteLineup } from '$lib/components/lineup/utils/lineupService';
 
+  
   const clearLineup = () => {
+    $textareaValue = '';
     $playersInLineup = [];
     $currentLineupIndex = -1;
     $currentLineupKey = '';
     $currentLineup = null;
-    $lineupTitle =  'New Lineup';
+    $lineupTitle = "New Lineup";
     $sortOrder = 'alphabetical';
-    window.location.href = '/lineup';
+    $playingDate = 'Date';
+    $teeTimeCount = '';
+    $linkTime = 'Set Link Time Above';
+    $progs069 = '';
+    $progAdj = '';
+    $teamTables = {
+      teeAssignments: [1],
+      team0: [],
+      team1: [],
+      team2: [],
+      team3: [],
+      team4: [],
+      team5: [],
+      team6: [],
+      team7: [],
+      team8: [],
+      team9: []
+    };
+    $showAddTeamMember = {
+      team0: false,
+      team1: false,
+      team2: false,
+      team3: false,
+      team4: false,
+      team5: false,
+      team6: false,
+      team7: false,
+      team8: false,
+      team9: false
+    };
   };
 
   const handleDelete = () => {

@@ -1,7 +1,7 @@
 <script>
   import { goto  } from '$app/navigation';
   import '$lib/styles/modal.css';
-  import { deleteAll, currentLineupKey, currentLineupIndex, currentLineup, playersInLineup, lineupTitle, sortOrder} from '$lib/store';
+  import { textareaValue, deleteAll, currentLineupKey, currentLineupIndex, currentLineup, playersInLineup, lineupTitle, sortOrder, playingDate, teeTimeCount, linkTime, progs069, progAdj, teamTables, showAddTeamMember} from '$lib/store';
   import { deleteLineup, deleteAllLineups } from '$lib/components/lineup/utils/lineupService';
   
   const handleDeleteAll = () => {
@@ -15,12 +15,43 @@
   };
 
   const clearLineup = () => {
+    $textareaValue = '';
     $playersInLineup = [];
     $currentLineupIndex = -1;
     $currentLineupKey = '';
     $currentLineup = null;
-    $lineupTitle =  'New Lineup';
+    $lineupTitle = "New Lineup";
     $sortOrder = 'alphabetical';
+    $playingDate = 'Date';
+    $teeTimeCount = '';
+    $linkTime = 'Set Link Time Above';
+    $progs069 = '';
+    $progAdj = '';
+    $teamTables = {
+      teeAssignments: [1],
+      team0: [],
+      team1: [],
+      team2: [],
+      team3: [],
+      team4: [],
+      team5: [],
+      team6: [],
+      team7: [],
+      team8: [],
+      team9: []
+    };
+    $showAddTeamMember = {
+      team0: false,
+      team1: false,
+      team2: false,
+      team3: false,
+      team4: false,
+      team5: false,
+      team6: false,
+      team7: false,
+      team8: false,
+      team9: false
+    };
     goto('/export');
   };
   </script>
