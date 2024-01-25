@@ -1,7 +1,27 @@
 <script>
   import '$lib/styles/modal.css';
-  import {textareaValue, teeTimeCount, playerCount, bets} from '$lib/store';
+  import {textareaValue, teeTimeCount, bets, teamTables} from '$lib/store';
   import {holesArray, grossupArray, entryPerArray, rulesArray, puttsArray} from '$lib/components/lineup/optionitems';
+  function getTeamPlayerCount(teamMembers) {
+    let teamPlayerCount = 0;
+    let i;
+    for (i = 0; i < teamMembers.length; i++) {
+      if (teamMembers[i].courseHandicaps[0] !== "X") {
+        teamPlayerCount = teamPlayerCount + 1;
+      }
+    }
+    return teamPlayerCount;
+  }
+  const playerCount = () => {
+    let teamCount = Object.keys($teamTables).length - 1;
+    let playerCount = 0;
+    for (let i = 0; i < teamCount; i++) {
+      let teamName = 'team' + i;
+      playerCount = playerCount + getTeamPlayerCount($teamTables[teamName]);
+    }
+    return playerCount;
+  };
+  console.log("😊😊 playerCount", playerCount())
   const excessPayoutMessage =
     'You are paying out more than the pot.  Please adjust your payouts.';
   const missingHolesMessage = 'Please select the number of holes for each bet.';
@@ -68,7 +88,7 @@
   function computePot(entry, entryPer) {
     switch (entryPer) {
       case '/player':
-        return $playerCount * entry;
+        return playerCount() * entry;
         break;
       case '/team':
         return $teeTimeCount * entry;

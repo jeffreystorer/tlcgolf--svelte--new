@@ -91,15 +91,6 @@ export const idsInLineup = derived(playersInLineup, ($playersInLineup) => {
 		return [];
 	}
 });
-export const playerCount = derived(teamTables, ($teamTables) => {
-	let teamCount = Object.keys($teamTables).length - 1;
-	let playerCount = 0;
-	for (let i = 0; i < teamCount; i++) {
-		let teamName = 'team' + i;
-		playerCount = playerCount + $teamTables[teamName].length;
-	}
-	return playerCount;
-});
 export const playersNotInTeeTime = derived([playersInLineup, teamTables], ($items) => {
 	return getPlayersNotInTeeTime($items[0], $items[1]);
 });
