@@ -21,7 +21,6 @@
     }
     return playerCount;
   };
-  console.log("😊😊 playerCount", playerCount())
   const excessPayoutMessage =
     'You are paying out more than the pot.  Please adjust your payouts.';
   const missingHolesMessage = 'Please select the number of holes for each bet.';
