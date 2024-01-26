@@ -1,4 +1,5 @@
 <script>
+  //edit to force build
   import { page } from '$app/stores';
   import { hasSchedule, schedules } from '$lib/store';
   import { get } from '$lib/components/common/utils'
