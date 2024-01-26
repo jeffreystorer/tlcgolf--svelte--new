@@ -2,8 +2,6 @@
   import { page } from '$app/stores';
   import { hasSchedule, schedules } from '$lib/store';
   import { get } from '$lib/components/common/utils'
-  $: path = $page.url.pathname;
-  console.log("😊😊 path", path)
 
   const routes = [
     {
@@ -26,7 +24,7 @@
       {#each routes as route}
         <li>
           <a
-            class={path === route.path ? 'active' :  ''} 
+            class={$page.url.pathname === route.path ? 'active' :  ''} 
             href={route.path}>{route.title}
           </a>
         </li>
