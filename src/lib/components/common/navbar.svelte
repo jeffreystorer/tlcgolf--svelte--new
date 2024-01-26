@@ -208,16 +208,17 @@ nav {
   visibility: visible;
 }
 
-.dropdown-content li:hover a {        
-  color: var(--color-link-hover);
-}
-
 .dropdown-content li a {
   display: block;
   background-color: var(--background-button);
   font-weight: 700;
   color: var(--color-black);
   text-decoration: none;
+}
+
+.dropdown-content li a:hover {
+  background-color: var(--color-link-hover);
+  color: var(--color-white);
 }
 
 </style>
