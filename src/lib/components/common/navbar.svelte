@@ -216,7 +216,8 @@ nav {
   text-decoration: none;
 }
 
-.dropdown-content li a:hover {
+.dropdown-content li a:hover,
+.dropdown-btn:hover {
   background-color: var(--color-link-hover);
   color: var(--color-white);
 }
