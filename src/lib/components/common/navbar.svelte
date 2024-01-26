@@ -2,8 +2,8 @@
   import { page } from '$app/stores';
   import { hasSchedule, schedules } from '$lib/store';
   import { get } from '$lib/components/common/utils'
-  let path;
   $: path = $page.url.pathname;
+  console.log("😊😊 path", path)
 
   const routes = [
     {
@@ -26,14 +26,15 @@
       {#each routes as route}
         <li>
           <a
-            class={path === route.path ? 'active' :  'inactive'} 
+            class={path === route.path ? 'active' :  ''} 
             href={route.path}>{route.title}
           </a>
         </li>
       {/each}
       <li>
           <div class="dropdown">
-            <button tabindex='0' class="dropdown-btn" aria-haspopup="menu">More ...
+            <button tabindex='0' class="dropdown-btn" aria-haspopup="menu">
+              More
             </button>
             <ul class='dropdown-content' role='menu'>
               <li><a href='/individual'>Individual</a></li>
@@ -139,7 +140,7 @@ nav {
   color: var(--color-black);
   }
   & a:hover,
-  a.inactive:hover {
+  a:not(.active):hover {
   background-color: var(--color-link-hover);
   color: var(--color-white);
   }
@@ -147,9 +148,10 @@ nav {
   background: var(--color-link-active);
   color: var(--color-white);
   }
-  & a.inactive {
+  & a:not(.active) {
   background: var(--color-white);
   color: var(--color-black);
+  text-decoration: underline;
   }
 }
 
@@ -171,7 +173,8 @@ nav {
       align-items: center;
       width: 100%;
       color: var(--color-black);
-      cursor: pointer;  
+      cursor: pointer;
+      text-decoration: underline;  
 }
 
 .dropdown-content {      
