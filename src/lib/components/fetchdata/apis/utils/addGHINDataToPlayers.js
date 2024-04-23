@@ -57,6 +57,7 @@ export default function addGHINDataToPlayers(
 				item[4] = 'no index';
 				item[6] = '00000';
 			}
+}
 
 			//now see if we have a parenthetical after the player's name
 			const parenIndex = item[1].indexOf('(');
@@ -91,7 +92,7 @@ export default function addGHINDataToPlayers(
 				}
 			}
 		}
-	}
+	
 
 	return allPlayersInTable;
 }
