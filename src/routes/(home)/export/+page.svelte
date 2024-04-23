@@ -16,8 +16,8 @@
       goto('/');
     } else {
       if (
-      !$groups.includes(group) &&
-      !courseData.courses.includes(course) &&
+      !$groups.includes($group) &&
+      !courseData.courses.includes($course) &&
       $currentLineupIndex < 0
       ) {
         goto('/lineup')

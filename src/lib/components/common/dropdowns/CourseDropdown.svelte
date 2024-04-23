@@ -15,7 +15,7 @@
     $course = e.target.value;
     $showChangeTees = false;
     if (!hasMultipleGroups) {
-      $group=groups[1];
+      $group=$groups[1];
     }
     if ($course !== '') {
       updateTeamTables();
