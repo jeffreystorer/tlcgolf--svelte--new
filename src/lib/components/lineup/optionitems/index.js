@@ -149,7 +149,7 @@ export const manualCHList = () => {
   return manualCHList;
 }
 export const holesArray = ['6/6/6', '9&9', '18'];
-export const grossupArray = ['Threesome(s)=4/3', 'Foursomes(s)=3/4'];
+export const grossupArray = ['Threesome(s)=4/3', 'Foursome(s)=3/4'];
 export const entryPerArray = ['player', 'team'];
 export const rulesArray = ['Winter Rules', 'Summer Rules', 'LCP through the green'];
 export const puttsArray = [
