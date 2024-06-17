@@ -6,7 +6,6 @@
   }
   
 </script>
-
 <div class='titled_outer' id='displayoptions'>
   <h2>Display Options</h2>
   <label class='toggle'>
@@ -58,9 +57,15 @@
 </div>
 
 <style>
-  div {
-    display: inline-block;
+  #displayoptions {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 0.5em;
-    font-size: var(--step-0);
+    font-size: var(--step--2);
+    width: fit-content;
+  }
+  
+  .toggle { 
+    text-align: left;
   }
 </style>
