@@ -7,51 +7,60 @@
   
 </script>
 
-<div>
-  <label>
+<div class='titled_outer' id='displayoptions'>
+  <h2>Display Options</h2>
+  <label class='toggle'>
     <input
       name='showFirstName'
+      class='toggle-checkbox'
       type='checkbox'
       on:change={handleChange}
       bind:checked={$showFirstName}
     />
-    Show First Name
+    <div class='toggle-switch'></div>
+    <span class='toggle-label'>First Name</span>
   </label>
   {#if ($progs069 < 1 && $showIndividualHandicaps)}
-    <label>
+    <label class='toggle'>
       <input
         name='showTeamHcp'
+        class='toggle-checkbox'
         type='checkbox'
         on:change={handleChange}
         bind:checked={$showTeamHcp}
       />
-      Show Team Hcp
+      <div class='toggle-switch'></div>
+      <span class='toggle-label'>Team Handicap</span>
     </label>
   {/if}
-  <label>
+  <label class='toggle'>
     <input
       name='showIndividualHandicaps'
+      class='toggle-checkbox'
       type='checkbox'
       on:change={handleChange}
       bind:checked={$showIndividualHandicaps}
     />
-    Show Individual Handicaps
+    <div class='toggle-switch'></div>
+    <span class='toggle-label'>Individual Handicaps</span>
   </label>
-  <label>
+  <label class='toggle'>
     <input
       name='showLocalNumbers'
+      class='toggle-checkbox'
       type='checkbox'
       on:change={handleChange}
       bind:checked={$showLocalNumbers}
     />
-    Show Local Numbers
+    <div class='toggle-switch'></div>
+    <span class='toggle-label'>Local Numbers</span>
   </label>
 </div>
 
 <style>
   div {
-    display: flex;
-    flex-direction: column;
+    display: inline-block;
+    margin-bottom: 0.5em;
     font-size: var(--step-0);
   }
 </style>

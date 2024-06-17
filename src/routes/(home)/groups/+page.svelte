@@ -20,14 +20,16 @@
 
 {#if $displayNumber === 2}
     <GroupAndCourseDropdowns />
-    <label>
+    <label class='toggle'>
       <input
         name='showLocalNumbers'
+        class='toggle-checkbox'
         type='checkbox'
         bind:checked={$showLocalNumbers}
       />
-      Show Local Numbers
-    </label>    
+      <div class='toggle-switch'></div>
+      <span class='toggle-label'>Show Local Numbers</span>
+    </label>
     {#key [$course, $showLocalNumbers, $group ]}
       <table>
         <caption>Click on a Player for Revision Scores</caption>  
@@ -111,4 +113,5 @@
   color: var(--color-black);
   text-decoration: none;
   }
+  
 </style>
