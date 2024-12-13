@@ -42,36 +42,64 @@ export default function processCourseDataFromGHIN(data) {
 					break;
 			}
 			function pushData(gender) {
-				let ratingArray = [];
-				let slopeArray = [];
-				let parArray = [];
-				let mF = item.Gender;
-				let rating = 'rating';
-				let slope = 'slope';
-				let par = 'par';
-				let teeName = item.TeeSetRatingName;
-				let newTeeName = teeName.replace(
-					/Deer Creek|Magnolia|Marshwood|Oakridge|Palmetto|Point/gi,
-					function (matched) {
-						return courseReplacements[matched];
-					}
-				);
-				let tee = newTeeName.replace(
-					/Championship|Tournament|Club|Medal|Short Course|Course Short|Short|Course|Island|Skidaway/gi,
-					function (matched) {
-						return teeReplacements[matched];
-					}
-				);
-				let ratingType = course + gender + rating;
-				let slopeType = course + gender + slope;
-				let parType = course + gender + par;
-				let ratingValue = item.Ratings[0].CourseRating;
-				let slopeValue = item.Ratings[0].SlopeRating;
-				let parValue = 72;
-				ratingArray.push(mF, course, ratingValue, rating, tee, ratingType, ratingValue, newTeeName);
-				slopeArray.push(mF, course, ratingValue, slope, tee, slopeType, slopeValue, newTeeName);
-				parArray.push(mF, course, ratingValue, par, tee, parType, parValue, newTeeName);
-				courseData.push(ratingArray, slopeArray, parArray);
+			  let ratingArray = [];
+			  let slopeArray = [];
+			  let parArray = [];
+			  let mF = item.Gender;
+			  let rating = 'rating';
+			  let slope = 'slope';
+			  let par = 'par';
+			  let teeName = item.TeeSetRatingName;
+			  let newTeeName = teeName.replace(
+				/Deer Creek|Magnolia|Marshwood|Oakridge|Palmetto|Point/gi,
+				function (matched) {
+				  return courseReplacements[matched];
+				}
+			  );
+			  let editedNewTeeName = newTeeName.replace('Course Island / Combo', 'Course/Island')
+			  let tee = editedNewTeeName.replace(
+				/Championship|Tournament|Club|Medal|Course|Island|Skidaway/gi,
+				function (matched) {
+				  return teeReplacements[matched];
+				}
+			  );
+			  let ratingType = course + gender + rating;
+			  let slopeType = course + gender + slope;
+			  let parType = course + gender + par;
+			  let ratingValue = item.Ratings[0].CourseRating;
+			  let slopeValue = item.Ratings[0].SlopeRating;
+			  let parValue = 72;
+			  ratingArray.push(
+				mF,
+				course,
+				ratingValue,
+				rating,
+				tee,
+				ratingType,
+				ratingValue,
+				editedNewTeeName
+			  );
+			  slopeArray.push(
+				mF,
+				course,
+				ratingValue,
+				slope,
+				tee,
+				slopeType,
+				slopeValue,
+				editedNewTeeName
+			  );
+			  parArray.push(
+				mF,
+				course,
+				ratingValue,
+				par,
+				tee,
+				parType,
+				parValue,
+				editedNewTeeName
+			  );
+			  courseData.push(ratingArray, slopeArray, parArray);
 			}
 		}
 	}
